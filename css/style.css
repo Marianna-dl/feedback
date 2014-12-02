@@ -1,13 +1,21 @@
-                                                /************** BODY ************/
-body {
-	position: absolute;
-	top: 0;
-	left: 0;
-	min-height: 100%;
-	width: 100%;
+                                /********************************************** BODY/HTML *******************************************/
+html {
+    
+  height: 100%;
 }
 
+* {
+    -moz-box-sizing: border-box; box-sizing: border-box;
+}
 
+body{
+    
+    position: relative;
+    padding-bottom: 50px;
+    min-height: 100%;
+    background-color: rgba(242,242,242,0.5);
+
+}
                                 /*********************************************** HEADER ************************************************/
 
 
@@ -17,29 +25,39 @@ h1{
 }
 
 .page-header{
-    border-bottom: 1px solid grey;
+    
+    border-bottom: 2px solid grey;
     margin-top:0px;
-    background-color: rgba(236,223,204,0.5);
+    background-color: rgba(236,223,204,1);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    
 }
 
 
                                 /*********************************************** INDEX ************************************************/
 
 .nav{
+    
     margin-top: 10px;
     margin-bottom: 5px;
 
 }
 
 .principal ul li a{
+    
     color: black;
 }
 
 .principal{
-    clear: both;
+    
     min-height: 400px;
+    background-color: white;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 20px;
+    padding-bottom:15px;
+    width: auto;
     border: 10px solid #EEA441;
     border-radius: 5px;
     -moz-box-shadow: -2px 2px 6px #656565;
@@ -49,11 +67,13 @@ h1{
 }
 
 .principal h3{
+    
     text-align: center;
     margin-bottom: 0px;
     
 }
 .principal h4{
+    
     text-align: center;
     margin-bottom: 0px;
     
@@ -61,34 +81,40 @@ h1{
 
 
 
-/*.active{
-background-color:#D9EDF7;
-}*/
-
-
                                 /*********************************************** NOUVEAU ************************************************/
 
 .qcm{
+    
     border-bottom: 1px dashed grey;
 
 }
 
 form.qcm{
-    border-bottom: 1px dashed grey;
+    
     border-right: 1px dashed grey;
     border-left: 1px dashed grey;
 }
 
+.new-event input{
+
+    width: 70%
+    
+}
+
 form{
+    
     padding-top: 10px;
     padding-left: 5px;
 
 }
+
 form a{
+    
     display: block;
 }
+
 .qcm input{
-    width: 400px;
+  /*  width: 400px;*/
     margin-bottom: 10px;
 }
 
@@ -100,26 +126,25 @@ form a{
 
 
 footer{
-
-	width: 100%;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	clear: both;
     
-
+    position: absolute;
+    bottom:0;
+	width: 100%;
 }
 
+
 footer>div{
-    border-top: 1px solid grey;
+    
+    border-top: 2px solid grey;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: rgba(236,223,204,0.5);
+    background-color: rgba(236,223,204,1);
     text-align: center;
     height: 50px;
 }
 
 footer p{
     margin-top: 5px;
+    margin-bottom: 0px;
 }
 

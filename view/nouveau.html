@@ -8,13 +8,13 @@
 </div>
 
 
-<div class="row">
+<div class="row new-event">
     <div class="col-md-6" ng-controller="questionsController">
         <div class="col-md-12 ">
             <h4 class="alert alert-info qcm">Création des questions</h4>
             <form class="qcm">
                 <a ng-click="ajoutForm(true)">PLUS</a>
-                <label for="question">Question 1: </label><input type="text" name="question" value="" />
+                <label for="question">Question 1: </label><input type="text" name="question" value="" class="form-control" />
                 <p ng-bind-html="formulaire"></p>
                 <a ng-click="">valide</a>
             </form>
@@ -26,7 +26,7 @@
             <h4 class="alert alert-info qcm">Création des réponses</h4>
           <!--  <a ng-click="ajoutForm(true)">test</a>-->
             <form method="post" class="qcm">
-                <label for="question">Réponse 1: </label><input type="text" name="question" value="" />
+                <label for="reponse">Réponse 1: </label><input type="text" name="reponse" value="" class="form-control" />
             <p ng-bind-html="formulaire"></p>
             </form>
         </div>
