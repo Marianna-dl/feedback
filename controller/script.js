@@ -44,11 +44,18 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 
 
    feedbackApp.controller('questionsController', function($scope,$sce) {
-       $scope.ajoutForm=function(ajout){
-        if (ajout){
-                $scope.formulaire=$sce.trustAsHtml('<label for="question">Question 1: </label><input type="text" name="question" value="" />');
-        }
-           ajout=false;
+    $scope.formulaire=$sce.trustAsHtml('<label for="question">Question 1: </label><input type="text" name="question" value="" class="form-control" />');
+       $scope.ajoutForm=function(i){
+           
+                $scope.formulaire=$sce.trustAsHtml('<label for="question">Question '+i+': </label><input type="text" name="question" value="" class="form-control" />');
+    
        };
+        $scope.valideQuestion=function(){
+           
+                $scope.formulaire='';
+    
+       };
+       
+         $('[data-toggle="tooltip"]').tooltip();
 	});
 

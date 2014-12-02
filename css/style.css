@@ -118,6 +118,25 @@ form a{
     margin-bottom: 10px;
 }
 
+.new-event a{
+    cursor: pointer;
+}
+
+.new-event .tooltip-inner{
+    background-color:white;
+    color: black;
+}
+
+.new-event button{
+    border:none;
+    background-color:inherit; 
+    
+}
+
+button{
+    outline: none;
+}
+
 
 
 
