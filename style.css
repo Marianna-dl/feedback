@@ -1,0 +1,125 @@
+                                                /************** BODY ************/
+body {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-height: 100%;
+	width: 100%;
+}
+
+
+                                /*********************************************** HEADER ************************************************/
+
+
+h1{
+
+    text-align: center;
+}
+
+.page-header{
+    border-bottom: 1px solid grey;
+    margin-top:0px;
+    background-color: rgba(236,223,204,0.5);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+                                /*********************************************** INDEX ************************************************/
+
+.nav{
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+}
+
+.principal ul li a{
+    color: black;
+}
+
+.principal{
+    clear: both;
+    min-height: 400px;
+    border: 10px solid #EEA441;
+    border-radius: 5px;
+    -moz-box-shadow: -2px 2px 6px #656565;
+    -webkit-box-shadow: -2px 2px 6px #656565;
+    -o-box-shadow: -2px 2px 6px #656565;
+    box-shadow: -2px 2px 6px #656565;  
+}
+
+.principal h3{
+    text-align: center;
+    margin-bottom: 0px;
+    
+}
+.principal h4{
+    text-align: center;
+    margin-bottom: 0px;
+    
+}
+
+
+
+/*.active{
+background-color:#D9EDF7;
+}*/
+
+
+                                /*********************************************** NOUVEAU ************************************************/
+
+.qcm{
+    border-bottom: 1px dashed grey;
+
+}
+
+form.qcm{
+    border-bottom: 1px dashed grey;
+    border-right: 1px dashed grey;
+    border-left: 1px dashed grey;
+}
+
+form{
+    padding-top: 10px;
+    padding-left: 5px;
+
+}
+form a{
+    display: block;
+}
+.qcm input{
+    width: 400px;
+    margin-bottom: 10px;
+}
+
+
+
+
+                                /*********************************************** FOOTER ************************************************/
+
+
+
+footer{
+
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	clear: both;
+    
+
+}
+
+footer>div{
+    border-top: 1px solid grey;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgba(236,223,204,0.5);
+    text-align: center;
+    height: 50px;
+}
+
+footer p{
+    margin-top: 5px;
+}
+

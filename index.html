@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr"  ng-app="feedbackApp">
+    <head>    
+        <title>Feedback|Gestion</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8">
+
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen"/> 
+        <link href="style.css" rel="stylesheet"/>
+     
+        <script src="js/js/jquery-2.0.3.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="js/angular/angular.min.js"></script>
+        <script src="js/angular/angular-route.min.js"></script>
+        <script src="js/angular/angular-animate.min.js"></script>
+        <script src="js/angular/angular-touch.min.js"></script>
+        <script src="js/angular/angular-sanitize.min.js"></script>
+
+        <script src="script.js"></script>
+
+
+    </head>
+
+    <body>
+        <div id="page">
+	<div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                        <h1>Feedback</h1>
+                </div>
+            </div>
+        </div>
+	</div>	    
+     
+   <div class="container principal">
+       <ul class="nav nav-tabs" ng-controller="navController">
+           <li ng-class="{ active: isActive('/')}"><a href="#">Nouvel évènement</a></li>
+           <li ng-class="{ active: isActive('/gestion')}"><a href="#gestion">Gestion évènement</a></li>
+            <li ng-class="{ active: isActive('/parametres')}"><a href="#parametres">Paramètres</a></li>
+       </ul>
+
+       <div ng-view></div>    
+        
+        
+        </div>
+
+<footer>
+	<div class="col-md-12">
+	   <p>Projet Feedback<br/> 2014-2015</p>
+	</div>
+</footer>
+
+</div>
+</body>
+</html>
