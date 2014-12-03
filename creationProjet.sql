@@ -11,7 +11,7 @@ create table Question(
 
 create table Reponse(
 	num_Question INTEGER NOT NULL,
-	num_Rep INTEGER UNIQUE NOT NULL,
+	num_Rep INTEGER NOT NULL,
 	description VARCHAR(200),
 	point INTEGER,
 	FOREIGN KEY (num_Question) REFERENCES Question(num_Quest),
