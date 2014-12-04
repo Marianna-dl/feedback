@@ -28,7 +28,7 @@ create table Message (
 );
 
 create table Users(
-	num INTEGER	NOT NULL PRIMARY KEY,
+	num VARCHAR(10)	NOT NULL PRIMARY KEY,
 	mess INTEGER NOT NULL,
 	FOREIGN KEY (mess) REFERENCES Message(id_mess)
 );
