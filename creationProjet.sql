@@ -24,7 +24,7 @@ create table Message (
 	num_Reponse INTEGER,
 	Date_Recu TIME,
 	FOREIGN KEY (num_Question) REFERENCES Question(num_Quest),
-	FOREIGN KEY (num_Reponse) REFERENCES Reponse(num_Rep)
+	FOREIGN KEY (num_Question,num_Reponse) REFERENCES Reponse(num_Question,num_Rep)
 );
 
 create table Users(
