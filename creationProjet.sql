@@ -1,5 +1,5 @@
 create table MessageBrute(
-	num_recu INTEGER NOT NULL PRIMARY KEY,
+	num_recu VARCHAR(10) NOT NULL PRIMARY KEY,
 	corps_mess VARCHAR(200)
 );
 
