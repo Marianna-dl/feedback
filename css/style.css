@@ -95,11 +95,7 @@ form.qcm{
     border-left: 1px dashed grey;
 }
 
-.new-event input{
 
-    width: 70%
-    
-}
 
 form{
     
@@ -129,13 +125,18 @@ form a{
 
 .new-event button{
     border:none;
-    background-color:inherit; 
+    background-color:inherit;  
+    outline: none;
+    padding-top:30px;
     
 }
 
-button{
-    outline: none;
+.new-event .div-bouton{
+    padding-left: 0px;
+    
 }
+
+
 
 
 

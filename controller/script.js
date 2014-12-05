@@ -1,19 +1,18 @@
 /************** ANGULAR JS ***********************/
-var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize'])
-	// create the module and name it scotchApp
+
+//on déclare l'application et les services qu'on av utiliser
+var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize']) 
 
 
-	// configure our routes
+	//On créer les directions du menu (route) 
 	feedbackApp.config(function($routeProvider) {
 		$routeProvider
 
-			// route for the home page
 			.when('/', {
 				templateUrl : 'view/nouveau.html',
                 controller  : 'nouveauController'
 			})
 
-			// route for the contact page
 			.when('/gestion', {
 				templateUrl : 'view/gestion.html',
                 controller  : 'gestionController'			
@@ -25,13 +24,14 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 			})
 	});
 
+    //permet de spécifier le menu actif (la page sur laquelle on est)
 	feedbackApp.controller('navController', function($scope, $location) {
          $scope.isActive = function (viewLocation) { 
             return viewLocation === $location.path();
         };
 	});
 
-
+    //Création des controleurs et affichage du titre des pages
     feedbackApp.controller('nouveauController', function($scope) {
         $scope.title="Nouvel évènement";
 	});
@@ -42,20 +42,33 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
         $scope.title="Paramètres";
 	});
 
-
-   feedbackApp.controller('questionsController', function($scope,$sce) {
-    $scope.formulaire=$sce.trustAsHtml('<label for="question">Question 1: </label><input type="text" name="question" value="" class="form-control" />');
-       $scope.ajoutForm=function(i){
-           
-                $scope.formulaire=$sce.trustAsHtml('<label for="question">Question '+i+': </label><input type="text" name="question" value="" class="form-control" />');
-    
-       };
+   feedbackApp.controller('questionsController', function($scope, $http) {
+       //on affiche à quelle question on en est (évite les violations d'intégrité bdd
+        $scope.maxQuestion=1;
+        $scope.getMaxQuestion=function(){$http.get("test.php/maxQuest").success(function(data){
+                    $scope.maxQuestion=data;
+                })
+                .error(function() {
+                        alert('erreur');
+                })
+                                        };
+       $scope.getMaxQuestion();
+                
+       
+    //On met les questions sur la base de données
         $scope.valideQuestion=function(){
-           
-                $scope.formulaire='';
+                $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion}).success(function(data){
+                    alert(data);
+                })
+                .error(function() {
+                        alert('erreur');
+                })
+                
+                $scope.questionInput='';
+                $scope.getMaxQuestion(); //Met à jour le nombre de question
     
        };
        
+         //permet d'activer les tooltip bootstrap
          $('[data-toggle="tooltip"]').tooltip();
 	});
-

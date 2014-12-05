@@ -11,11 +11,16 @@
 <div class="row new-event">
     <div class="col-md-6" ng-controller="questionsController">
         <div class="col-md-12 ">
-            <h4 class="alert alert-info qcm">Création des questions</h4>     
-            <form class="qcm">
-                <button ng-init="i=1" ng-click="ajoutForm(i);" ng-disabled="formulaire"><img  data-toggle="tooltip" data-placement="bottom" title="Ajouter une question" src="./images/plus.png" alt="ajouter"/></button>           
-                <button ng-click="valideQuestion();i=i+1" ng-disabled="!formulaire"><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
-                <p ng-bind-html="formulaire"></p>
+            <h4 class="alert alert-info qcm">Création des questions</h4>  
+            <form  class="qcm">  
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="question">Question {{maxQuestion}}: </label><input type="text" ng-model="questionInput" value="" class="form-control" id="question"/> 
+                    </div>
+                    <div class="col-md-4 div-bouton">
+                        <button  ng-click="valideQuestion();getMaxQuestion()" type="submit"  ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -23,9 +28,15 @@
     <div class="col-md-6" ng-controller="questionsController">
         <div class="col-md-12 ">
             <h4 class="alert alert-info qcm">Création des réponses</h4>
-            <form method="post" class="qcm">
-                <label for="reponse">Réponse 1: </label><input type="text" name="reponse" value="" class="form-control" />
-           <!-- <p ng-bind-html="formulaire"></p>-->
+            <form  class="qcm">  
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="question">Réponse {{i}}: </label><input type="text" ng-model="reponseInput" value="" class="form-control" id="question"/> 
+                    </div>
+                    <div class="col-md-4 div-bouton">
+                        <button ng-click="valideReponse();i=i+1" type="submit" ng-click="i=i+1" ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
