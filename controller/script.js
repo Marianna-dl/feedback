@@ -58,7 +58,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
     //On met les questions sur la base de données
         $scope.valideQuestion=function(){
                 $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion}).success(function(data){
-                    alert(data);
+                    alert(data);//Affiche la valeur juste pour le test
                 })
                 .error(function() {
                         alert('erreur');
