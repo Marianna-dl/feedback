@@ -53,9 +53,12 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 
    feedbackApp.controller('questionsController', function($scope, $http) {
        //on affiche à quelle question on en est (évite les violations d'intégrité bdd)
-        $scope.maxQuestion=1;
+        $scope.maxQuestion=parseInt(1);
         $scope.getMaxQuestion=function(){$http.get("test.php/maxQuest").success(function(data){
-                    $scope.maxQuestion=parseInt(data)+parseInt(1);   
+                    if (parseInt(data)>=0)
+                        $scope.maxQuestion=parseInt(data)+parseInt(1);  
+                    else
+                        $scope.maxQuestion=parseInt(1);                   
                 })
                 .error(function() {
                         alert('erreur');
