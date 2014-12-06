@@ -1,0 +1,18 @@
+PETITES INFOS!
+
+Naim/Tam: Dans le fichier test.php j'utilise le framework Slim, c'est un exemple de comment on créer les routes
+vers les méthodes dont j'ai besoin
+
+Jérémy: J'ai besoin de tes fonctions php (tes classes etc...) car sinon je suis obligée de les recoder pour mes tests..
+
+A tout le monde: On peut utiliser le fichier connexion.php pour se co à nos bases de données respectives si celles-ci 
+s'appellent "feedback" sinon il faudra modifier le fichier mais le mieux c'est qu'on s'accorde sur le nom
+
+A SAVOIR: Mes questions s'ajoutent bien dans ma base de données, signaler moi si il y a un problème. 
+Je laisse pour l'instant le message javascript s'afficher car ça m'aide à savoir si tout s'est bien déroulé.
+
+PROCHAINEMENT sur nouveau.html: Je vais changer les messages en plus joli "Votre question a été ajoutée" etc...
+Je vais mettre la liste des questions ajoutées sous l'input puis je m'occuperais des réponses.
+
+
+
