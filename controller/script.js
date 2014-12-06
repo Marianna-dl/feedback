@@ -32,9 +32,18 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 	});
 
     //Création des controleurs et affichage du titre des pages
-    feedbackApp.controller('nouveauController', function($scope) {
+    feedbackApp.controller('nouveauController', function($scope,$http) {
         $scope.title="Nouvel évènement";
+        $scope.getListe=function(){$http.get("test.php/questRep").success(function(data){
+                $scope.items=data;  
+            })
+            .error(function() {
+                alert('erreur');
+            })
+        };
+        $scope.getListe();
 	});
+
    feedbackApp.controller('gestionController', function($scope) {
         $scope.title="Gestion évènement";
 	});
@@ -43,10 +52,10 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 	});
 
    feedbackApp.controller('questionsController', function($scope, $http) {
-       //on affiche à quelle question on en est (évite les violations d'intégrité bdd
+       //on affiche à quelle question on en est (évite les violations d'intégrité bdd)
         $scope.maxQuestion=1;
         $scope.getMaxQuestion=function(){$http.get("test.php/maxQuest").success(function(data){
-                    $scope.maxQuestion=data;   
+                    $scope.maxQuestion=parseInt(data)+parseInt(1);   
                 })
                 .error(function() {
                         alert('erreur');
@@ -65,6 +74,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion}).success(function(){
                     $scope.resultMessage = "La question a été ajoutée !";
                     $scope.result='alert alert-success';
+                    $scope.getListe();
                 })
                 .error(function() {
                     $scope.resultMessage = "Erreur lors de l'ajout de la question";
@@ -73,9 +83,22 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
        
                 $scope.questionInput='';
                 $scope.getMaxQuestion(); //Met à jour le nombre de question
+                $scope.getListe();
+
     
        };
        
          //permet d'activer les tooltip bootstrap
          $('[data-toggle="tooltip"]').tooltip();
 	});
+
+   feedbackApp.controller('reponsesController', function($scope, $http) {
+       
+
+	});
+
+
+
+
+
+

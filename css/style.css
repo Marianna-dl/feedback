@@ -58,7 +58,8 @@ h1{
     margin-bottom: 20px;
     padding-bottom:15px;
     width: auto;
-    border: 10px solid #EEA441;
+    /*border: 10px solid #EEA441;*/
+    border: 10px solid #DCCCB6;
     border-radius: 5px;
     -moz-box-shadow: -2px 2px 6px #656565;
     -webkit-box-shadow: -2px 2px 6px #656565;
@@ -135,8 +136,31 @@ form a{
     padding-left: 0px;
     
 }
+.new-event table{
+    margin-top:15px;
+    border: 1px solid rgb(221,221,221);
 
 
+}
+
+.new-event .num{
+    width: 20%;
+
+}
+
+.new-event .liste{
+    height:400px;
+    overflow:auto;
+    
+}
+
+.titre-liste{
+    margin-top: 20px;
+}
+
+.even {
+  background-color: rgba(220,204,182,0.3);
+}
 
 
 

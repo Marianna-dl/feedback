@@ -19,14 +19,14 @@
                         <p ng-class="result" style="padding: 15px; margin-top: 5px;">{{ resultMessage }}</p>
                     </div>
                     <div class="col-md-4 div-bouton">
-                        <button  ng-click="valideQuestion();getMaxQuestion()" type="submit"  ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
+                        <button ng-disabled="!questionInput" ng-click="valideQuestion(); getMaxQuestion();getListe();" type="submit"  ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
     
-    <div class="col-md-6" ng-controller="questionsController">
+    <div class="col-md-6" ng-controller="reponsesController">
         <div class="col-md-12 ">
             <h4 class="alert alert-info qcm">Création des réponses</h4>
             <form  class="qcm">  
@@ -41,5 +41,20 @@
             </form>
         </div>
     </div>
+
+    <div class="col-md-12 titre-liste">
+        <h3>Liste des questions</h3>
+        <div class="col-md-4 col-md-offset-4">      
+            <hr/>
+        </div>
+    </div>
+
+    <div class="col-md-8 col-md-offset-2 liste">
+            <table class="table">
+                <tr><th class="num">Numero</th><th>Question</th><th>Réponses</th></tr>       
+                 <tr ng-repeat="item in items" ng-class-odd="'odd'" ng-class-even="'even'"><td>{{item.num_Quest}}</td><td>{{item.enonce}}</td><td></td></tr>
+            </table>
+        </div>
+
 
 </div>

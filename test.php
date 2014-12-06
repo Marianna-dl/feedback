@@ -9,6 +9,7 @@ $app = new \Slim\Slim();
 //routage des méthodes pour que je puisse y accéder
 $app->post('/addQuest', 'addQuestion');
 $app->get('/maxQuest', 'maxQuestion');
+$app->get('/questRep', 'afficheQuestionsReponses');
 
 //ajout question bdd
 function addQuestion(){
@@ -40,13 +41,31 @@ function maxQuestion(){
        $req=$bd->prepare('SELECT MAX(num_Quest) FROM question');
         $req->execute();
         $reponse=$req->fetch(PDO::FETCH_NUM);
-        echo $reponse[0]+1;
+        echo $reponse[0];
     }
     catch(PDOException $e){
         die("Erreur ".$e->getMessage()."</body></html>");
     }
 
 }
+
+
+function afficheQuestionsReponses(){
+
+    try{
+    $bd = ConnectionFactory::getFactory()->getConnection();
+   
+       $req=$bd->prepare('SELECT num_Quest, enonce FROM question');
+        $req->execute();
+        $reponse=$req->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($reponse);
+    }
+    catch(PDOException $e){
+        die("Erreur ".$e->getMessage()."</body></html>");
+    }
+
+}
+
 
 
 
