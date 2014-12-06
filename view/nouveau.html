@@ -15,7 +15,8 @@
             <form  class="qcm">  
                 <div class="row">
                     <div class="col-md-8">
-                        <label for="question">Question {{maxQuestion}}: </label><input type="text" ng-model="questionInput" value="" class="form-control" id="question"/> 
+                        <label for="question">Question {{maxQuestion}}: </label><input ng-click="videMessage()" type="text" ng-model="questionInput" value="" class="form-control" id="question"/> 
+                        <p ng-class="result" style="padding: 15px; margin-top: 5px;">{{ resultMessage }}</p>
                     </div>
                     <div class="col-md-4 div-bouton">
                         <button  ng-click="valideQuestion();getMaxQuestion()" type="submit"  ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
