@@ -42,6 +42,11 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
             })
         };
         $scope.getListe();
+            $scope.videMessage=function(){
+            $scope.resultMessage = "";
+            $scope.result='';
+       
+       };
 	});
 
    feedbackApp.controller('gestionController', function($scope) {
@@ -65,13 +70,10 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 })
                                         };
        $scope.getMaxQuestion();
+
                 
        
-       $scope.videMessage=function(){
-            $scope.resultMessage = "";
-            $scope.result='';
-       
-       };
+
     //On met les questions sur la base de données
         $scope.valideQuestion=function(){
                 $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion}).success(function(){
@@ -96,7 +98,49 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 	});
 
    feedbackApp.controller('reponsesController', function($scope, $http) {
+       $scope.listRep=[{reponse:''}];
+        $scope.listLettre=[{lettre:'A'},{lettre:'B'},{lettre:'C'},{lettre:'D'},{lettre:'E'},{lettre:'F'}];
+
+        $scope.nbRepInput = parseInt(1);
+        $scope.nbRep = parseInt(1);
+
+        $scope.set = function() {
+            if($scope.nbRep >= $scope.nbRepInput){
+                $scope.listRep.push({reponse:''});
+            }
+            else{
+                $scope.listRep.splice($scope.nbRepInput-1,1);
+            }
+             $scope.nbRepInput = $scope.nbRep;
+        };
        
+       $scope.valideReponse=function(){
+          /*  console.log($scope.nbRepInput);
+            console.log($scope.numQuestionInput);
+            console.log($scope.listRep[0].reponse);
+            console.log($scope.listRep[1].reponse);*/
+  
+           
+                for(var i=0; i<$scope.nbRepInput;i++){
+                if($scope.listRep[i].reponse!=''){
+                $http.post("test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.numQuestionInput, numRep:$scope.listLettre[i].lettre}).success(function(data){
+                  $scope.resultMessage = "La réponse a été ajoutée !";
+                    $scope.result='alert alert-success';
+                    console.log(data);
+  
+
+                })
+                .error(function() {
+                    $scope.resultMessage = "Erreur lors de l'ajout de la réponse";
+                    $scope.result='alert alert-danger';
+                })
+            }
+            $scope.listRep[i].reponse="";
+                
+       }
+            $scope.numQuestionInput="";
+
+       };
 
 	});
 

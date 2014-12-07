@@ -31,12 +31,32 @@
             <h4 class="alert alert-info qcm">Création des réponses</h4>
             <form  class="qcm">  
                 <div class="row">
-                    <div class="col-md-8">
-                        <label for="question">Réponse {{i}}: </label><input type="text" ng-model="reponseInput" value="" class="form-control" id="question"/> 
+                    <div class="col-md-3 label-question">   
+                        <label for="numQuestion">Question n°: </label>
+                    </div>
+                    <div class="col-md-2 col-decale">  
+                        <input type="text" ng-model="numQuestionInput" value="" class="form-control" id="numQuestion"/>
+                    </div>
+                    <div class="col-md-4 label-nbRep">   
+                        <label for="numQuestion">Nombre de réponses: </label>
+                    </div>
+                    <div class="col-md-2 col-decale">
+                        <input type="number"  ng-model="nbRep" class="form-control" ng-click=set() min="0" max="5" value="1"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" ng-repeat="item in listRep" ng-if="$index<= nbRep-1">
+                        <label for="reponse">Réponse {{listLettre[$index].lettre}}: </label><input ng-click="videMessage()" type="text" ng-model="item.reponse" value="" class="form-control" id="reponse"/> 
                     </div>
                     <div class="col-md-4 div-bouton">
-                        <button ng-click="valideReponse();i=i+1" type="submit" ng-click="i=i+1" ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
+                        <button ng-click="valideReponse()" type="submit"  >
+                        <img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
                     </div>
+                </div>
+                <div class="row">
+                <div class="col-md-8">
+                    <p ng-class="result" style="padding: 15px; margin-top: 5px;">{{ resultMessage }}</p>
+                </div>
                 </div>
             </form>
         </div>

@@ -10,6 +10,7 @@ $app = new \Slim\Slim();
 $app->post('/addQuest', 'addQuestion');
 $app->get('/maxQuest', 'maxQuestion');
 $app->get('/questRep', 'afficheQuestionsReponses');
+$app->post('/addRep', 'ajouterReponse');
 
 //ajout question bdd
 function addQuestion(){
@@ -66,6 +67,30 @@ function afficheQuestionsReponses(){
 
 }
 
+function ajouterReponse(){
+
+    try{
+        $bd = ConnectionFactory::getFactory()->getConnection();
+        $data = json_decode(file_get_contents("php://input"));
+        $descrip = $data->description;
+        $numR=$data->numRep;
+        $numQ=$data->numQuest;
+        
+        $req=$bd->prepare('INSERT INTO reponse (num_Question,num_Rep,description,point) VALUES (:numQ,:numR,:descrip,0)');
+        $req->bindValue(':numQ',$numQ); 
+        $req->bindValue(':numR',$numR); 
+        $req->bindValue(':descrip',$descrip);
+        $req->execute();
+      echo json_encode($descrip);
+		
+    }
+
+    catch(PDOException $e){
+        die('<p> La connexion a échoué </p>');
+
+    }
+
+}
 
 
 

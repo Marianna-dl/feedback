@@ -162,7 +162,18 @@ form a{
   background-color: rgba(220,204,182,0.3);
 }
 
+.principal .col-decale {
+    padding-left: 0px;
 
+}
+
+.label-question{
+    width:20%;
+}
+
+.label-nbRep{
+    width:30%;
+}
 
 
                                 /*********************************************** FOOTER ************************************************/
