@@ -180,10 +180,13 @@ form a{
 
 {
     vertical-align: middle;
+    text-align: center;
 }
-
+th{
+    text-align: center;
+}
 .sous-table{
-    width: 50%;
+    width: 100%;
 }
 
                                 /*********************************************** FOOTER ************************************************/

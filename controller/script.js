@@ -71,7 +71,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                         $scope.maxQuestion=parseInt(1);                   
                 })
                 .error(function() {
-                        alert('erreur');
+                        console.log('erreur');
                 })
                                         };
        $scope.getMaxQuestion();
