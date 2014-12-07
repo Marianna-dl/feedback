@@ -2,6 +2,23 @@
 
 	require ('connexion.php');
 
+	require 'Slim/Slim.php';
+	\Slim\Slim::registerAutoloader();
+	$route = new \Slim\Slim();
+
+
+	$route->post('/ajoutQuest', 'ajouterQuestion');
+	$route->post('/modifierQuest', 'modifierQuestion');
+	$route->post('/supprimerQuest', 'supprimerQuestion');
+	$route->post('/ajoutRep', 'ajouterReponse');
+	$route->post('/modifierRep', 'modifierReponse');
+	$route->post('/supprimerRep', 'supprimerReponse');
+	$route->get('/seeAllQuest', 'seeAllQuestion');
+	$route->get('/seeOneQuest', 'seeOneQuestion');
+	$route->get('/seeRep', 'seeReponse');
+
+
+
 	function seeAllQuestion(){
 		
 
