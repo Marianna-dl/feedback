@@ -137,7 +137,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 $http.post("test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.numQuestionInput, numRep:$scope.listLettre[i].lettre}).success(function(data){
                   $scope.resultMessage = "La réponse a été ajoutée !";
                   $scope.result='alert alert-success';
-                    console.log(data);
+                    $scope.getListeReponses();
   
                 })
                 .error(function() {
