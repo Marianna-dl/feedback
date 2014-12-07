@@ -1,9 +1,12 @@
 <?php 
 
+	require ('connexion.php');
+
 	function seeAllQuestion(){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('SELECT * FROM Question');
 
 			$req->execute();
@@ -21,9 +24,10 @@
 
 
 	function seeOneQuestion($num){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('SELECT * FROM Question WHERE num_Quest=:num');
 			$req->bindValue(':num',$num); 
 			$req->execute();
@@ -41,9 +45,10 @@
 
 
 	function ajouterQuestion($num,$type,$enonce){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('INSERT INTO Question (num_Quest, type_Quest, enonce) VALUES (:num,:type,:enonce)');
 			$req->bindValue(':num',$num); 
 			$req->bindValue(':type',$type); 
@@ -62,9 +67,10 @@
 
 
 	function modifierQuestion($num,$type,$enonce){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('UPDATE Question SET type_Quest=:type, enonce=:enonce WHERE num_Quest=:num');
 			$req->bindValue(':num',$num); 
 			$req->bindValue(':type',$type); 
@@ -82,9 +88,10 @@
 
 
 	function supprimerQuestion($num){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('DELETE FROM Question WHERE num_Quest=:num');
 			$req->bindValue(':num',$num); 
 			$req->execute();
@@ -100,9 +107,10 @@
 
 
 	function ajouterReponse($numQ,$numR,$descrip,$point){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('INSERT INTO Reponse (num_Question,num_Rep,description,point) VALUES (:numQ,:numR,:descrip,:point)');
 			$req->bindValue(':numQ',$numQ); 
 			$req->bindValue(':numR',$numR); 
@@ -120,9 +128,10 @@
 	}
 
 	function modifierReponse($numQ,$numR,$descrip,$point){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('UPDATE Reponse SET description=:descrip, point=:point WHERE num_Question=:numQ AND num_Rep=:numR');
 			$req->bindValue(':numQ',$numQ); 
 			$req->bindValue(':numR',$numR); 
@@ -140,9 +149,10 @@
 	}
 
 	function supprimerReponse($numQ,$numR){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('DELETE FROM Reponse WHERE num_Question=:numQ AND num_Rep=:numR');
 			$req->bindValue(':numQ',$numQ); 
 			$req->bindValue(':numR',$numR); 
@@ -158,9 +168,10 @@
 	}
 
 	function seeReponse($numQ){
-		global $db;
+		
 
 		try{
+			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('SELECT * FROM Reponse WHERE num_Question=:numQ');
 			$req->bindValue(':numQ',$numQ); 
 			$req->execute();
