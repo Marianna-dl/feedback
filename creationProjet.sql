@@ -11,7 +11,7 @@ create table Question(
 
 create table Reponse(
 	num_Question INTEGER NOT NULL,
-	num_Rep INTEGER NOT NULL,
+	num_Rep VARCHAR(20) NOT NULL,
 	description VARCHAR(200),
 	point INTEGER,
 	FOREIGN KEY (num_Question) REFERENCES Question(num_Quest),
@@ -21,7 +21,7 @@ create table Reponse(
 create table Message (
 	id_mess INTEGER NOT NULL PRIMARY KEY,
 	num_Question INTEGER,
-	num_Reponse INTEGER,
+	num_Reponse VARCHAR(20),
 	Date_Recu TIME,
 	FOREIGN KEY (num_Question) REFERENCES Question(num_Quest),
 	FOREIGN KEY (num_Question,num_Reponse) REFERENCES Reponse(num_Question,num_Rep)
