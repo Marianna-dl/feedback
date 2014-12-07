@@ -34,19 +34,24 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
     //Création des controleurs et affichage du titre des pages
     feedbackApp.controller('nouveauController', function($scope,$http) {
         $scope.title="Nouvel évènement";
-        $scope.getListe=function(){$http.get("test.php/questRep").success(function(data){
-                $scope.items=data;  
+        $scope.getListeQuestions=function(){$http.get("test.php/listeQuest").success(function(data){
+                $scope.listeQuestions=data;  
             })
             .error(function() {
-                alert('erreur');
+                console.log('erreur');
             })
         };
-        $scope.getListe();
-            $scope.videMessage=function(){
-            $scope.resultMessage = "";
-            $scope.result='';
-       
-       };
+        $scope.getListeReponses=function(){$http.get("test.php/listeRep").success(function(data){
+                $scope.listeReponses=data;  
+                console.log(data);
+            })
+            .error(function() {
+                console.log('erreur');
+            })
+        };
+        $scope.getListeReponses();
+        $scope.getListeQuestions();
+
 	});
 
    feedbackApp.controller('gestionController', function($scope) {
@@ -71,7 +76,11 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                                         };
        $scope.getMaxQuestion();
 
-                
+         $scope.videMessage=function(){
+            $scope.resultMessage = "";
+            $scope.result='';
+       
+       };               
        
 
     //On met les questions sur la base de données
@@ -79,7 +88,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion}).success(function(){
                     $scope.resultMessage = "La question a été ajoutée !";
                     $scope.result='alert alert-success';
-                    $scope.getListe();
+                    $scope.getListeQuestions();
                 })
                 .error(function() {
                     $scope.resultMessage = "Erreur lors de l'ajout de la question";
@@ -88,7 +97,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
        
                 $scope.questionInput='';
                 $scope.getMaxQuestion(); //Met à jour le nombre de question
-                $scope.getListe();
+                $scope.getListeQuestions();
 
     
        };
@@ -98,6 +107,8 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 	});
 
    feedbackApp.controller('reponsesController', function($scope, $http) {
+       
+       
        $scope.listRep=[{reponse:''}];
         $scope.listLettre=[{lettre:'A'},{lettre:'B'},{lettre:'C'},{lettre:'D'},{lettre:'E'},{lettre:'F'}];
 
@@ -125,10 +136,9 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 if($scope.listRep[i].reponse!=''){
                 $http.post("test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.numQuestionInput, numRep:$scope.listLettre[i].lettre}).success(function(data){
                   $scope.resultMessage = "La réponse a été ajoutée !";
-                    $scope.result='alert alert-success';
+                  $scope.result='alert alert-success';
                     console.log(data);
   
-
                 })
                 .error(function() {
                     $scope.resultMessage = "Erreur lors de l'ajout de la réponse";
@@ -139,7 +149,13 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 
        }
             $scope.numQuestionInput="";
+            $scope.getListeReponses();
 
+       };
+        $scope.videMessage=function(){
+            $scope.resultMessage = "";
+            $scope.result='';
+       
        };
 
 	});

@@ -140,12 +140,13 @@ form a{
     margin-top:15px;
     border: 1px solid rgb(221,221,221);
 
-
 }
 
 .new-event .num{
     width: 20%;
-
+}
+.new-event .small-cell{
+    width: 30%;
 }
 
 .new-event .liste{
@@ -175,6 +176,15 @@ form a{
     width:30%;
 }
 
+.new-event .table td
+
+{
+    vertical-align: middle;
+}
+
+.sous-table{
+    width: 50%;
+}
 
                                 /*********************************************** FOOTER ************************************************/
 

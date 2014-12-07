@@ -9,8 +9,9 @@ $app = new \Slim\Slim();
 //routage des méthodes pour que je puisse y accéder
 $app->post('/addQuest', 'addQuestion');
 $app->get('/maxQuest', 'maxQuestion');
-$app->get('/questRep', 'afficheQuestionsReponses');
+$app->get('/listeQuest', 'afficheQuestions');
 $app->post('/addRep', 'ajouterReponse');
+$app->get('/listeRep', 'afficheReponses');
 
 //ajout question bdd
 function addQuestion(){
@@ -51,7 +52,7 @@ function maxQuestion(){
 }
 
 
-function afficheQuestionsReponses(){
+function afficheQuestions(){
 
     try{
     $bd = ConnectionFactory::getFactory()->getConnection();
@@ -67,9 +68,25 @@ function afficheQuestionsReponses(){
 
 }
 
+function afficheReponses(){
+
+    $bd = ConnectionFactory::getFactory()->getConnection();
+   
+       $req=$bd->prepare('SELECT num_Question,num_Rep,description FROM reponse');
+        $req->execute();
+        $reponse=$req->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($reponse);
+    
+
+
+}
+
+
+
+
 function ajouterReponse(){
 
-    try{
+  
         $bd = ConnectionFactory::getFactory()->getConnection();
         $data = json_decode(file_get_contents("php://input"));
         $descrip = $data->description;
@@ -81,14 +98,8 @@ function ajouterReponse(){
         $req->bindValue(':numR',$numR); 
         $req->bindValue(':descrip',$descrip);
         $req->execute();
-      echo json_encode($descrip);
-		
-    }
 
-    catch(PDOException $e){
-        die('<p> La connexion a échoué </p>');
-
-    }
+    
 
 }
 

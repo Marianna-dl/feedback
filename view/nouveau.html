@@ -19,7 +19,7 @@
                         <p ng-class="result" style="padding: 15px; margin-top: 5px;">{{ resultMessage }}</p>
                     </div>
                     <div class="col-md-4 div-bouton">
-                        <button ng-disabled="!questionInput" ng-click="valideQuestion(); getMaxQuestion();getListe();" type="submit"  ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
+                        <button ng-disabled="!questionInput" ng-click="valideQuestion(); getMaxQuestion();getListeQuestions();" type="submit"  ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
                     </div>
                 </div>
             </form>
@@ -41,7 +41,7 @@
                         <label for="numQuestion">Nombre de réponses: </label>
                     </div>
                     <div class="col-md-2 col-decale">
-                        <input type="number"  ng-model="nbRep" class="form-control" ng-click=set() min="0" max="5" value="1"/>
+                        <input type="number"  ng-model="nbRep" class="form-control" ng-click=set() min="1" max="5" value="1"/>
                     </div>
                 </div>
                 <div class="row">
@@ -49,7 +49,7 @@
                         <label for="reponse">Réponse {{listLettre[$index].lettre}}: </label><input ng-click="videMessage()" type="text" ng-model="item.reponse" value="" class="form-control" id="reponse"/> 
                     </div>
                     <div class="col-md-4 div-bouton">
-                        <button ng-click="valideReponse()" type="submit"  >
+                        <button ng-click="valideReponse();getListeReponses()" type="submit"  >
                         <img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
                     </div>
                 </div>
@@ -71,10 +71,18 @@
 
     <div class="col-md-8 col-md-offset-2 liste">
             <table class="table">
-                <tr><th class="num">Numero</th><th>Question</th><th>Réponses</th></tr>       
-                 <tr ng-repeat="item in items" ng-class-odd="'odd'" ng-class-even="'even'"><td>{{item.num_Quest}}</td><td>{{item.enonce}}</td><td></td></tr>
+                <tr><th class="num">Numero</th><th class="small-cell">Questions</th><th class="small-cell">Réponses</th></tr>       
+                 <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><td>{{item.num_Quest}}</td><td>{{item.enonce}}</td>
+                     <td>
+                     <table class="table sous-table" >
+                         <tr ng-repeat="rep in listeReponses" ng-if="rep.num_Question==item.num_Quest" class="small-cell">
+                             <td >{{rep.num_Rep}}</td><td>{{rep.description}}</td>
+                         </tr>
+                         
+                         </table>
+                     </td></tr>
             </table>
-        </div>
+    </div>
 
 
 </div>
