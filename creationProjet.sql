@@ -1,6 +1,8 @@
 create table MessageBrute(
-	num_recu VARCHAR(10) NOT NULL PRIMARY KEY,
-	corps_mess VARCHAR(200)
+	num_recu VARCHAR(10),
+	corps_mess VARCHAR(200),
+	date_entree DATETIME,
+	PRIMARY KEY (num_recu,corps_mess)
 );
 
 create table Question(
@@ -11,7 +13,7 @@ create table Question(
 
 create table Reponse(
 	num_Question INTEGER NOT NULL,
-	num_Rep VARCHAR(20) NOT NULL,
+	num_Rep VARCHAR(10) NOT NULL,
 	description VARCHAR(200),
 	point INTEGER,
 	FOREIGN KEY (num_Question) REFERENCES Question(num_Quest),
@@ -19,16 +21,12 @@ create table Reponse(
 );
 
 create table Message (
-	id_mess INTEGER NOT NULL PRIMARY KEY,
+	id_mess INTEGER NOT NULL AUTO_INCREMENT,
+	num_user varchar(10),
 	num_Question INTEGER,
-	num_Reponse VARCHAR(20),
-	Date_Recu TIME,
+	num_Reponse VARCHAR(10),
+	Date_Recu DATETIME,
+	PRIMARY KEY (id_mess,num_user),
 	FOREIGN KEY (num_Question) REFERENCES Question(num_Quest),
 	FOREIGN KEY (num_Question,num_Reponse) REFERENCES Reponse(num_Question,num_Rep)
-);
-
-create table Users(
-	num Varchar(10)	NOT NULL PRIMARY KEY,
-	mess INTEGER NOT NULL,
-	FOREIGN KEY (mess) REFERENCES Message(id_mess)
 );
