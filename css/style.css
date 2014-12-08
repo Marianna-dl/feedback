@@ -182,12 +182,18 @@ form a{
     vertical-align: middle;
     text-align: center;
 }
+
 th{
     text-align: center;
 }
 .sous-table{
-    width: 100%;
+    width: 90%;
 }
+.table .small-cell{
+    width: 10%;
+    padding-right: 0px;
+}
+
 
                                 /*********************************************** FOOTER ************************************************/
 
