@@ -28,7 +28,7 @@ function genererNum(){
 }
 
 function genererRep(){
-	global $bd;
+	$bd = ConnectionFactory::getFactory()->getConnection();
 	
 	$num_QAlea=""; // Numero de la question aleatoire
 	$numRAlea=""; // Numero de la reponse aleatoire generé en fonction de la question
@@ -40,14 +40,18 @@ function genererRep(){
 	$numMAX_q = $res[0]; // On recupere le nombre max de question
 	$num_QAlea = mt_rand(1,$numMAX_q); // On genere un nombre entre 1 et le maximum du nombre de questions
 
+	$requete=$bd->prepare('SELECT * FROM Reponse where num_Question='.$num_Qalea);
+	$requete->execute();
+	$nrep='';
 	
-	$req=$bd->prepare('SELECT MAX(num_rep) from reponse where num_Question= :numQ'); // On selectionne le maximum du nombre de reponse en fonction de la question
-	$req->bindValue(':numQ', $num_QAlea);
-    $req->execute();
+	//On rassemble les numéros de réponse pour la question qui vient d'être sélectionné
+	while($temp=$requete->fetch(PDO::FETCH_ASSOC))
+		$nrep.=$temp['num_Rep'];
+	$ajout=str_split($nrep);
 	
-	$res = $req->fetch(PDO::FETCH_NUM);
-	$numMAX_rep = $res[0]; // On recupere le nombre Max de reponse
-	$num_RAlea=mt_rand(1,$numMAX_rep); // On genere un nombre entre 1 et le maximum du nombre de reponse
+	$numMAX_rep = count($ajout); // On recupere le nombre Max de reponse
+	$rAlea=mt_rand(0,$numMAX_rep-1); // On genere un nombre entre 1 et le maximum du nombre de reponse
+	$num_RAlea=$ajout[$rAlea];
 	
 	$rep = $num_QAlea.$num_RAlea; // On concatene le Numero de la Question et le numero de la reponse
 	
@@ -55,7 +59,7 @@ function genererRep(){
 }
 
 function insererMes($num,$mes){
-	global $bd;
+	$bd = ConnectionFactory::getFactory()->getConnection();
 
 	$req=$bd->prepare("SELECT * from MessageBrute where num_recu=:num and corps_mess =:mes"); // On cherche si le numero et le message sont deja dans la table
 	$req->bindValue(':num', $num);
@@ -65,7 +69,7 @@ function insererMes($num,$mes){
 	$res = $req->fetch(PDO::FETCH_NUM);
 	
 	if($res[0]==""){ // Si le resultat est vide, le message et le numero ne sont pas dans la table donc on les insert. On ne fait rien sinon.
-		$req=$bd->prepare("INSERT INTO `MessageBrute` (`num_recu`,`corps_mess`) VALUES (:num, :mes)");
+		$req=$bd->prepare("INSERT INTO `MessageBrute` (`num_recu`,`corps_mess`,`date_entree`) VALUES (:num, :mes, NOW())");
 		$req->bindValue(':num', $num);
 		$req->bindValue(':mes', $mes);
 		$req->execute();
