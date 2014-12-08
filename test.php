@@ -22,7 +22,7 @@ function addQuestion(){
     try{
     $bd = ConnectionFactory::getFactory()->getConnection();
    
-       $req=$bd->prepare('INSERT INTO question (num_Quest,type_Quest,enonce) VALUES (:numQuest,"qcm",:question)');
+       $req=$bd->prepare('INSERT INTO Question (num_Quest,type_Quest,enonce) VALUES (:numQuest,"qcm",:question)');
         $req->bindValue(":question", $enonce); 
         $req->bindValue(":numQuest", $num); 
         $req->execute();
@@ -40,7 +40,7 @@ function maxQuestion(){
     try{
     $bd = ConnectionFactory::getFactory()->getConnection();
    
-       $req=$bd->prepare('SELECT MAX(num_Quest) FROM question');
+       $req=$bd->prepare('SELECT MAX(num_Quest) FROM Question');
         $req->execute();
         $reponse=$req->fetch(PDO::FETCH_NUM);
         echo $reponse[0];
@@ -57,7 +57,7 @@ function afficheQuestions(){
     try{
     $bd = ConnectionFactory::getFactory()->getConnection();
    
-       $req=$bd->prepare('SELECT num_Quest, enonce FROM question');
+       $req=$bd->prepare('SELECT num_Quest, enonce FROM Question');
         $req->execute();
         $reponse=$req->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($reponse);
@@ -72,7 +72,7 @@ function afficheReponses(){
 
     $bd = ConnectionFactory::getFactory()->getConnection();
    
-       $req=$bd->prepare('SELECT num_Question,num_Rep,description FROM reponse');
+       $req=$bd->prepare('SELECT num_Question,num_Rep,description FROM Reponse');
         $req->execute();
         $reponse=$req->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($reponse);
@@ -93,7 +93,7 @@ function ajouterReponse(){
         $numR=$data->numRep;
         $numQ=$data->numQuest;
         
-        $req=$bd->prepare('INSERT INTO reponse (num_Question,num_Rep,description,point) VALUES (:numQ,:numR,:descrip,0)');
+        $req=$bd->prepare('INSERT INTO Reponse (num_Question,num_Rep,description,point) VALUES (:numQ,:numR,:descrip,0)');
         $req->bindValue(':numQ',$numQ); 
         $req->bindValue(':numR',$numR); 
         $req->bindValue(':descrip',$descrip);
