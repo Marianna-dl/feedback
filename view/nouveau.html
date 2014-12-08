@@ -75,8 +75,8 @@
                  <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><td>{{item.num_Quest}}</td><td>{{item.enonce}}</td>
                      <td>
                      <table class="table sous-table" >
-                         <tr ng-repeat="rep in listeReponses" ng-if="rep.num_Question==item.num_Quest" class="small-cell">
-                             <td>{{rep.num_Rep}}</td><td>{{rep.description}}</td>
+                         <tr ng-repeat="rep in listeReponses" ng-if="rep.num_Question==item.num_Quest">
+                             <td class="small-cell">{{rep.num_Rep}}</td><td>{{rep.description}}</td>
                          </tr>
                          
                          </table>
