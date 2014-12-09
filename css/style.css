@@ -84,6 +84,7 @@ h1{
 
                                 /*********************************************** NOUVEAU ************************************************/
 
+/*--------- FORM QCM---------- */
 .qcm{
     
     border-bottom: 1px dashed grey;
@@ -99,19 +100,11 @@ form.qcm{
 
 
 form{
-    
     padding-top: 10px;
     padding-left: 5px;
-
-}
-
-form a{
-    
-    display: block;
 }
 
 .qcm input{
-  /*  width: 400px;*/
     margin-bottom: 10px;
 }
 
@@ -125,23 +118,27 @@ form a{
 }
 
 .new-event button{
-    border:none;
-    background-color:inherit;  
-    outline: none;
-    padding-top:30px;
-    
+    outline: none; 
 }
 
-.new-event .div-bouton{
-    padding-left: 0px;
-    
+.new-event label{
+    margin-right: 10px;
 }
+.new-event input{
+    margin-right: 25px;
+}
+
+.container .new-event .input-qcm{
+    width: 30%;
+}
+
+
+/*------ LISTE QUESTION REPONSE ------*/
 .new-event table{
     margin-top:15px;
     border: 1px solid rgb(221,221,221);
 
 }
-
 .new-event .num{
     width: 20%;
 }
@@ -163,19 +160,6 @@ form a{
   background-color: rgba(220,204,182,0.3);
 }
 
-.principal .col-decale {
-    padding-left: 0px;
-
-}
-
-.label-question{
-    width:20%;
-}
-
-.label-nbRep{
-    width:30%;
-}
-
 .new-event .table td
 
 {
@@ -193,6 +177,7 @@ th{
     width: 10%;
     padding-right: 0px;
 }
+
 
 
                                 /*********************************************** FOOTER ************************************************/

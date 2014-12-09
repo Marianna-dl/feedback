@@ -9,58 +9,42 @@
 
 
 <div class="row new-event">
-    <div class="col-md-6" ng-controller="questionsController">
-        <div class="col-md-12 ">
-            <h4 class="alert alert-info qcm">Création des questions</h4>  
-            <form  class="qcm">  
+    <div class="col-md-10 col-md-offset-1" ng-controller="qcmController">
+            <h4 class="alert alert-info qcm">Création des questions/réponses</h4>  
+            <form  class="qcm form-inline">  
                 <div class="row">
-                    <div class="col-md-8">
-                        <label for="question">Question {{maxQuestion}}: </label><input ng-click="videMessage()" type="text" ng-model="questionInput" value="" class="form-control" id="question"/> 
-                        <p ng-class="result" style="padding: 15px; margin-top: 5px;">{{ resultMessage }}</p>
+                    <div class="col-md-12">   
+                        <div class="col-md-12">
+                            <label for="question">Question {{maxQuestion}}: </label>
+                            <input ng-click="videMessage()" type="text" ng-model="questionInput" value="" class="form-control input-qcm" id="question"/> 
+                            <label for="numQuestion">Nombre de réponses: </label>
+                            <input type="number"  ng-model="nbRep" class="form-control" ng-click="set()"  min="1" max="5" value="1"/>
+                        </div>
                     </div>
-                    <div class="col-md-4 div-bouton">
-                        <button ng-disabled="!questionInput" ng-click="valideQuestion(); getMaxQuestion();getListeQuestions();" type="submit"  ><img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
+                </div>  
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <hr/>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12" ng-repeat="item in listRep" ng-if="$index<= nbRep-1 ">
+                            <label for="reponse">Réponse {{listLettre[$index].lettre}}: </label>
+                            <input ng-click="videMessage()" type="text" ng-model="item.reponse" value="" class="form-control input-qcm" id="reponse"/> 
+                        </div>
+                        <div class="col-md-1">
+                            <button ng-disabled="!questionInput" ng-click="valideQcm();" type="button" class="btn btn-primary ">Valider</button> 
+                        </div> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <p ng-class="result" style="padding: 15px; margin-top: 5px;">{{ resultMessage }}</p>
+                        </div>    
                     </div>
                 </div>
             </form>
         </div>
-    </div>
-    
-    <div class="col-md-6" ng-controller="reponsesController">
-        <div class="col-md-12 ">
-            <h4 class="alert alert-info qcm">Création des réponses</h4>
-            <form  class="qcm">  
-                <div class="row">
-                    <div class="col-md-3 label-question">   
-                        <label for="numQuestion">Question n°: </label>
-                    </div>
-                    <div class="col-md-2 col-decale">  
-                        <input type="text" ng-model="numQuestionInput" value="" class="form-control" id="numQuestion"/>
-                    </div>
-                    <div class="col-md-4 label-nbRep">   
-                        <label for="numQuestion">Nombre de réponses: </label>
-                    </div>
-                    <div class="col-md-2 col-decale">
-                        <input type="number"  ng-model="nbRep" class="form-control" ng-click=set() min="1" max="5" value="1"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8" ng-repeat="item in listRep" ng-if="$index<= nbRep-1">
-                        <label for="reponse">Réponse {{listLettre[$index].lettre}}: </label><input ng-click="videMessage()" type="text" ng-model="item.reponse" value="" class="form-control" id="reponse"/> 
-                    </div>
-                    <div class="col-md-4 div-bouton">
-                        <button ng-click="valideReponse();getListeReponses()" type="submit"  >
-                        <img  class="valide" data-toggle="tooltip" data-placement="bottom" title="valider" src="./images/valide.png" alt="ajouter"/></button>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-md-8">
-                    <p ng-class="result" style="padding: 15px; margin-top: 5px;">{{ resultMessage }}</p>
-                </div>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <div class="col-md-12 titre-liste">
         <h3>Liste des questions/réponses</h3>
@@ -70,19 +54,20 @@
     </div>
 
     <div class="col-md-8 col-md-offset-2 liste">
-            <table class="table">
-                <tr><th class="num">Numero</th><th class="small-cell">Questions</th><th class="small-cell">Réponses</th></tr>       
-                 <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><td>{{item.num_Quest}}</td><td>{{item.enonce}}</td>
-                     <td>
-                     <table class="table sous-table" >
-                         <tr ng-repeat="rep in listeReponses" ng-if="rep.num_Question==item.num_Quest">
-                             <td class="small-cell">{{rep.num_Rep}}</td><td>{{rep.description}}</td>
-                         </tr>
+        <table class="table">
+            <tr><th class="num">Numero</th><th class="small-cell">Questions</th><th class="small-cell">Réponses</th></tr>       
+             <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><td>{{item.num_Quest}}</td><td>{{item.enonce}}</td>
+                 <td>
+                    <table class="table sous-table" >
+                        <tr ng-repeat="rep in listeReponses" ng-if="rep.num_Question==item.num_Quest">
+                            <td class="small-cell">{{rep.num_Rep}}</td><td>{{rep.description}}</td>
+                        </tr>
                          
-                         </table>
-                     </td></tr>
-            </table>
+                     </table>
+                </td>
+            </tr>
+        </table>
     </div>
-
-
 </div>
+
+
