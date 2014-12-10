@@ -10,28 +10,30 @@ create table messagebrute(
 );
 
 create table question(
-	num_Quest INTEGER NOT NULL PRIMARY KEY,
-	type_Quest VARCHAR(200),
-	enonce VARCHAR(200)
+	id_quest INTEGER PRIMARY KEY AUTO_INCREMENT,
+	num_quest INTEGER NOT NULL,
+	type_quest VARCHAR(200),
+	enonce VARCHAR(200),
+    	UNIQUE (num_quest)
 );
 
 create table reponse(
-	num_Question INTEGER NOT NULL,
-	num_Rep VARCHAR(10) NOT NULL,
+	num_question INTEGER NOT NULL,
+	num_rep VARCHAR(10) NOT NULL,
 	description VARCHAR(200),
 	point INTEGER,
-	FOREIGN KEY (num_Question) REFERENCES question(num_Quest),
-	PRIMARY KEY(num_Question,num_Rep)
+	FOREIGN KEY (num_question) REFERENCES question(num_quest),
+	PRIMARY KEY(num_question,num_rep)
 );
 
 create table message (
 	id_mess INTEGER NOT NULL AUTO_INCREMENT,
 	num_user varchar(10),
-	num_Question INTEGER,
-	num_Reponse VARCHAR(10),
-	Date_Recu DATETIME,
+	num_question INTEGER,
+	num_reponse VARCHAR(10),
+	date_recu DATETIME,
 	PRIMARY KEY (id_mess,num_user),
 	FOREIGN KEY (num_user) REFERENCES user(num_tel),
-	FOREIGN KEY (num_Question) REFERENCES question(num_Quest),
-	FOREIGN KEY (num_Question,num_Reponse) REFERENCES reponse(num_Question,num_Rep)
+	FOREIGN KEY (num_question) REFERENCES question(num_quest),
+	FOREIGN KEY (num_question,num_reponse) REFERENCES reponse(num_question,num_rep)
 );
