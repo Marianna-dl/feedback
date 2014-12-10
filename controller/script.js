@@ -64,11 +64,11 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 
 
  feedbackApp.controller('qcmController', function($scope, $http) {
-     
-        $scope.listRep=[{reponse:''}];
+        $scope.listRep=[{reponse:''},{reponse:''}];
         $scope.listLettre=[{lettre:'A'},{lettre:'B'},{lettre:'C'},{lettre:'D'},{lettre:'E'},{lettre:'F'}];
-        $scope.nbRepInput = parseInt(1);
-        $scope.nbRep = parseInt(1);
+        $scope.nbRepInput = parseInt(2);
+        $scope.nbRep = parseInt(2);
+        console.log($scope.nbRep);
      
   //on affiche à quelle question on en est (évite les violations d'intégrité bdd)
         $scope.maxQuestion=parseInt(1);
@@ -129,9 +129,8 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
             }
 
         };    
-     
         $scope.set = function() {
-            if($scope.nbRep>0){
+            if($scope.nbRep>=2){
                 if($scope.nbRep >= $scope.nbRepInput){
                     $scope.listRep.push({reponse:''});
                 }
@@ -141,7 +140,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 $scope.nbRepInput = $scope.nbRep;
             }
             else{
-                $scope.nbRep=parseInt(1);;
+                $scope.nbRep=parseInt(2);
             }
         };  
           //permet d'activer les tooltip bootstrap
