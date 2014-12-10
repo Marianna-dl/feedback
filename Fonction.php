@@ -24,7 +24,7 @@
 
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('SELECT * FROM Question');
+			$req=$db->prepare('SELECT * FROM question');
 
 			$req->execute();
 			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 
@@ -43,7 +43,7 @@
 
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('SELECT * FROM Question WHERE num_Quest=:num');
+			$req=$db->prepare('SELECT * FROM question WHERE num_quest=:num');
 			$req->bindValue(':num',$num); 
 			$req->execute();
 			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 
@@ -62,7 +62,7 @@
 
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('INSERT INTO Question (num_Quest, type_Quest, enonce) VALUES (:num,:type,:enonce)');
+			$req=$db->prepare('INSERT INTO question (num_quest, type_quest, enonce) VALUES (:num,:type,:enonce)');
 			$req->bindValue(':num',$num); 
 			$req->bindValue(':type',$type); 
 			$req->bindValue(':enonce',$enonce);
@@ -82,7 +82,7 @@
 
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('UPDATE Question SET type_Quest=:type, enonce=:enonce WHERE num_Quest=:num');
+			$req=$db->prepare('UPDATE question SET type_quest=:type, enonce=:enonce WHERE num_quest=:num');
 			$req->bindValue(':num',$num); 
 			$req->bindValue(':type',$type); 
 			$req->bindValue(':enonce',$enonce);
@@ -99,7 +99,7 @@
    			$num=$data->id;
 	
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('DELETE FROM Question WHERE num_Quest=:num');
+			$req=$db->prepare('DELETE FROM question WHERE num_quest=:num');
 			$req->bindValue(':num',$num); 
 			$req->execute();
 			
@@ -117,7 +117,7 @@
 
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('INSERT INTO Reponse (num_Question,num_Rep,description,point) VALUES (:numQ,:numR,:descrip,:point)');
+			$req=$db->prepare('INSERT INTO reponse (num_question,num_rep,description,point) VALUES (:numQ,:numR,:descrip,:point)');
 			$req->bindValue(':numQ',$numQ); 
 			$req->bindValue(':numR',$numR); 
 			$req->bindValue(':descrip',$descrip);
@@ -137,7 +137,7 @@
 
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('UPDATE Reponse SET description=:descrip, point=:point WHERE num_Question=:numQ AND num_Rep=:numR');
+			$req=$db->prepare('UPDATE reponse SET description=:descrip, point=:point WHERE num_question=:numQ AND num_rep=:numR');
 			$req->bindValue(':numQ',$numQ); 
 			$req->bindValue(':numR',$numR); 
 			$req->bindValue(':descrip',$descrip);
@@ -155,7 +155,7 @@
    			$numR=$data->numRep;
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('DELETE FROM Reponse WHERE num_Question=:numQ AND num_Rep=:numR');
+			$req=$db->prepare('DELETE FROM reponse WHERE num_question=:numQ AND num_rep=:numR');
 			$req->bindValue(':numQ',$numQ); 
 			$req->bindValue(':numR',$numR); 
 			$req->execute();
@@ -170,7 +170,7 @@
     			$numQ = $data->numQuest;
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
-			$req=$db->prepare('SELECT * FROM Reponse WHERE num_Question=:numQ');
+			$req=$db->prepare('SELECT * FROM reponse WHERE num_question=:numQ');
 			$req->bindValue(':numQ',$numQ); 
 			$req->execute();
 			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 
