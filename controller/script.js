@@ -99,7 +99,6 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                     .success(function(){
                         for(var i=0; i<$scope.nbRepInput;i++){
                             if($scope.listRep[i].reponse!=''){
-                                console.log($scope.maxQuestion);
                                 $http.post("test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.maxQuestion, numRep:$scope.listLettre[i].lettre})
                                     .success(function(data){
   
@@ -108,14 +107,14 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                                         console.log("Erreur lors de l'ajout de la réponse");
                                     })
                             }
-                            $scope.listRep[i].reponse="";
+                          $scope.listRep[i].reponse="";
+                          $scope.getListeReponses();
                 
                         }
                         $scope.resultMessage = "Les questions et les réponses ont été ajoutées !";
                         $scope.result='alert alert-success';
                         $scope.getMaxQuestion(); //Met à jour le nombre de question
                         $scope.getListeQuestions();
-                        $scope.getListeReponses();
                         $scope.numQuestionInput="";
                         $scope.questionInput='';
                     })
@@ -127,20 +126,24 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 
         };    
         $scope.set = function() {
-            console.log($scope.nbRep);
-        console.log( "liste "+$scope.listRep);
-        //    if($scope.nbRep>=0){
-                if($scope.nbRep >= $scope.nbRepInput){
+            console.log("rep input "+$scope.nbRep);
+        console.log( "rep reel "+$scope.nbRepInput);
+
+            if($scope.nbRep>=2){
+                if($scope.nbRep > $scope.nbRepInput){
                     $scope.listRep.push({reponse:''});
                 }
-                else{
+                else if($scope.nbRep < $scope.nbRepInput){
                     $scope.listRep.splice($scope.nbRepInput-1,1);
                 }
                 $scope.nbRepInput = $scope.nbRep;
-           // }
-            //else{
-              //  $scope.nbRep=parseInt(2);
-            //}
+            }
+            else{
+                $scope.nbRep=parseInt(2);
+            }
+                        console.log("rep input after "+$scope.nbRep);
+        console.log( "rep reel after"+$scope.nbRepInput);
+                    console.log($scope.listRep);
         };  
           //permet d'activer les tooltip bootstrap
          $('[data-toggle="tooltip"]').tooltip();
