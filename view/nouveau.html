@@ -56,11 +56,11 @@
     <div class="col-md-8 col-md-offset-2 liste">
         <table class="table">
             <tr><th class="num">Numero</th><th class="small-cell">Questions</th><th class="small-cell">Réponses</th></tr>       
-             <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><td>{{item.num_Quest}}</td><td>{{item.enonce}}</td>
+             <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><td>{{item.num_quest}}</td><td>{{item.enonce}}</td>
                  <td>
                     <table class="table sous-table" >
-                        <tr ng-repeat="rep in listeReponses" ng-if="rep.num_Question==item.num_Quest">
-                            <td class="small-cell">{{rep.num_Rep}}</td><td>{{rep.description}}</td>
+                        <tr ng-repeat="rep in listeReponses" ng-if="rep.num_question==item.num_quest">
+                            <td class="small-cell">{{rep.num_rep}}</td><td>{{rep.description}}</td>
                         </tr>
                          
                      </table>

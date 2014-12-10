@@ -43,7 +43,6 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
         };
         $scope.getListeReponses=function(){$http.get("test.php/listeRep").success(function(data){
                 $scope.listeReponses=data;  
-                console.log(data);
             })
             .error(function() {
                 console.log('erreur');
@@ -68,7 +67,6 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
         $scope.listLettre=[{lettre:'A'},{lettre:'B'},{lettre:'C'},{lettre:'D'},{lettre:'E'},{lettre:'F'}];
         $scope.nbRepInput = parseInt(2);
         $scope.nbRep = parseInt(2);
-        console.log($scope.nbRep);
      
   //on affiche à quelle question on en est (évite les violations d'intégrité bdd)
         $scope.maxQuestion=parseInt(1);
@@ -95,7 +93,6 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
      
      //On met les questions sur la base de données
         $scope.valideQcm=function(){
-            console.log($scope.maxQuestion);
             
             if($scope.questionInput!=''){
                 $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion})
@@ -130,7 +127,9 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 
         };    
         $scope.set = function() {
-            if($scope.nbRep>=2){
+            console.log($scope.nbRep);
+        console.log( "liste "+$scope.listRep);
+        //    if($scope.nbRep>=0){
                 if($scope.nbRep >= $scope.nbRepInput){
                     $scope.listRep.push({reponse:''});
                 }
@@ -138,10 +137,10 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                     $scope.listRep.splice($scope.nbRepInput-1,1);
                 }
                 $scope.nbRepInput = $scope.nbRep;
-            }
-            else{
-                $scope.nbRep=parseInt(2);
-            }
+           // }
+            //else{
+              //  $scope.nbRep=parseInt(2);
+            //}
         };  
           //permet d'activer les tooltip bootstrap
          $('[data-toggle="tooltip"]').tooltip();
