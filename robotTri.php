@@ -51,18 +51,18 @@ function analyse($trame){
 	
 	//On rassemble tous les numeros de question dans une chaîne de caractères 
 	while($temp=$requete->fetch(PDO::FETCH_ASSOC))
-		$nquest.=$temp['num_Quest'];
+		$nquest.=$temp['num_quest'];
 		
 	
 	//On vérifie que le numéro de télephone est bon et que le numero de la question est bon
 	if(preg_match('#^0[67][0-9]{8}$#',$trame['num_recu']) && preg_match('#^(['.$nquest.']{1}) *([a-zA-Z]+)$#',$trame['corps_mess'],$res)){
 
-		$requete=$bd->prepare('SELECT * FROM reponse where num_Question='.$res[1]);
+		$requete=$bd->prepare('SELECT * FROM reponse where num_question='.$res[1]);
 		$requete->execute();
 		$nrep='';
 		//On rassemble les numéros de réponse pour la question qui vient d'être vérifier
 		while($temp=$requete->fetch(PDO::FETCH_ASSOC))
-			$nrep.=$temp['num_Rep'];
+			$nrep.=$temp['num_rep'];
 
 		if(preg_match('#(['.$nrep.'])*#',$res[2])){
 			//On sépare les réponses données dans des cases de tableau (si l'utilisateur entre 2AB, on a [0]->'A',[1]->'B')
@@ -70,14 +70,14 @@ function analyse($trame){
 				
 			foreach($ajout as $value_rep){ 
 			//On vérifie que l'utilisateur n'a pas déjà rentré la valeur, et on la rentre
-				$testprec=$bd->prepare('SELECT * FROM message where num_user=\''.$trame['num_recu'].'\' and num_Question='.$res[1].' and num_Reponse=\''.$value_rep.'\'');
+				$testprec=$bd->prepare('SELECT * FROM message where num_user=\''.$trame['num_recu'].'\' and num_question='.$res[1].' and num_reponse=\''.$value_rep.'\'');
 				$testprec->execute();
 					
 				if(!$testprec->fetch(PDO::FETCH_ASSOC)){
-					$requete=$bd->prepare('insert into message values (DEFAULT,:num_user,:num_Question,:num_Reponse,NOW())');
+					$requete=$bd->prepare('insert into message values (DEFAULT,:num_user,:num_question,:num_reponse,NOW())');
 					$requete->bindValue(':num_user',$trame['num_recu']);
-					$requete->bindValue(':num_Question',$res[1]);
-					$requete->bindValue(':num_Reponse',$value_rep);
+					$requete->bindValue(':num_question',$res[1]);
+					$requete->bindValue(':num_reponse',$value_rep);
 					$requete->execute();
 				}
 				$userverif=$bd->prepare('SELECT * FROM user where num_tel=\''.$trame['num_recu'].'\'');
