@@ -140,7 +140,7 @@ form{
 
 }
 .new-event .num{
-    width: 20%;
+    width: 10%;
 }
 .new-event .small-cell{
     width: 30%;
@@ -171,13 +171,30 @@ th{
     text-align: center;
 }
 .sous-table{
-    width: 90%;
+    width: 75%;
+    margin-left: auto; 
+    margin-right: auto; 
 }
-.sous-table .small-cell{
+
+.sous-table .small-cell-gauche{
     width: 10%;
     padding-right: 0px;
 }
+.sous-table .small-cell-droite{
+    width: 10%;
+    padding-left: 0px;
+}
+.sous-table td{
+    text-align: center;
+}
 
+.container .point{
+    font-weight: normal;
+}
+.container .points-perso{
+    width:8%;
+
+}
 
 
                                 /*********************************************** FOOTER ************************************************/

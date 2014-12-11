@@ -72,7 +72,7 @@ function afficheReponses(){
 
     $bd = ConnectionFactory::getFactory()->getConnection();
    
-       $req=$bd->prepare('SELECT num_question,num_rep,description FROM reponse');
+       $req=$bd->prepare('SELECT num_question,num_rep,description,point FROM reponse');
         $req->execute();
         $reponse=$req->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($reponse);
@@ -92,11 +92,13 @@ function ajouterReponse(){
         $descrip = $data->description;
         $numR=$data->numRep;
         $numQ=$data->numQuest;
+        $points=$data->points;
         
-        $req=$bd->prepare('INSERT INTO reponse (num_question,num_rep,description,point) VALUES (:numQ,:numR,:descrip,0)');
+        $req=$bd->prepare('INSERT INTO reponse (num_question,num_rep,description,point) VALUES (:numQ,:numR,:descrip,:points)');
         $req->bindValue(':numQ',$numQ); 
         $req->bindValue(':numR',$numR); 
         $req->bindValue(':descrip',$descrip);
+        $req->bindValue(':points',$points);
         $req->execute();
 
     
