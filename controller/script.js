@@ -63,7 +63,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 
 
  feedbackApp.controller('qcmController', function($scope, $http) {
-        $scope.listRep=[{reponse:''},{reponse:''}];
+        $scope.listRep=[{reponse:'',points:0},{reponse:'',points:0}];
         $scope.listLettre=[{lettre:'A'},{lettre:'B'},{lettre:'C'},{lettre:'D'},{lettre:'E'},{lettre:'F'}];
         $scope.nbRepInput = parseInt(2);
         $scope.nbRep = parseInt(2);
@@ -93,13 +93,12 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
      
      //On met les questions sur la base de données
         $scope.valideQcm=function(){
-            
-            if($scope.questionInput!=''){
+               if($scope.questionInput!=''){
                 $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion})
                     .success(function(){
                         for(var i=0; i<$scope.nbRepInput;i++){
                             if($scope.listRep[i].reponse!=''){
-                                $http.post("test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.maxQuestion, numRep:$scope.listLettre[i].lettre})
+                                $http.post("test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.maxQuestion, numRep:$scope.listLettre[i].lettre, points:parseInt($scope.listRep[i].points)})
                                     .success(function(data){
   
                                     })
@@ -108,9 +107,11 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                                     })
                             }
                           $scope.listRep[i].reponse="";
+                          $scope.listRep[i].points= "0";
                           $scope.getListeReponses();
                 
                         }
+                        $scope.perso=false;
                         $scope.resultMessage = "Les questions et les réponses ont été ajoutées !";
                         $scope.result='alert alert-success';
                         $scope.getMaxQuestion(); //Met à jour le nombre de question
@@ -122,16 +123,15 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                         $scope.resultMessage = "Erreur lors de l'ajout des questions/réponses";
                         $scope.result='alert alert-danger';
                     })
+                    $scope.getListeReponses();
             }
 
         };    
         $scope.set = function() {
-            console.log("rep input "+$scope.nbRep);
-        console.log( "rep reel "+$scope.nbRepInput);
 
             if($scope.nbRep>=2){
                 if($scope.nbRep > $scope.nbRepInput){
-                    $scope.listRep.push({reponse:''});
+                    $scope.listRep.push({reponse:'',points:0});
                 }
                 else if($scope.nbRep < $scope.nbRepInput){
                     $scope.listRep.splice($scope.nbRepInput-1,1);
@@ -141,9 +141,6 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
             else{
                 $scope.nbRep=parseInt(2);
             }
-                        console.log("rep input after "+$scope.nbRep);
-        console.log( "rep reel after"+$scope.nbRepInput);
-                    console.log($scope.listRep);
         };  
           //permet d'activer les tooltip bootstrap
          $('[data-toggle="tooltip"]').tooltip();
