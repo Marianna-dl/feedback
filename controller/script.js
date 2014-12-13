@@ -34,14 +34,14 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
     //Création des controleurs et affichage du titre des pages
     feedbackApp.controller('nouveauController', function($scope,$http) {
         $scope.title="Nouvel évènement";
-        $scope.getListeQuestions=function(){$http.get("test.php/listeQuest").success(function(data){
+        $scope.getListeQuestions=function(){$http.get("./model/test.php/listeQuest").success(function(data){
                 $scope.listeQuestions=data;  
             })
             .error(function() {
                 console.log('erreur');
             })
         };
-        $scope.getListeReponses=function(){$http.get("test.php/listeRep").success(function(data){
+        $scope.getListeReponses=function(){$http.get("./model/test.php/listeRep").success(function(data){
                 $scope.listeReponses=data;  
             })
             .error(function() {
@@ -70,7 +70,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
      
   //on affiche à quelle question on en est (évite les violations d'intégrité bdd)
         $scope.maxQuestion=parseInt(1);
-        $scope.getMaxQuestion=function(){$http.get("test.php/maxQuest")
+        $scope.getMaxQuestion=function(){$http.get("./model/test.php/maxQuest")
             .success(function(data){
                 if (parseInt(data)>=0){
                     $scope.maxQuestion=parseInt(data)+parseInt(1); 
@@ -94,12 +94,13 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
      //On met les questions sur la base de données
         $scope.valideQcm=function(){
                if($scope.questionInput!=''){
-                $http.post("test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion})
+                $http.post("./model/test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion})
                     .success(function(){
                         for(var i=0; i<$scope.nbRepInput;i++){
                             if($scope.listRep[i].reponse!=''){
-                                $http.post("test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.maxQuestion, numRep:$scope.listLettre[i].lettre, points:parseInt($scope.listRep[i].points)})
+                                $http.post("./model/test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.maxQuestion, numRep:$scope.listLettre[i].lettre, points:parseInt($scope.listRep[i].points)})
                                     .success(function(data){
+                             
   
                                     })
                                     .error(function() {
