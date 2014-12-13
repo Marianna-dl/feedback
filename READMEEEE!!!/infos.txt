@@ -1,5 +1,7 @@
 Message  édité par Jérémy le 13/12.
 
+Vous devez mettre à jour la BDD, mon code ne fonctionera pas autrement! le nom du fichier est feedback.sql
+
 Bon voila j'ai enfin envoyé mon code que vous attendiez tant ! Mais quelques petites infos avant.
 Le nom des fichiers : 
 _ClassUsers.php : contient les classes des utilisateurs.
