@@ -1,18 +1,17 @@
-PETITES INFOS!
+Message  édité par Jérémy le 13/12.
 
-Naim/Tam: Dans le fichier test.php j'utilise le framework Slim, c'est un exemple de comment on créer les routes
-vers les méthodes dont j'ai besoin
-
-Jérémy: J'ai besoin de tes fonctions php (tes classes etc...) car sinon je suis obligée de les recoder pour mes tests..
-
-A tout le monde: On peut utiliser le fichier connexion.php pour se co à nos bases de données respectives si celles-ci 
-s'appellent "feedback" sinon il faudra modifier le fichier mais le mieux c'est qu'on s'accorde sur le nom
-
-A SAVOIR: Mes questions s'ajoutent bien dans ma base de données, signaler moi si il y a un problème. 
-Je laisse pour l'instant le message javascript s'afficher car ça m'aide à savoir si tout s'est bien déroulé.
-
-PROCHAINEMENT sur nouveau.html: Je vais changer les messages en plus joli "Votre question a été ajoutée" etc...
-Je vais mettre la liste des questions ajoutées sous l'input puis je m'occuperais des réponses.
+Bon voila j'ai enfin envoyé mon code que vous attendiez tant ! Mais quelques petites infos avant.
+Le nom des fichiers : 
+_ClassUsers.php : contient les classes des utilisateurs.
+_testsClassUsers.php :  si vous voulez tester un peu mon code, utilisez ce fichier. Le code est commenté, mais posez moi des questions si besoin.
+_SuivitProjet.xls : je l'explique un peu plus tard.
 
 
+Ensuite, des petits messages visés :
+_Pour tous : Le fichier SuivitProjet.xls vient de Mr Gibert. Pour faire le suivit de projet comme son nom l'indique, comme j'ai terminé mon boulot avec les classes, je peux m'occuper de ca. Je pense qu'il faut que ce soit qu'une personne, parce que si tout le monde y touche ca pourrait vite etre le bordel dessus et il faut pas. Ca me changera les idées quand je vais coder les sauvegardes sous formes de fichier ;) Je le mes sur le git pour que tout le monde puisse le lire. Il faudra juste m'envoyer des messages pour me préciser les tâches et tout ce qu'il faut pour que je le remplisse correctement.
 
+_Robin : Dans la table réponse, la foreign key des réponse depuis la table des questions était une bonne idée, seulement on a dit qu'on stockerai les réponses des utilisateurs sous la forme 'ABCD', donc j'ai enlevé cette contrainte. Ca va être à nous dans le PHP de verifier que les utilisateurs on bien saisie les bonnes données.
+
+_Marianna : Lis le message de Robin. Je pense pas que ca change ton code, ca ne devrait impacter que le miens, mais je prefère prévenir.
+
+_Naim et Thanh : Le fichier qui vous intéresse est ClassUsers.php, je l'ai commenté en francais, et n'hesitez pas à me poser des questions, je vous expliquerai ce qu'il faut. Je vous conseille de créer une nouvelle classe "ClassOperators.php" ou un truc dans le genre pour toutes les classes de l'opérateur.
