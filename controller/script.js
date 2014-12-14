@@ -148,6 +148,21 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
  
  });
 
+feedbackApp.controller('listController', function($scope){
+    $scope.testf=function(numQuestion){
+        console.log(numQuestion);
+    }
+
+                       
+                       
+                       
+                       
+                       
+                    
+                       
+                       
+});
+
 
 
 

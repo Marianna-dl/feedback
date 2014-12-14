@@ -21,7 +21,6 @@
 
 	function seeAllQuestion(){
 		
-
 		
 			$db = ConnectionFactory::getFactory()->getConnection();
 			$req=$db->prepare('SELECT * FROM question');
@@ -29,7 +28,6 @@
 			$req->execute();
 			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 
 			echo json_encode($tab);
-
 
 	}
 
