@@ -1,0 +1,172 @@
+                                /********************************************** BODY/HTML *******************************************/
+html {
+    
+  height: 100%;
+}
+
+* {
+    -moz-box-sizing: border-box; box-sizing: border-box;
+}
+
+body{
+    
+    position: relative;
+    padding-bottom: 50px;
+    min-height: 100%;
+    background-color: rgba(242,242,242,0.5);
+
+}
+                                /*********************************************** HEADER ************************************************/
+
+
+h1{
+
+    text-align: center;
+}
+
+.page-header{
+    
+    border-bottom: 2px solid grey;
+    margin-top:0px;
+    background-color: rgba(236,223,204,1);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
+
+
+                                /*********************************************** INDEX ************************************************/
+
+.nav{
+    
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+}
+
+.principal ul li a{
+    
+    color: black;
+}
+
+.principal{
+    
+    min-height: 400px;
+    background-color: white;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 20px;
+    padding-bottom:15px;
+    width: auto;
+    /*border: 10px solid #EEA441;*/
+    border: 10px solid #DCCCB6;
+    border-radius: 5px;
+    -moz-box-shadow: -2px 2px 6px #656565;
+    -webkit-box-shadow: -2px 2px 6px #656565;
+    -o-box-shadow: -2px 2px 6px #656565;
+    box-shadow: -2px 2px 6px #656565;  
+}
+
+.principal h3{
+    
+    text-align: center;
+    margin-bottom: 0px;
+    
+}
+.principal h4{
+    
+    text-align: center;
+    margin-bottom: 0px;
+    
+}
+
+
+
+                                /*********************************************** Gestion ************************************************/
+					
+.button{ 
+    
+  background-color:#459103;
+}
+
+.p{
+	background-color:#FFA200;
+}
+
+.panel-title {
+								
+text-align:left;
+
+												
+}
+
+/* .bloc {  
+	border: 1px dashed black;
+	padding: 100px;
+	float:right;
+	margin-right:90px;
+  
+  
+} */   							
+								
+								
+								
+								
+								
+								
+								
+								
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+
+
+                                /*********************************************** FOOTER ************************************************/
+
+
+
+footer{
+    
+    position: absolute;
+    bottom:0;
+	width: 100%;
+}
+
+
+footer>div{
+    
+    border-top: 2px solid grey;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgba(236,223,204,1);
+    text-align: center;
+    height: 50px;
+}
+
+footer p{
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
