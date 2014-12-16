@@ -134,8 +134,9 @@ function check(){
         while($_SESSION['alive']==true){
             $i++;
         }
-        echo json_encode($i);
+
     }
+            echo json_encode("test");
 
 
 }
