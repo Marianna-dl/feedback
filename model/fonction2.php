@@ -9,11 +9,13 @@ $app = new \Slim\Slim();
 $app->post('/startEvent', 'startEvent');
 $app->post('/stopEvent', 'stopEvent');
 $app->post('/afficheMSGTempsEcoule', 'afficheMSGTempsEcoule');
+$app->get('/afficheMessage', 'afficheMessage');
 //$app->post('/afficheChrono', 'afficheChrono');
 //$app->post('/ouvrirVote', 'ouvrirVote');
-//$app->post('/fermerVote', 'fermerVote');
-//$app->post('/afficheResultat', 'afficheResultat');
-//$app->post('/questionSuivante', 'questionSuivante');*/
+//$app->post('/fermerVote', 'fermerVote');*/
+$app->get('/afficheResultat', 'afficheResultat');
+$app->get('/questionSuivante', 'questionSuivante');
+$app->get('/afficheMessage', 'afficheMessage');
 
 
 
@@ -67,6 +69,11 @@ function afficheChrono(){
 */
 }
 
+function afficheChrono2(){
+    include('timer.html');
+}
+
+
 function afficheMSGTempsEcoule($t){
     //$t=2000;
     echo "<script>";
@@ -84,7 +91,9 @@ function fermerVote(){
     //les réponses s'affichent dans une table réponse alternative
 }
 
-function afficheResultat($numQuest){
+function afficheResultat(){
+    $data = json_decode(file_get_contents("php://input"));
+    			$numQuest=$data->numQuest;
     $bd = ConnectionFactory::getFactory()->getConnection();
    
     $req=$bd->prepare('SELECT num_Rep,description FROM reponse WHERE num_Question=:numQuestion');
@@ -94,11 +103,22 @@ function afficheResultat($numQuest){
     echo json_encode($reponse);
 }
 
-function questionSuivante($questionEnCours){
+function questionSuivante(){
+    $data = json_decode(file_get_contents("php://input"));
+    			$questionEnCours=$data->id;
     $bd = ConnectionFactory::getFactory()->getConnection();
    
     $req=$bd->prepare('SELECT num_Question,description FROM reponse WHERE num_Question=:numQuestion');
     $req->bindValue(':numQuestion',$questionEnCours+1);
+    $req->execute();
+    $question=$req->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($question);
+}
+
+function afficheMessage(){
+    $bd = ConnectionFactory::getFactory()->getConnection();
+   
+    $req=$bd->prepare('SELECT num_user, num_question, num_reponse, date_recu FROM message')
     $req->execute();
     $question=$req->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($question);

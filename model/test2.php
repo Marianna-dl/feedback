@@ -1,7 +1,7 @@
 <?php
 session_start();
-require ('connexion.php');
-
+//require ('connexion.php');
+require('fonction2.php');/*
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -12,7 +12,7 @@ $app->get('/stopEvent', 'stopEvent');
 $app->get('/afficheMSGTempsEcoule', 'afficheMSGTempsEcoule');
 
 //test startEvent()
-
+/*
 if($_SESSION['alive']!=true){ //1ère page.
     echo "<p>Démarrer l'évènement:</p>";?>
     <form method="get">
@@ -39,7 +39,9 @@ else if ($_SESSION['alive']==true){
 
 
 //affiche un message alerte après 2s
-afficheMSGTempsEcoule(2000);
+afficheMSGTempsEcoule(2000);*/
+
+afficheChrono2();
 
 
 
