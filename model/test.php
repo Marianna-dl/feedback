@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require ('connexion.php');
 
 //ajout du framework php Slim et mise en route
@@ -12,6 +13,11 @@ $app->get('/maxQuest', 'maxQuestion');
 $app->get('/listeQuest', 'afficheQuestions');
 $app->post('/addRep', 'ajouterReponse');
 $app->get('/listeRep', 'afficheReponses');
+$app->get('/lancer', 'startEvent');
+$app->get('/stopper', 'stopEvent');
+$app->get('/etatEvent', 'getStateEvent');
+$app->get('/check', 'check');
+//$app->get('/robot', 'robot');
 
 //ajout question bdd
 function addQuestion(){
@@ -102,7 +108,48 @@ function ajouterReponse(){
 
 }
 
+function startEvent(){
+    $_SESSION['alive']=true;
+    echo json_encode($_SESSION['alive']);
+}
 
+//pas d'affichage du script alert si redirection
+function stopEvent(){
+    $_SESSION=array();
+    session_destroy();
+    echo json_encode(false);
+}
+
+/*function robot(){
+  
+        echo json_encode(false);
+        
+         
+
+}*/
+
+function check(){
+    $i=0;
+    if (isset($_SESSION['alive'])){
+        while($_SESSION['alive']==true){
+            $i++;
+        }
+
+    }
+            echo json_encode("test");
+
+
+}
+
+function getStateEvent(){
+   if (isset($_SESSION['alive']) && $_SESSION['alive']==true){
+       echo json_encode(true);
+   }
+    else{
+          echo json_encode(false);     
+    }
+
+}
 
 
 $app->run();
