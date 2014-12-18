@@ -115,9 +115,8 @@ function startEvent(){
 
 //pas d'affichage du script alert si redirection
 function stopEvent(){
-    $_SESSION=array();
-    session_destroy();
-    echo json_encode(false);
+     if (isset($_SESSION['alive'])){ $_SESSION['alive']=false;}
+    echo json_encode($_SESSION['alive']);
 }
 
 /*function robot(){
@@ -129,14 +128,9 @@ function stopEvent(){
 }*/
 
 function check(){
-    $i=0;
-    if (isset($_SESSION['alive'])){
-        while($_SESSION['alive']==true){
-            $i++;
-        }
-
+    for($i=0;$i<10;$i++){
+        echo $i;
     }
-            echo json_encode("test");
 
 
 }
