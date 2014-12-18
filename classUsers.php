@@ -41,6 +41,7 @@ class Users
 	{	$this->listUsers = array(); // on pense a initialiser la liste
 		try
 		{	$this->db = new PDO('mysql:dbname='.dbNames::feedback.';host=127.0.0.1', 'root', '');
+			$this->db->query("SET NAMES UTF8");
 			$req = 'SELECT * FROM ' . TableName::users; // equivaut a 'SELECT * FROM user'
 			$res = $this->db->query($req); // on lance la requete
 			while($data = $res->fetch()) // on while-fetch le resultat pour pour creer toute les instances utilisateurs
@@ -133,6 +134,7 @@ class UserAnswers
 	/// CONSTRUCTEUR
 	public function __construct($phoneNumber)
 	{	$this->db = new PDO('mysql:dbname='.dbNames::feedback.';host=127.0.0.1', 'root', '');
+		$this->db->query("SET NAMES UTF8");
 		$this->pn=$phoneNumber;
 		$this->list = array();
 		/// on récupère toute les données nécéssaires pour instancier la liste des réponses
