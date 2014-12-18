@@ -6,3 +6,53 @@
         </div>
     </div>
 </div>
+
+
+
+
+<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Panel de Contrôle</h3>
+		</div>
+		<div class="panel-body" ng-controller="buttonController">
+			<div class="row">
+                <div class="col-md-12">
+					<div class="col-md-4">
+						<button type="button" ng-disabled="!start" ng-model="start" ng-click="lancer()" class="btn btn-success button" >Lancer</button>
+					</div>
+					<div class="col-md-4 col-md-offset">
+						<button type="button" ng-model="stop" ng-disabled="!stop" ng-click="stopper();" class="btn btn-danger b">Stopper</button>
+					</div>
+					<div class="col-md-4 col-md-offset">
+						<button type="button" class="btn p btn-warning ">Simulation robot</button>
+					</div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="col-md-6 col-md-offset">
+	<h4>Gestion du chronometre</h4>
+	<div class="bloc "><p></p></div> 
+
+</div>
+
+
+
+ <div class="col-md-12 titre-liste">
+        <h3>Réponses participants</h3>
+        <div class="col-md-4 col-md-offset-4">      
+            <hr/>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1 liste">
+        <table class="table">
+            <tr><th class="num">Numero Tel</th><th class="small-cell">Question</th><th class="small-cell">Réponses</th></tr>       
+             <tr><td></td><td></td><td></td></tr>
+        </table>
+    </div>

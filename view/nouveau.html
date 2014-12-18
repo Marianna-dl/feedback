@@ -58,10 +58,10 @@
         </div>
     </div>
 
-    <div class="col-md-10 col-md-offset-1 liste">
+    <div class="col-md-10 col-md-offset-1 liste" ng-controller="listController">
         <table class="table">
-            <tr><th class="num">Numero</th><th class="small-cell">Questions</th><th class="small-cell">Réponses</th></tr>       
-             <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><td>{{item.num_quest}}</td><td>{{item.enonce}}</td>
+            <tr><!--<th class="num"></th>--><th class="num">Numero</th><th class="small-cell">Questions</th><th class="small-cell">Réponses</th></tr>       
+             <tr ng-repeat="item in listeQuestions" ng-class-odd="'odd'" ng-class-even="'even'" ><!--<td><img class="pointer" src="./images/edit.png" alt="edit" ng-click="testf(item.num_quest)"> | <img class="pointer" src="./images/delete.png" alt="delete" ng-click="testf()"></td>--><td>{{item.num_quest}}</td><td>{{item.enonce}}</td>
                  <td>
                     <table class="table sous-table" >
                         <tr ng-repeat="rep in listeReponses" ng-if="rep.num_question==item.num_quest">
