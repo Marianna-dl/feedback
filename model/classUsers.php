@@ -13,6 +13,8 @@ abstract class TableName
 {
 	const users    	= 'user';
 	const messages 	= 'message';
+	const question  = 'question';
+	const reponse 	= 'reponse';
 }
 abstract class UserColumns
 {
@@ -25,6 +27,21 @@ abstract class MessageColumns
 	const question	= 'num_question';
 	const reponses	= 'num_reponse';
 	const date		= 'date_recu';
+}
+
+abstract class QuestionColumns
+{
+	const id	= 'id_quest';
+	const num	= 'num_quest';
+	const type	= 'type_quest';
+	const enonce	= 'enonce';
+}
+abstract class ReponseColumns
+{
+	const numQ	= 'num_question';
+	const numR	= 'num_rep';
+	const description= 'description';
+	const point	= 'point';
 }
 
 
