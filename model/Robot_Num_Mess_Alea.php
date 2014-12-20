@@ -114,9 +114,12 @@ class RobotThread extends Thread {
 <?php
 //Partie TEST
 	$robot= new RobotThread();
+	
 	$num = $robot->genererNum();
 	echo $num.'<br/>';
+	
 	$rep=$robot->genererRep();
 	echo $rep;	
+	
 	$robot->insererMes($num,$rep);
 ?>
