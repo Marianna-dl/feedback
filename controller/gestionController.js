@@ -2,6 +2,8 @@
 
 angular.module('feedbackApp').controller('gestionController', function($scope, $http) {
         $scope.title="Gestion évènement";
+    
+       // $http.get("./model/test.php/etatEvent").success(function(data){
 
               
 

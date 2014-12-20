@@ -5,7 +5,7 @@
 /// classes abstraites
 abstract class dbInfos
 {
-	const typr  = 'mysql';
+	const type  = 'mysql';
 	const name 	= 'feedback';
 	const host  = '127.0.0.1';
 }
@@ -13,6 +13,8 @@ abstract class TableName
 {
 	const users    	= 'user';
 	const messages 	= 'message';
+	const question  = 'question';
+	const reponse 	= 'reponse';
 }
 abstract class UserColumns
 {
@@ -27,6 +29,21 @@ abstract class MessageColumns
 	const date		= 'date_recu';
 }
 
+abstract class QuestionColumns
+{
+	const id		= 'id_quest';
+	const num		= 'num_quest';
+	const type		= 'type_quest';
+	const enonce	= 'enonce';
+}
+abstract class ReponseColumns
+{
+	const numQ			= 'num_question';
+	const numR			= 'num_rep';
+	const description 	= 'description';
+	const point			= 'point';
+}
+
 function connectionToDB()
 {	/// on utilise une fonction dans le cas ou la BDD devrait changé (host, port, etc...)
 	$db = new PDO(dbInfos::type.':dbname='.dbInfos::name.';host='.dbInfos::host, 'root', '');
@@ -34,10 +51,12 @@ function connectionToDB()
 	return $db;
 }
 
-function executeRequest($db, $req)
-{	$db->prepare(':request');
-	$db->bindValue(':request', $req);
-	return $db->execute();
+function request($db, $req)
+{	try
+	{	$res = $db->query($req);
+		return $res;
+	}catch (Exception $e) 
+	{	return null;	}
 }
 
 ///
@@ -54,8 +73,8 @@ class Users
 		try
 		{	$this->db = connectionToDB();
 			$req = 'SELECT * FROM ' . TableName::users; // equivaut a 'SELECT * FROM user'
-			$res = executeRequest($this->db, $req); // on lance la requete
-			while($data = $res->fetch()) // on while-fetch le resultat pour pour creer toute les instances utilisateurs
+			$res = request($this->db, $req); // on lance la requete
+			while($data = $res->fetch(PDO::FETCH_ASSOC)) // on while-fetch le resultat pour pour creer toute les instances utilisateurs
 				$this->listUsers[] = new User( $data[UserColumns::phoneNumber] );
 		}
 		catch (PDOException $e)
@@ -66,7 +85,7 @@ class Users
 	public function addUser($phone)
 	{	try
 		{	$req = 'INSERT INTO '. TableName::users .' ('.UserColumns::phoneNumber.') VALUES (\''.$phone.'\')';
-			$res = executeRequest($this->db, $req);
+			$res = request($this->db, $req);
 			$this->update(); // methode instancié plus bas. Elle est importante pour remettre à jour la classe depuis la BDD
 		}
 		catch (PDOException $e)
@@ -87,8 +106,8 @@ class Users
 	{	$this->listUsers = array();
 		try
 		{	$req = 'SELECT * FROM ' . TableName::users;
-			$res = executeRequest($this->db, $req);
-			while($data = $res->fetch())
+			$res = request($this->db, $req);
+			while($data = $res->fetch(PDO::FETCH_ASSOC))
 				$this->listUsers[] = new User( $data[UserColumns::phoneNumber] );
 		}
 		catch (PDOException $e)
@@ -132,9 +151,9 @@ class UserAnswers
 				' INNER JOIN '. TableName::users .' ON '. TableName::users .'.'.UserColumns::phoneNumber.' = '. TableName::messages .'.'.MessageColumns::ref.' '.
 				' WHERE '. TableName::users .'.'.UserColumns::phoneNumber.' =\'' . $phoneNumber . '\'';
 		try
-		{	$res = executeRequest($this->db, $req);
+		{	$res = request($this->db, $req);
 
-			while($data = $res->fetch()) // on while-fetch pour creer toute les instances de réponses
+			while($data = $res->fetch(PDO::FETCH_ASSOC)) // on while-fetch pour creer toute les instances de réponses
 				$this->list[] = new Answer($data); // $data contient les données de réponses
 		}
 		catch (PDOException $e)
@@ -171,20 +190,20 @@ class UserAnswers
 
 			/// tester si answer existe deja, pour savoir si je dois mettre a jour, ou creer une nouvelle reponse sur la BDD
 			$req = 'SELECT * FROM ' . TableName::messages .' WHERE '.MessageColumns::ref.'=\''.$this->pn.'\' AND '.MessageColumns::question.'='.$questionNumber.' ';
-			$res = executeRequest($this->db, $req);
+			$res = request($this->db, $req);
 			$reponseAlreadyExist = false;
-			while($data = $res->fetch()) // si ca fetch, alors c'est que la réponse existe deja.
+			while($data = $res->fetch(PDO::FETCH_ASSOC)) // si ca fetch, alors c'est que la réponse existe deja.
 				$reponseAlreadyExist = true;
 
 			if($reponseAlreadyExist==false) // si la reponse existe pas, on ajoute a la BDD
 			{	$req =  'INSERT INTO '. TableName::messages .'('.MessageColumns::ref.', '.MessageColumns::question.', '.MessageColumns::reponses.', '. MessageColumns::date.')'.
 						' VALUES (\''.$this->pn.'\', '.$questionNumber.', \''.$valueToAdd.'\', CURRENT_TIME() )';
-				$res = executeRequest($this->db, $req);
+				$res = request($this->db, $req);
 			}
 			else // si la reponse existe deja, on ecrase la précédente de la BDD
 			{	$req = 	'UPDATE '.TableName::messages.' SET '.MessageColumns::reponses.' = \''.$valueToAdd.'\', '.MessageColumns::date.' = CURRENT_TIME() WHERE '.MessageColumns::ref.'=\''.$this->pn.
 						'\' AND '.MessageColumns::question.'='. $questionNumber ;
-				$res = executeRequest($this->db, $req);
+				$res = request($this->db, $req);
 			}
 			$this->update(); // on oublie pas de recharger les données depuis la BDD, comme pour la liste des Utilisateurs
 		}
@@ -200,9 +219,9 @@ class UserAnswers
 				' INNER JOIN '. TableName::users .' ON '. TableName::users .'.'.UserColumns::phoneNumber.' = '. TableName::messages .'.'.MessageColumns::ref.' '.
 				' WHERE '. TableName::users .'.'.UserColumns::phoneNumber.' =\'' . $this->pn . '\'';
 		try
-		{	$res = executeRequest($this->db, $req);
+		{	$res = request($this->db, $req);
 
-			while($data = $res->fetch())
+			while($data = $res->fetch(PDO::FETCH_ASSOC))
 				$this->list[] = new Answer($data);
 		}
 		catch (PDOException $e)
