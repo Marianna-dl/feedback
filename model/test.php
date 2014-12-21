@@ -108,42 +108,9 @@ function ajouterReponse(){
 
 }
 
-function startEvent(){
-    $_SESSION['alive']=true;
-    echo json_encode($_SESSION['alive']);
-}
-
-//pas d'affichage du script alert si redirection
-function stopEvent(){
-     if (isset($_SESSION['alive'])){ $_SESSION['alive']=false;}
-    echo json_encode($_SESSION['alive']);
-}
-
-/*function robot(){
-  
-        echo json_encode(false);
-        
-         
-
-}*/
-
-function check(){
-    for($i=0;$i<10;$i++){
-        echo $i;
-    }
 
 
-}
 
-function getStateEvent(){
-   if (isset($_SESSION['alive']) && $_SESSION['alive']==true){
-       echo json_encode(true);
-   }
-    else{
-          echo json_encode(false);     
-    }
-
-}
        /*   $http.get("./model/testsClassUsers.php/users").success(function(data){
                  
             $scope.users=data;

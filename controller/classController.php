@@ -16,7 +16,10 @@ require_once("../model/ClassesAbstraites.php");
 $users=new Users();
 $messages=new Messages();
 $event=new Evenement();
+$questions=new Question();
+$reponses=new Reponse();
 
+/******** USERS **************/
 $app->get('/users', function() use ($users){
     echo json_encode($users->getUsers());
 });
@@ -28,6 +31,17 @@ $app->post('/addUser', function() use ($users) {
     echo $tel;
 });
 
+/***************** QUESTION ************/
+$app->get('/listeQuest', function() use ($questions){
+    echo json_encode($questions->getListeQuestions());
+});
+$app->get('/users', function() use ($questions){
+    echo json_encode($questions->getUsers());
+});
+
+
+
+/************* MESSAGE ***************/
 $app->get('/getMessages/:tel', function($tel) use ($users) {
     echo json_encode($users->getMessagesByUser($tel));
 });
@@ -36,6 +50,8 @@ $app->get('/getMessages', function() use ($messages){
     echo json_encode($messages->getMessages());
 });
 
+
+/*************** EVENT *************/
 $app->get('/etatEvent', function() use ($event){
     echo json_encode($event->getStateEvent());
 });

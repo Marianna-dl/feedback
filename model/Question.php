@@ -10,15 +10,15 @@ class Question {
 		
 	}
 
-	public function seeAllQuestion(){
+	public function getListeQuestions(){
 		
 		try
 		{
 			
 			$req = 'SELECT * FROM ' . TableName::question;
 			$res = $this->db->query($req);
-			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 
-			echo json_encode($tab);
+			$tab=$req->fetchAll(PDO::FETCH_OBJ); 
+			return $tab;
 		}
 
 		catch (PDOException $e)
@@ -30,9 +30,7 @@ class Question {
 
 
 
-	public function seeOneQuestion($num){
-		
-		
+	public function getQuestion($num){
 		try
 			{
 		
@@ -40,8 +38,8 @@ class Question {
 			$req = 'SELECT * FROM ' . TableName::question.'WHERE'.QuestionColumns::id.'=:num';
 			$req->bindValue(':num',$num); 
 			$res = $this->db->query($req);
-			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 
-			echo json_encode($tab);
+			$tab=$req->fetchAll(PDO::FETCH_OBJ); 
+			return $tab;
 			}
 
 		catch (PDOException $e)
