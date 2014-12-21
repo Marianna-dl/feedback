@@ -2,14 +2,14 @@
     //Création des controleurs et affichage du titre des pages
     angular.module('feedbackApp').controller('nouveauController', function($scope,$http) {
         $scope.title="Nouvel évènement";
-        $scope.getListeQuestions=function(){$http.get("./model/test.php/listeQuest").success(function(data){
+        $scope.getListeQuestions=function(){$http.get("controller/classController.php/listeQuest").success(function(data){
                 $scope.listeQuestions=data;  
             })
             .error(function() {
                 console.log('erreur');
             })
         };
-        $scope.getListeReponses=function(){$http.get("./model/test.php/listeRep").success(function(data){
+        $scope.getListeReponses=function(){$http.get("controller/classController.php/listeRep").success(function(data){
                 $scope.listeReponses=data;  
             })
             .error(function() {
@@ -30,7 +30,7 @@
      
   //on affiche à quelle question on en est (évite les violations d'intégrité bdd)
         $scope.maxQuestion=parseInt(1);
-        $scope.getMaxQuestion=function(){$http.get("./model/test.php/maxQuest")
+        $scope.getMaxQuestion=function(){$http.get("controller/classController.php/maxQuest")
             .success(function(data){
                 if (parseInt(data)>=0){
                     $scope.maxQuestion=parseInt(data)+parseInt(1); 
@@ -54,8 +54,9 @@
      $scope.ajoutReponse=function(){
             for(var i=0; i<$scope.nbRepInput;i++){
                 if($scope.listRep[i].reponse!=''){
-                    $http.post("./model/test.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.maxQuestion, numRep:$scope.listLettre[i].lettre, points:parseInt($scope.listRep[i].points)})
+                    $http.post("controller/classController.php/addRep", {description:$scope.listRep[i].reponse, numQuest:$scope.maxQuestion, numRep:$scope.listLettre[i].lettre, points:parseInt($scope.listRep[i].points)})
                     .success(function(data){
+                            console.log(data);
                              })
                     .error(function() {
                             console.log("Erreur lors de l'ajout de la réponse");
@@ -73,7 +74,7 @@
      //On met les questions sur la base de données
         $scope.valideQcm=function(){
                if($scope.questionInput!=''){
-                $http.post("./model/test.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion})
+                $http.post("controller/classController.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion})
                     .success(function(){
                         $scope.ajoutReponse();
                         $scope.perso=false;

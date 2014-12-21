@@ -160,14 +160,14 @@ table{
   background-color: rgba(220,204,182,0.3);
 }
 
-.table td
+.principal .table td
 
 {
     vertical-align: middle;
     text-align: center;
 }
 
-th{
+.principal th{
     text-align: center;
 }
 .sous-table{

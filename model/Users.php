@@ -33,7 +33,7 @@ class Users
             $sql_query = 'SELECT * FROM '.TableName::users;
             $req = $this->db->prepare($sql_query);
             $req->execute();
-            $users  = $req->fetchAll(PDO::FETCH_OBJ);
+            $users = $req->fetchAll(PDO::FETCH_OBJ);
         }
         catch(PDOException $e) {
              die('Erreur: '. $e->getMessage());

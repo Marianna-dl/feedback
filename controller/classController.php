@@ -31,15 +31,38 @@ $app->post('/addUser', function() use ($users) {
     echo $tel;
 });
 
+
 /***************** QUESTION ************/
 $app->get('/listeQuest', function() use ($questions){
     echo json_encode($questions->getListeQuestions());
 });
-$app->get('/users', function() use ($questions){
-    echo json_encode($questions->getUsers());
+
+$app->get('/maxQuest', function() use ($questions){
+    echo $questions->getNombreQuestions();
 });
 
+$app->post('/addQuest', function() use ($questions) {
+    $data = json_decode(file_get_contents("php://input"));
+    $enonce = $data->enonce;
+    $num=$data->id;
+    $type="qcm";
+    $questions->ajouterQuestion($enonce,$num,$type);
+    echo ($enonce);
+});
 
+/***************** REPONSE ************/
+$app->get('/listeRep', function() use ($reponses){
+    echo json_encode($reponses->getListeReponses());
+});
+
+$app->post('/addRep', function() use ($reponses) {
+    $data = json_decode(file_get_contents("php://input"));
+    $descrip = $data->description;
+    $numR=$data->numRep;
+    $numQ=$data->numQuest;
+    $points=$data->points;
+    $reponses->ajouterReponse($numQ,$numR,$descrip,$points);
+});
 
 /************* MESSAGE ***************/
 $app->get('/getMessages/:tel', function($tel) use ($users) {

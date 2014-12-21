@@ -16,8 +16,9 @@ class Question {
 		{
 			
 			$req = 'SELECT * FROM ' . TableName::question;
-			$res = $this->db->query($req);
-			$tab=$req->fetchAll(PDO::FETCH_OBJ); 
+			$res = $this->db->prepare($req);
+            $res->execute();
+			$tab=$res->fetchAll(PDO::FETCH_OBJ); 
 			return $tab;
 		}
 
@@ -27,15 +28,26 @@ class Question {
         	}
 
 	}
+    public function getNombreQuestions(){
 
+        try{
+            $req=$this->db->prepare('SELECT COUNT(*) FROM '.TableName::question);
+            $req->execute();
+            $reponse=$req->fetch(PDO::FETCH_NUM);
+            echo $reponse[0];
+        }
+        catch(PDOException $e){
+            die("Erreur ".$e->getMessage()."</body></html>");
+        }
 
-
+    }
+    
 	public function getQuestion($num){
 		try
 			{
 		
 			
-			$req = 'SELECT * FROM ' . TableName::question.'WHERE'.QuestionColumns::id.'=:num';
+			$req = 'SELECT * FROM ' . TableName::question.'WHERE'.QuestionColumns::num.'=:num';
 			$req->bindValue(':num',$num); 
 			$res = $this->db->query($req);
 			$tab=$req->fetchAll(PDO::FETCH_OBJ); 
@@ -53,10 +65,8 @@ class Question {
 
 
 	public function ajouterQuestion($enonce,$num,$type){
-		try
-			{
-			
-			$req=$this->$db->prepare('INSERT INTO '. TableName::question. '('.QuestionColumns::id.','.QuestionColumns::type.',' .QuestionColumns::enonce.') VALUES (:num,:type,:enonce)');
+		try{
+			$req=$this->db->prepare('INSERT INTO '. TableName::question. '('.QuestionColumns::num.','.QuestionColumns::type.',' .QuestionColumns::enonce.') VALUES (:num,:type,:enonce)');
 			$req->bindValue(':num',$num); 
 			$req->bindValue(':type',$type); 
 			$req->bindValue(':enonce',$enonce);
@@ -65,7 +75,8 @@ class Question {
 
 		catch (PDOException $e)
 			{	
-           		 die('Connexion échouée : ' . $e->getMessage());	
+                header('HTTP/1.1 500 Internal Server Error : '.$e->getMessage() );
+                exit(0);	
         		}
 
 
@@ -77,7 +88,7 @@ class Question {
 
 		try
 			{
-			$req=$this->$db->prepare('UPDATE'. TableName::question.' SET '.QuestionColumns::type.'=:type,' .QuestionColumns::enonce.'=:enonce WHERE'.QuestionColumns::id.'=:num');
+			$req=$this->db->prepare('UPDATE'. TableName::question.' SET '.QuestionColumns::type.'=:type,' .QuestionColumns::enonce.'=:enonce WHERE'.QuestionColumns::id.'=:num');
 			$req->bindValue(':num',$num); 
 			$req->bindValue(':type',$type); 
 			$req->bindValue(':enonce',$enonce);
@@ -96,7 +107,7 @@ class Question {
 
 	public function supprimerQuestion($num){
 		try 	{
-			$req=$this->$db->prepare('DELETE FROM'. TableName::question.'WHERE'.QuestionColumns::id.'=:num');
+			$req=$this->db->prepare('DELETE FROM'. TableName::question.'WHERE'.QuestionColumns::num.'=:num');
 			$req->bindValue(':num',$num); 
 			$req->execute();
 			}

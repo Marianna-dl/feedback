@@ -13,8 +13,8 @@ abstract class TableName
 {
 	const users    	= 'user';
 	const messages 	= 'message';
-	const questions  = 'question';
-	const reponses 	= 'reponse';
+	const question  = 'question';
+	const reponse 	= 'reponse';
 }
 abstract class UserColumns
 {
