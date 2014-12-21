@@ -111,6 +111,23 @@ INSERT INTO `user` (`num_tel`) VALUES
 ('0646763234');
 
 --
+-- Structure de la table `messagebrute`
+--
+
+CREATE TABLE IF NOT EXISTS `messagebrute` (
+  `num_recu` varchar(10) NOT NULL,
+  `corps_mess` varchar(200),
+  `date_entree` datetime,
+  PRIMARY KEY (`num_recu`,`corps_mess`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `messagebrute`
+--
+
+INSERT INTO `messagebrute` VALUES ('0646763234','1AB',NOW());
+
+--
 -- Contraintes pour les tables exportées
 --
 

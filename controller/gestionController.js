@@ -29,6 +29,7 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
               console.log(data);
           })*/         
 
+
 	});
 
 angular.module('feedbackApp').controller('buttonController', function($scope, $http,$interval){

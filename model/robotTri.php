@@ -1,31 +1,41 @@
 <?php
 
 	require("connexion.php");
+	require_once("classUsers.php");
 
-	$avance=true;	
+class triThread extends Thread {
+	private $avance;
+	private $question;
+	private $users;
+	
+public function __construct($quest,$list){
+	$this->avance=true;
+	$this->question=$quest;
+	$this->users=$list;
+}
 
 //Va chercher le contenu de la table messageBrute et le fait analyser (et ajouter si correct)
-function check(){
-  $bd = ConnectionFactory::getFactory()->getConnection();
-	global $avance;
+public function run(){
+	$bd = ConnectionFactory::getFactory()->getConnection();
+
 
 	//Je mets la date actuelle (sous la forme "année-mois-jour heure:minute:seconde" dans $i
 	$i=date("Y-m-j H:i:s");
 	
 	//Récupèration de toutes les entrées dans la table des messages non traitées avant la date i
-	$requete=$bd->prepare('SELECT * FROM messagebrute where date_entree<=\''.$i.'\'');
-	$requete->execute();
+	$requete=request($bd,'SELECT * FROM messagebrute where date_entree<=\''.$i.'\'');
+	
 	while($temp=$requete->fetch(PDO::FETCH_ASSOC))
 		//Traitement (analise et entrée dans la table des messages si ils sont conformes) les messages avant la date i
 		analyse($temp);
 	
 	//Tant que l'on ne demande pas l'arrêt (avec la fonction stop(), on prends le contenu de la table messageBrute par intervalle de temps 
-	while($avance){
+	while($this->avance){
 		//L'intervalle de temps entre $i et $j ($i<$j)
 		sleep(1);
 		$j=date("Y-m-j H:i:s");
-		$requete=$bd->prepare('SELECT * FROM messagebrute where date_entree>\''.$i.'\' and date_entree<=\''.$j.'\'');
-		$requete->execute();
+		$requete=request($bd,'SELECT * FROM messagebrute where date_entree>\''.$i.'\' and date_entree<=\''.$j.'\'');
+
 		while($temp=$requete->fetch(PDO::FETCH_ASSOC)){
 			analyse($temp);
 		}
@@ -36,57 +46,48 @@ function check(){
 }
 
 //Pour stopper la boucle de la fonction check
-function stop(){
-	global $avance;
-	$avance=false;
+public function stop(){
+	$this->avance=false;
 }
 
 //Analyse un tuple de la table messageBrute et le rajoute à la table Message si il est correcte
-function analyse($trame){
+public function analyse($trame){
 	 $bd = ConnectionFactory::getFactory()->getConnection();
-
-	$requete=$bd->prepare('SELECT * FROM question');
-	$requete->execute();
-	$nquest='';
-	
-	//On rassemble tous les numeros de question dans une chaîne de caractères 
-	while($temp=$requete->fetch(PDO::FETCH_ASSOC))
-		$nquest.=$temp['num_quest'];
-		
 	
 	//On vérifie que le numéro de télephone est bon et que le numero de la question est bon
-	if(preg_match('#^0[67][0-9]{8}$#',$trame['num_recu']) && preg_match('#^(['.$nquest.']{1}) *([a-zA-Z]+)$#',$trame['corps_mess'],$res)){
+	if(preg_match('#^0[67][0-9]{8}$#',$trame['num_recu']) && preg_match('#^(['.$this->question.']{1}) *([a-zA-Z]+)$#',$trame['corps_mess'],$res)){
 
-		$requete=$bd->prepare('SELECT * FROM reponse where num_question='.$res[1]);
-		$requete->execute();
+		$requete=request($bd,'SELECT * FROM reponse where num_question='.$res[1]);
+
 		$nrep='';
 		//On rassemble les numéros de réponse pour la question qui vient d'être vérifier
-		while($temp=$requete->fetch(PDO::FETCH_ASSOC))
+		while($temp=$requete->fetch(PDO::FETCH_ASSOC)){
 			$nrep.=$temp['num_rep'];
+		}
 
 		if(preg_match('#(['.$nrep.'])*#',$res[2])){
 			//On sépare les réponses données dans des cases de tableau (si l'utilisateur entre 2AB, on a [0]->'A',[1]->'B')
-			$ajout=str_split($res[2]);				
-				
+			$ajout=array_unique(str_split($res[2]));
+			
+			$mess='';
 			foreach($ajout as $value_rep){ 
 			//On vérifie que l'utilisateur n'a pas déjà rentré la valeur, et on la rentre
-				$testprec=$bd->prepare('SELECT * FROM message where num_user=\''.$trame['num_recu'].'\' and num_question='.$res[1].' and num_reponse=\''.$value_rep.'\'');
-				$testprec->execute();
-					
+				$testprec=request($bd,'SELECT * FROM message where num_user=\''.$trame['num_recu'].'\' and num_question='.$res[1].' and num_reponse=\''.$value_rep.'\'');
 				if(!$testprec->fetch(PDO::FETCH_ASSOC)){
-					$requete=$bd->prepare('insert into message values (DEFAULT,:num_user,:num_question,:num_reponse,NOW())');
-					$requete->bindValue(':num_user',$trame['num_recu']);
-					$requete->bindValue(':num_question',$res[1]);
-					$requete->bindValue(':num_reponse',$value_rep);
-					$requete->execute();
+					$mess=$mess.$value_rep;
 				}
-				$userverif=$bd->prepare('SELECT * FROM user where num_tel=\''.$trame['num_recu'].'\'');
-				$userverif->execute();
-				if(!$userverif->fetch(PDO::FETCH_ASSOC)){
-					$requete=$bd->prepare('insert into user values ('.$trame['num_recu'].')');
-					$requete->execute();
+			}
+			if($mess!=''){
+				$userverif=$this->users->getUser($trame['num_recu']); 				
+				if(!$userverif){
+					$userverif= new User($trame['num_recu']);
+					$this->users->addUser($trame['num_recu']);
 				}
+			
+				$answ=$userverif->messages();
+				$answ->addAnswer($res[1],$mess);
 			}
 		}
 	}
+}
 }?>
