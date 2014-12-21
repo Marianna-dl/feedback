@@ -11,7 +11,7 @@ class Event {
 	}
 
 	
-	function startEvent(){
+	public function startEvent(){
 		try {
     			echo "<script>alert('Début de l\'évènement')</script>"; 
     			return true;
@@ -23,7 +23,7 @@ class Event {
 	}
 
 	
-	function stopEvent(){
+	public function stopEvent(){
 		try {
   			$_SESSION=array();
     			session_destroy();
