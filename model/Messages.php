@@ -4,8 +4,6 @@ class Messages
 {	
 	private $db;// encore un lien vers la BDD pour eviter les "new PDO" a chaque fois
 
-	//private $pn; // on garde le telephone pour des requetes plus tard.
-	//private $list; // liste des réponse de l'utilisateur
 	public function __construct()
 	{	
         $this->db = ConnectionFactory::getFactory()->getConnection();
@@ -67,45 +65,5 @@ class Messages
 
 }
 
-/// classe réponse
-class Answer
-{
-	private $date; // date de la réponse
-	private $question; // numero de la question
-	private $reponses; // array des reponses sausies par l'utilisateur
-
-	///
-	/// Constructeur
-	///
-	public function __construct($array)
-	{	$this->date = $array[MessageColumns::date];
-		$this->question = $array[MessageColumns::question];
-		$this->reponses = str_split($array[MessageColumns::reponses]);
-	}
-
-	/// GETTER
-	public function date()
-	{ return $this->date;	}
-	public function question()
-	{ return $this->question;	}
-	public function compteurReponses()
-	{	return count($this->reponses);	}
-	public function reponses()
-	{ return $this->reponses;	}
-	public function reponse($i)
-	{	if( isset($this->reponses[$i]) )
-			return $this->reponses[$i];
-		return false;
-	}
-	///
-	/// ToString
-	///
-	public function ts()
-	{	$s = '<p>question '.$this->question .' : ';
-		foreach ($this->reponses as $k => $v) 
-		{	$s = $s . ' ' . $v;	}
-		return $s . ' ('. count($this->reponses) .')</p>';
-	}
-}
 
 ?>

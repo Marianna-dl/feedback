@@ -5,12 +5,10 @@ class Reponse {
 
 	public function __construct()
 	{	
-		$this->db = ConnectionFactory::getFactory()->getConnection();
-		
+		$this->db = ConnectionFactory::getFactory()->getConnection();	
 	}
 
 	public function ajouterReponse($numQ,$numR,$descrip,$point){
-
 		try {
 			$req=$this->db->prepare('INSERT INTO '. TableName::reponse.'('.ReponseColumns::numQ.','.ReponseColumns::numR.','.ReponseColumns::description.','.ReponseColumns::point.') VALUES (:numQ,:numR,:descrip,:point)');
 			$req->bindValue(':numQ',$numQ); 
@@ -22,10 +20,9 @@ class Reponse {
 		
 		catch (PDOException $e)
 		{	
-           		 die('Connexion échouée : ' . $e->getMessage());	
-        	}
-
-
+            header('HTTP/1.1 500 Internal Server Error : '.$e->getMessage() );
+            exit(0);
+        }
 	}
 
 	public function modifierReponse($numQ,$numR,$descrip,$point){
@@ -36,13 +33,11 @@ class Reponse {
 			$req->bindValue(':descrip',$descrip);
 			$req->bindValue(':point',$point);
 			$req->execute();
-			}
+        }
 		catch (PDOException $e)
 		{	
-           		 die('Connexion échouée : ' . $e->getMessage());	
-        	}
-
-
+           	die('Connexion échouée : ' . $e->getMessage());	
+        }
 	}
 
 	public function supprimerReponse($numQ,$numR){
@@ -55,10 +50,8 @@ class Reponse {
 
 		catch (PDOException $e)
 		{	
-           		 die('Connexion échouée : ' . $e->getMessage());	
-        	}
-
-
+           	 die('Connexion échouée : ' . $e->getMessage());	
+        }
 	}
 
 	public function seeReponse($numQ){
@@ -66,15 +59,14 @@ class Reponse {
 			$req=$this->db->prepare('SELECT * FROM'. TableName::reponse.'WHERE'.ReponseColumns::numQ.'=:numQ');
 			$req->bindValue(':numQ',$numQ); 
 			$req->execute();
-			
 			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 
-			echo json_encode($tab);
-			}
+			return $tab;
+        }
 
 		catch (PDOException $e)
 		{	
-           		 die('Connexion échouée : ' . $e->getMessage());	
-        	}
+           	 die('Connexion échouée : ' . $e->getMessage());	
+        }
 	}
 
 	public function getListeReponses(){
@@ -84,14 +76,13 @@ class Reponse {
             $req->execute();	
 			$tab=$req->fetchAll(PDO::FETCH_OBJ); 
 			return $tab;
-			}
+        }
 
 		catch (PDOException $e)
 		{	
-           		 die('Connexion échouée : ' . $e->getMessage());	
-        	}
+           	 die('Connexion échouée : ' . $e->getMessage());	
+        }
 	}
-
 }
 
 ?>
