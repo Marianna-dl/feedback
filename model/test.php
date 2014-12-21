@@ -144,7 +144,24 @@ function getStateEvent(){
     }
 
 }
-
+       /*   $http.get("./model/testsClassUsers.php/users").success(function(data){
+                 
+            $scope.users=data;
+              console.log(JSON.stringify($scope.users));
+           })
+         .error(function(){
+              console.log(data);
+          })*/
+          
+         /*   $http.get("./model/testsClassUsers.php/getMessages/"+"0646763234").success(function(data){
+                 
+            //$scope.users=data;
+              console.log(data[0].num_reponse);
+           })
+         .error(function(){
+              console.log(data);
+          })*/
+            
 
 $app->run();
 

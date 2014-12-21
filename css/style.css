@@ -134,19 +134,19 @@ form{
 
 
 /*------ LISTE QUESTION REPONSE ------*/
-.new-event table{
+table{
     margin-top:15px;
     border: 1px solid rgb(221,221,221);
 
 }
-.new-event .num{
+.num{
     width: 10%;
 }
-.new-event .small-cell{
+.small-cell{
     width: 30%;
 }
 
-.new-event .liste{
+.liste{
     height:400px;
     overflow:auto;
     
@@ -160,7 +160,7 @@ form{
   background-color: rgba(220,204,182,0.3);
 }
 
-.new-event .table td
+.table td
 
 {
     vertical-align: middle;

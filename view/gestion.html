@@ -50,9 +50,9 @@
         </div>
     </div>
 
-    <div class="col-md-10 col-md-offset-1 liste">
+    <div class="col-md-8 col-md-offset-2 liste">
         <table class="table">
-            <tr><th class="num">Numero Tel</th><th class="small-cell">Question</th><th class="small-cell">Réponses</th></tr>       
-             <tr><td></td><td></td><td></td></tr>
+            <tr><th >Numero Tel</th><th>Question</th><th >Réponses</th></tr>       
+             <tr ng-repeat="item in listeReponseParticipants" ng-class-odd="'odd'" ng-class-even="'even'"><td>{{item.num_user}}</td><td>{{item.num_question}}</td><td>{{item.num_reponse}}</td></tr>
         </table>
     </div>

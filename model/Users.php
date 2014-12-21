@@ -1,4 +1,16 @@
 <?php
+<<<<<<< HEAD
+///
+/// Classe qui va contenir toutes les méthodes pour la classe user.
+///
+class Users 
+{	// on garde la BDD en parametre pour eviter de faire une "new PDO" a chaque fois
+	private $db;
+	// constructeur
+	public function __construct()
+	{
+        $this->db = ConnectionFactory::getFactory()->getConnection();
+=======
 
 /// les classes abstraites ne sont pas nécéssaire, mais sont plus pratique si on veut modifier
 /// les noms des bases de données ou des tables. il suffit juste de modifier le nom dans les
@@ -80,10 +92,19 @@ class Users
 		catch (PDOException $e)
 		{	echo 'Connexion échouée : ' . $e->getMessage();	}
 	}
+>>>>>>> c62c75a0bf90034869c10eca17855389aa725ac9
 
-	// on ajoute un utilsateur a la BDD
+	}
+    
+	// Ajoute un utilsateur a la BDD
 	public function addUser($phone)
 	{	try
+<<<<<<< HEAD
+		{	$sql_query = 'INSERT INTO '.TableName::users.' ('.UserColumns::phoneNumber.') VALUES (:tel)';
+            $req = $this->db->prepare($sql_query );
+            $req->bindValue(":tel", $phone);
+            $req->execute();
+=======
 		{	$req = 'INSERT INTO '. TableName::users .' ('.UserColumns::phoneNumber.') VALUES (\''.$phone.'\')';
 			$res = request($this->db, $req);
 			$this->update(); // methode instancié plus bas. Elle est importante pour remettre à jour la classe depuis la BDD
@@ -155,19 +176,63 @@ class UserAnswers
 
 			while($data = $res->fetch(PDO::FETCH_ASSOC)) // on while-fetch pour creer toute les instances de réponses
 				$this->list[] = new Answer($data); // $data contient les données de réponses
+>>>>>>> c62c75a0bf90034869c10eca17855389aa725ac9
 		}
 		catch (PDOException $e)
-		{	echo 'Connexion échouée : ' . $e->getMessage();	}
+		{	
+            die('Connexion échouée : ' . $e->getMessage());	
+        }
 	}
-
-	/// getter qui retourne l'array des reponses [array('A', 'C') si user a repondu 'AC' à la question] à la question demandé, false si il n'a pas  repondu
-	public function answerToQuestion($questionNumber)
-	{	foreach ($this->list as $key => $answer) 
-		{	if($answer->question() == $questionNumber)
-				return $answer->reponses();
+    
+    //Retourne la liste des utilisateurs
+    public function getUsers()
+    {	
+        try {
+            $sql_query = 'SELECT * FROM '.TableName::users;
+            $req = $this->db->prepare($sql_query);
+            $req->execute();
+            $users  = $req->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(PDOException $e) {
+             die('Erreur: '. $e->getMessage());
+        } 
+        return $users;
+	}
+<<<<<<< HEAD
+    
+    public function getNombreUsers(){
+        
+        try
+		{	$sql_query = 'SELECT COUNT(*) FROM '.TableName::users;
+            $req = $this->db->prepare($sql_query);
+            $req->execute();
+            $nbUsers=$req->fetchAll(PDO::FETCH_OBJ);
 		}
-		return false;
-	}
+		catch (PDOException $e)
+		{	
+            die('Connexion échouée : ' . $e->getMessage());	
+        }    
+        
+        return nbUsers;
+    }
+
+    //Récupère les messages d'un User
+    public function getMessagesByUser($tel){     
+        try{
+            $sql_query ='SELECT * FROM '.TableName::messages.'WHERE '.MessageColumns::num_user.'= :tel'; 
+            $req=$this->db->prepare($sql_query);
+            $req->bindValue(":tel", $tel);
+            $req->execute();
+            $userMessages=$req->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(PDOException $e){
+              die('Erreur: '. $e->getMessage());       
+        }
+           return $userMessages; 
+    }
+}
+
+=======
 
 	// ajoute une réponse à la question donné
 	public function addAnswer($questionNumber, $reponses)
@@ -259,5 +324,6 @@ class Answer
 		return false;
 	}
 }
+>>>>>>> c62c75a0bf90034869c10eca17855389aa725ac9
 
 ?>
