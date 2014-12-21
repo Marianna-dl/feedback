@@ -4,10 +4,12 @@ require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-require_once("../model/ClassUsers.php");
+require_once("../model/Users.php");
+require_once("../model/Question.php");
+require_once("../model/Reponse.php");
 require_once("../model/Evenement.php");
 require_once("../model/Messages.php");
-require_once("../model/connexion.php");
+require_once("../model/Connexion.php");
 require_once("../model/ClassesAbstraites.php");
 
 
@@ -46,40 +48,10 @@ $app->get('/stopper', function() use ($event){
 });
 
 
-    $app->run();
-    //echo json_encode($users->getUser("0646763234"));
-
-    //echo $users;
-    /*afficherRepUSer($users, '0646763234', 1);
-    add($users, '0646763234', 1, 'AC');
-    afficherRepUSer($users, '0646763234', 1);
 
 
-    // affiche en HTML la liste des réponses d'un utilisateur a la question demandé
-    function afficherRepUSer($users, $user, $question)
-    {
-        $userp = $users->getUSer($user);
-        if($userp!=false) // si pas faux, alors le user existe
-        {
-            $mess = $userp->messages();
-            $reps = $mess->answerToQuestion($question);
-            echo '<p>['.$user.'] '.$question.' : ';
-            if($reps!=false) // si pas faux, alors il a repondu à la question
-                foreach($reps as $key => $rep) 
-                    echo $rep . ' ';
 
-            else echo 'Aucune réponse donné à cette question';
-            echo '</p>';
-        }
-        echo '<p>['.$user.'] n\'existe pas sur la BDD</p>';
+$app->run();
 
-    }
 
-    // ajoute/update une réponse de l'utilisateur à une question.
-    function add($users, $user, $q, $a)
-    {
-        $messages = $users->getUSer($user)->messages();
-        $messages->addAnswer($q, $a);
-    }*/
-
-    ?>
+?>
