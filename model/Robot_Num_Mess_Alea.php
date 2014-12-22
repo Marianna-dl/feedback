@@ -78,7 +78,7 @@ class RobotThread extends Thread {
 	}
 	
  
-	public function run(){
+	public function insererMes(){
 		$bd = ConnectionFactory::getFactory()->getConnection();
 		
 		$num = $this->genererNum(); // Genere un numero
@@ -131,6 +131,6 @@ class RobotThread extends Thread {
 <?php
 //Partie TEST
 $robot= new RobotThread();
-$robot->run();
+$robot->insererMes();
 	
 ?>
