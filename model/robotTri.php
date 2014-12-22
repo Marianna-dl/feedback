@@ -90,4 +90,6 @@ public function analyse($trame){
 		}
 	}
 }
-}?>
+}
+
+?>
