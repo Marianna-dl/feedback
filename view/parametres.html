@@ -1,10 +1,164 @@
 <div class="row">
     <div class="col-md-12">
         <h3>{{title}}</h3>
-        <div class="col-md-4 col-md-offset-4">      
+        <div class="col-md-4 col-md-offset-4">
             <hr/>
         </div>
     </div>
 </div>
+<html>
+<body>
+<script src="./js/color/jscolor.js"></script>
+<div class="col-md-12 titre-liste">
+    <h3>Questions</h3>
+        <div class="col-md-4 col-md-offset-4">
+            <hr/>
+        </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <form>
+        <select name="police" size="1">
+            <option style="font-family:Arial;">Arial
+            <option style="font-family:Comic;">Comic
+            <option style="font-family:Courier New;">Courier New
+            <option style="font-family:Helvetica;">Helvetica
+            <option style="font-family:Raleway;">Raleway
+            <option style="font-family:Times New Roman;">Times New Roman
+        </select>
+        </form>
+    </div>
 
-<p style={{style}}>hello</p>
+    <div class="col-md-3">
+        <form>
+        <select name="effet" size="1">
+            <option style="font-style:normal;">Normal
+            <option style="font-style:italic;">Italique
+            <option style="font-weight:bold;">Gras
+            <option style="text-decoration:underline;">Souligné
+        </select>
+        </form>
+    </div>
+
+    <div class="col-md-3">
+        <form>
+        <select name="taille" size="1">
+            <option style="font-size:10px;">10px
+            <option style="font-size:12px;">12px
+            <option style="font-size:14px;">14px
+            <option style="font-size:16px;">16px
+            <option style="font-size:18px;">18px
+        </select>
+        </form>
+    </div>
+
+    <div class="col-md-3">
+        <p>Couleur<input class="color"/></p>
+    </div> 
+</div>
+
+<div class="col-md-12 titre-liste">
+    <h3>Réponses</h3>
+        <div class="col-md-4 col-md-offset-4">
+            <hr/>
+        </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <form>
+        <select name="police" size="1">
+            <option style="font-family:Arial;">Arial
+            <option style="font-family:Comic;">Comic
+            <option style="font-family:Courier New;">Courier New
+            <option style="font-family:Helvetica;">Helvetica
+            <option style="font-family:Raleway;">Raleway
+            <option style="font-family:Times New Roman;">Times New Roman
+        </select>
+        </form>
+    </div>
+
+    <div class="col-md-3">
+        <form>
+        <select name="taille" size="1">
+            <option style="font-size:10px;">10px
+            <option style="font-size:12px;">12px
+            <option style="font-size:14px;">14px
+            <option style="font-size:16px;">16px
+            <option style="font-size:18px;">18px
+        </select>
+        </form>
+    </div>
+
+    <div class="col-md-3">
+        <p>Bonne réponse<input class="color {hash:true}"></p>
+    </div>
+    <div class="col-md-3">
+        <p>Mauvaise réponse<input class="color {hash:true}"></p>
+    </div>
+
+
+</div>
+
+<div class="col-md-12 titre-liste">
+    <h3>Modifier les Couleurs</h3>
+        <div class="col-md-4 col-md-offset-4">
+            <hr/>
+        </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-6">
+        <p>Primaire <input class="color {hash:true}"></p>
+    </div>
+    <div class="col-md-6">
+        <p>Secondaire <input class="color {hash:true}"></p>
+    </div>
+</div>
+<br/>
+
+<div class="col-md-12 titre-liste">
+    <h3>Ajouter des Images</h3>
+        <div class="col-md-4 col-md-offset-4">
+            <hr/>
+        </div>
+</div>
+<div class="col-md-12" ng-app="app">
+    <div class="col-md-6" ng-controller="AppController">
+        <p>Image de fond
+        <input type="file" nv-file-select uploader="uploader"/><br/>
+        <ul>
+            <li ng-repeat="item in uploader.queue">
+                <Name: <span ng-bind="item.file.name"></span><br/>
+                <button ng-click="item.upload()">upload</button>
+            </li>
+        </ul>
+        </p>
+    </div>
+    <div class="col-md-6" ng-controller="AppController">
+        <p>Logo
+        <input type="file" nv-file-select uploader="uploader"/><br/>
+        <ul>
+            <li ng-repeat="item in uploader.queue">
+                <Name: <span ng-bind="item.file.name"></span><br/>
+                <button ng-click="item.upload()">upload</button>
+            </li>
+        </ul>
+        </p>
+    </div>
+</div>
+<!--
+<div class="col-md-12 titre-liste">
+    <h4>Choisir un thème prédéfini</h5>
+        <div class="col-md-4 col-md-offset-4">
+            <hr/>
+        </div>
+</div>
+<div style="text-align:center;">
+    <form>Thème
+    <select name="theme" size="1">
+        <option>default
+    </select>
+    </form>
+</div>-->
+
+</body>
+</html>
