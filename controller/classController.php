@@ -11,7 +11,7 @@ require_once("../model/Evenement.php");
 require_once("../model/Messages.php");
 require_once("../model/Connexion.php");
 require_once("../model/ClassesAbstraites.php");
-require_once("../model/RobotGenereDB.php");
+
 
 
 $users=new Users();
@@ -86,17 +86,6 @@ $app->get('/lancer', function() use ($event){
 $app->get('/stopper', function() use ($event){
     echo json_encode($event->stopEvent());
 });
-
-/************ THREADS  *********************/
-$app->get('/startRobotGenere', function(){
-	$robot= new RobotThread();
-	$num = $robot->genererNum();
-	$rep=$robot->genererRep();
-	$robot->insererMes($num,$rep);
-    echo $num;
-});
-
-
 
 
 $app->run();

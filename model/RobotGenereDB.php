@@ -1,58 +1,54 @@
 <?php
-require('connexion.php'); // Fichier a creer pour votre propre bdd
-?>
-
-
-
-<?php
 // MODIF EN COURS : ROBOT SOUS FORME THREAD
-class RobotThread extends Thread {
+require("Connexion.php");
+class RobotGenereDB extends Thread {
 	private $num;
 	private $rep;
     private $pause;
+    private $stop;
 	
 	public function __construct(){
 		$this->num = "";
 		$this->rep = "";
         $this->pause=true;
+        $this->stop=false;
 	}
 	
     
     public function run(){
-                    echo 'ok1';
-        
-
-        $this->synchronized(function($robot){
-            while(!$robot->pause){   
-                $num =$robot->genererNum();
-	            $rep=$robot->genererRep();
-	            $robot->insererMes($num,$rep); 
-                sleep(2);
+        while (!$this->stop){
+        $this->synchronized(function($thread){
+            if($this->pause){
+               $thread->wait(); 
             }
         }, $this);
-     
-       /* while(!$this->pause){
-            $num =$this->genererNum();
-	       $rep=$this->genererRep();
-	       $this->insererMes($num,$rep);   
-            echo 'ok';
-        sleep(2);
-        }*/
+            while(!$this->pause){      
+	            $this->insererMes(); 
+                sleep(2);             
+            }
+        }
+
     }
-    
+     
     public function unpause(){
   
-        $this->synchronized(function($robot){
-            echo 'ok2';
-            $robot->pause=false;
-            $robot->notify();
+        $this->synchronized(function($thread){
+            $thread->pause=false;
+            $thread->notify();
         }, $this);  
     }
     
-    public function pause(){
-        $this->pause=true;
+  public function pause() {
+        $this->synchronized(function($thread){
+            $thread->pause= true;
+        }, $this);
     }
-    
+       public function stopper() {
+        $this->synchronized(function($thread){
+            $thread->pause = false;
+            $thread->stop = true;
+        }, $this);
+    }
 	public function genererNum(){
 		// Fonction qui genere un numero de portable aleatoirement
 		
@@ -146,10 +142,6 @@ class RobotThread extends Thread {
 				$req->bindValue(':num', $num);
 				$req->bindValue(':mes', $mes);
 				$req->execute();
-					
-				echo 'Numero : '.$num ;
-				echo '<br/> Reponse envoye : '.$mes ;
-				echo '<br/> Message inserer';
 			}
 			else{
 				echo '<br/> Doublon message';
@@ -162,18 +154,13 @@ class RobotThread extends Thread {
 		
 	}
  } 
- ?>
 
-
-<?php
-//Partie TEST
-/*	$robot= new RobotThread();
+    $robot = new RobotGenereDB();
     $robot->start();
     $robot->unpause();
-    sleep(5);
-    $robot->pause();
-    sleep(5);
+    sleep(3);
+    $robot->pause();  
+    sleep(3);
     $robot->unpause();
-    sleep(5);
-    $robot->pause();*/
-?>
+    $robot->stopper(); 
+ ?>

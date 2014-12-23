@@ -63,7 +63,7 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         };
   
         $scope.stopper=function(){
-            $scope.stopperRobot();
+           // $scope.stopperRobot();
             $http.get("controller/classController.php/stopper").success(function(data){
                 $scope.start=true;
                 $scope.stop=false; 
@@ -75,17 +75,24 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
             })
         };
     
-    $scope.lancerRobot=function(){
-        console.log('lancer stop');
-    
-    
+ /*   $scope.lancerRobot=function(){
+        console.log('ok');
+            $http.post("controller/threadController.php/startRobotGenere",{etat:true}).success(function(data){
+                console.log(data);
+            })
+            .error(function(){
+                   console.log('erreur lancer robot');         
+            })
     };
     
     $scope.stopperRobot=function(){
-        console.log('stop robot');
-    
-    
-    };
+            $http.post("controller/threadController.php/startRobotGenere",{etat:false}).success(function(data){
+                console.log(data);
+            })
+            .error(function(){
+                   console.log('erreur stop robot');         
+            })
+    };*/
     
 
 
