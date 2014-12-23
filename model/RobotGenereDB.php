@@ -9,12 +9,50 @@ require('connexion.php'); // Fichier a creer pour votre propre bdd
 class RobotThread extends Thread {
 	private $num;
 	private $rep;
+    private $pause;
 	
 	public function __construct(){
 		$this->num = "";
 		$this->rep = "";
+        $this->pause=true;
 	}
 	
+    
+    public function run(){
+                    echo 'ok1';
+        
+
+        $this->synchronized(function($robot){
+            while(!$robot->pause){   
+                $num =$robot->genererNum();
+	            $rep=$robot->genererRep();
+	            $robot->insererMes($num,$rep); 
+                sleep(2);
+            }
+        }, $this);
+     
+       /* while(!$this->pause){
+            $num =$this->genererNum();
+	       $rep=$this->genererRep();
+	       $this->insererMes($num,$rep);   
+            echo 'ok';
+        sleep(2);
+        }*/
+    }
+    
+    public function unpause(){
+  
+        $this->synchronized(function($robot){
+            echo 'ok2';
+            $robot->pause=false;
+            $robot->notify();
+        }, $this);  
+    }
+    
+    public function pause(){
+        $this->pause=true;
+    }
+    
 	public function genererNum(){
 		// Fonction qui genere un numero de portable aleatoirement
 		
@@ -78,7 +116,7 @@ class RobotThread extends Thread {
 	}
 	
  
-	public function insererMes(){
+	function insererMes(){
 		$bd = ConnectionFactory::getFactory()->getConnection();
 		
 		$num = $this->genererNum(); // Genere un numero
@@ -121,16 +159,21 @@ class RobotThread extends Thread {
 		catch(PDOException $e){
 			die('<p>Erreur['.$e->getCode().'] : '.$e->getMessage().'</p>');
 		}
-	}
 		
-}
-
+	}
+ } 
  ?>
 
 
 <?php
 //Partie TEST
-$robot= new RobotThread();
-$robot->insererMes();
-	
+/*	$robot= new RobotThread();
+    $robot->start();
+    $robot->unpause();
+    sleep(5);
+    $robot->pause();
+    sleep(5);
+    $robot->unpause();
+    sleep(5);
+    $robot->pause();*/
 ?>
