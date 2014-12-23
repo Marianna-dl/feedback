@@ -25,8 +25,7 @@
 
 	});
 
-angular
-    .module('app', ['angularFileUpload'])
-    .controller('AppController', function($scope, FileUploader) {
+
+    angular.module('feedbackApp').controller('imageController', function($scope, FileUploader) {
         $scope.uploader = new FileUploader();
     });

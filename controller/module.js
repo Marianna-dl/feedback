@@ -1,7 +1,7 @@
 /************** ANGULAR JS ***********************/
 
 //on déclare l'application et les services qu'on av utiliser
-var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize']); 
+var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize','angularFileUpload']); 
 
 
 	//On créer les directions du menu (route) 
