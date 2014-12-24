@@ -8,14 +8,14 @@
 </div>
 <html>
 <body>
-<script src="./js/jscolor/jscolor.js"></script>
+	<p style={{styleBody}}>test</p>
+<script src="../js/jscolor/jscolor.js"></script>
 <div class="col-md-12 titre-liste">
     <h3>Questions</h3>
         <div class="col-md-4 col-md-offset-4">
             <hr/>
         </div>
 </div>
-
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
     <form >
@@ -47,16 +47,15 @@
             <option style="font-size:16px;">16px</option>
             <option style="font-size:18px;">18px</option>
         </select>
-        </div>
+    </div>
     <div class="col-md-3">
-        <input  placeholder="Couleur..." class="color form-control"/>
+		<input  placeholder="Couleur..." class="color form-control"/>
     </div> 
         </form>
     </div>
 
 
     
-</div>
 </div>
 <div class="col-md-12 titre-liste">
     <h3>Réponses</h3>
@@ -127,13 +126,16 @@
     <div class="col-md-6" >
         <p>Image de fond
         <input type="file" nv-file-select uploader="uploader"/><br/>
-        <ul>
-            <li ng-repeat="item in uploader.queue">
-                <Name: <span ng-bind="item.file.name"></span><br/>
+        <div>
+            <div ng-repeat="item in uploader.queue">
+                <!--<Name: <span ng-bind="item.file.name"></span><br/>-->
                <button ng-click="item.upload()">upload</button>
-            </li>
-        </ul>
-        </p>
+            </div>
+			<div ng-if="controller.isImage(item._file)">
+                        <div ng-thumb="{ file: item._file, height: 100 }"></div>
+            </div>
+        </div>
+        
     </div>
     <!--<div class="col-md-6">
         <p>Logo
@@ -161,6 +163,5 @@
     </select>
     </form>
 </div>-->
-
 </body>
 </html>
