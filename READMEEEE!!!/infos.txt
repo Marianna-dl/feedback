@@ -1,5 +1,36 @@
 Message  édité par Jérémy le 13/12.
 
+
+ATTENTION! Pour faire fonctionner les threads en php, il faut que vous installiez l'extension pthread dans wamp.
+C'est plus compliqué sous Linux il me semble, je n'ai pas regarder comment on faisait.
+La page où dl l'extension : http://php.net/manual/fr/pthreads.installation.php
+---> Il faut regarder votre version de php dans wamp d'abord: (clique gauche sur l'icone/PHP/version)
+Ex: je suis en 5.5.12.
+---> J'ai cliquer sur ce lien : http://windows.php.net/downloads/pecl/releases/pthreads/
+---> J'ai cliquer sur la version 2.0.9 (c'est un exemple)
+---> J'ai pris le 2.0.9-5.5-ts...x64.zip : 5.5 car c'est ma version php, x64 car je suis en 64 bits ^^" donc x86 si vous êtes en 32 bits
+
+===> Ensuite suivez le tuto d'extraction (cf premier lien) et copiez les fichiers où il faut.
+===> Modifier le fichier de config comme il le dise dans le point 4 (C:\wamp\bin\php\php.ini) 
+MAIS il faut aussi modifier le php.ini dans C:\wamp\bin\apache\apache2.4.9\bin (sinon ça ne marchait pas pour moi)
+----> N'oubliez pas de restart wamp.
+
+
+
+Robin/Glodie: Pour le moment on garde les threads (mais j'ai galéré à les manipuler, je suis obliger de le kill et restart toutes les x secondes u_u)
+Et je ne trouve pas ça très pratique finalement qu'on doive installer l'extension etc...
+Il y a possibilité de faire tourner des background process en php avec "exec(...);" et kill(pid) pour linux et taskkill pour windows.
+A terme, il serait intéressant de faire une version avec ça (exec étant inclu de base dans php). 
+Il faudrait:
+-Determiner sous quel os on est (var_dump(PHP_OS) ou autre)
+-utiliser exec("php-cli  somescript.php", $pid): le pid du process se mettra dans $pid à ce que j'ai compris
+-Proposer une fonction kill($pid) selon l'OS où on est 
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
 Vous devez mettre à jour la BDD, mon code ne fonctionera pas autrement! le nom du fichier est feedback.sql
 
 Bon voila j'ai enfin envoyé mon code que vous attendiez tant ! Mais quelques petites infos avant.
