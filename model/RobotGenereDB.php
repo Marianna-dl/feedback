@@ -6,15 +6,22 @@ class RobotGenereDB extends Thread {
 	private $rep;
     private $pause;
     private $stop;
+    private $nom;
 	
 	public function __construct(){
 		$this->num = "";
 		$this->rep = "";
         $this->pause=true;
         $this->stop=false;
+        $this->nom="default";
 	}
 	
-    
+    public function getNom(){
+        echo $this->nom;
+    }
+    public function setNom($n){
+        $this->nom=$n;
+    }
     public function run(){
         while (!$this->stop){
         $this->synchronized(function($thread){
@@ -22,12 +29,9 @@ class RobotGenereDB extends Thread {
                $thread->wait(); 
             }
         }, $this);
-            while(!$this->pause){      
-	            $this->insererMes(); 
+	           $this->insererMes(); 
                 sleep(2);             
-            }
         }
-
     }
      
     public function unpause(){
@@ -155,12 +159,13 @@ class RobotGenereDB extends Thread {
 	}
  } 
 
-    $robot = new RobotGenereDB();
+
+  /*  $robot = new RobotGenereDB();
     $robot->start();
     $robot->unpause();
     sleep(3);
     $robot->pause();  
     sleep(3);
     $robot->unpause();
-    $robot->stopper(); 
+    $robot->stopper(); */
  ?>

@@ -5,31 +5,22 @@ $app = new \Slim\Slim();
 
 
 require_once("../model/RobotGenereDB.php");
-require_once("../model/Connexion.php");
+//require_once("../model/Connexion.php");
 
 
-
-
+$app->get('/startRobot', function() {
     $robot = new RobotGenereDB();
     $robot->start();
-   
-$app->get('/stop', function() use ($robot){
     $robot->unpause();
-    sleep(3);
-    $robot->pause();  
-    sleep(3);
-    $robot->stopper(); 
-
-});
-$app->get('/start', function() use ($robot) {
-
-    $robot->unpause();
-    sleep(3);
-    $robot->pause();  
-    sleep(3);
-    $robot->stopper(); 
+    sleep(5);
+    $robot->stopper();
+    $robot->join();
     
+
 });
+
+
+
 
 
 

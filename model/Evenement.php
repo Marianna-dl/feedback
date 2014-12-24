@@ -9,7 +9,6 @@ class Evenement{
         $this->db = ConnectionFactory::getFactory()->getConnection();
 	}
 
-    
     function startEvent(){
         $_SESSION['alive']=true;
         return $_SESSION['alive'];

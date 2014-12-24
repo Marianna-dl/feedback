@@ -12,14 +12,30 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         $http.get("controller/classController.php/etatEvent").success(function(data){
          $scope.stop=angular.fromJson(data);
         $scope.start=!angular.fromJson(data);
+        $scope.robotDB=angular.fromJson(data);
     })
     .error(function() {
         console.log('erreur');
     })  
+        
+    if ($scope.robotDB==false){
+        $scope.resultMessage = "Simulation activée";
+        $scope.result='alert alert-success';         
+    }
+    else{
+        $scope.resultMessage = "Simulation désactivée";
+        $scope.result='alert alert-danger';    
+    }      
+        
+    
+        
+        
 
-    if(angular.isDefined( $scope.timer)){
+    if(angular.isDefined( $scope.timer) && angular.isDefined( $scope.timerRobot)){
         $interval.cancel( $scope.timer);  
-        $scope.timer=undefined;          
+        $scope.timer=undefined;     
+            $interval.cancel( $scope.timerRobot);  
+        $scope.timerRobot=undefined;       
     }
 
     $scope.$watch('start', function() {
@@ -48,11 +64,34 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         }
     
     });
+    
+        $scope.$watch('robotDB', function() {
+        if ($scope.robotDB==true){
+               $scope.timerRobot=$interval(function(){ 
+                            console.log('interval');
+            $http.get("controller/threadController.php/startRobot").success(function(data){
+                })
+                .error(function(){
+                   console.log('erreur lancer robot');         
+            })    
+                 
+            },6000); 
+        }
+        else{ 
+            console.log("else "+ $scope.robotDB);
+          $scope.$on('$destroy', function () { $interval.cancel($scope.timerRobot); });
+            $interval.cancel( $scope.timerRobot);  
+            $scope.timerRobot=undefined;
+
+        }
+    
+    });
+    
+    
+    
          
         $scope.lancer=function(){ 
         $http.get("controller/classController.php/lancer").success(function(data){
-            //$scope.timer=$interval(function(){ console.log("ok")},2000);
-            //$http.get("./model/test.php/check",{timeout:$scope.stop});
             $scope.start=false;
             $scope.stop=true;                                                                  
         })
@@ -63,36 +102,28 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         };
   
         $scope.stopper=function(){
-           // $scope.stopperRobot();
             $http.get("controller/classController.php/stopper").success(function(data){
                 $scope.start=true;
                 $scope.stop=false; 
-               /*$interval.cancel($scope.timer);  
-            $scope.timer=undefined;*/
         })
             .error(function() {
                 console.log('erreur');
             })
         };
     
- /*   $scope.lancerRobot=function(){
-        console.log('ok');
-            $http.post("controller/threadController.php/startRobotGenere",{etat:true}).success(function(data){
-                console.log(data);
-            })
-            .error(function(){
-                   console.log('erreur lancer robot');         
-            })
-    };
     
-    $scope.stopperRobot=function(){
-            $http.post("controller/threadController.php/startRobotGenere",{etat:false}).success(function(data){
-                console.log(data);
-            })
-            .error(function(){
-                   console.log('erreur stop robot');         
-            })
-    };*/
+    $scope.lancerRobot=function(){
+        if ($scope.robotDB==false){
+            $scope.robotDB=true;
+             $scope.resultMessage = "Simulation activée";
+            $scope.result='alert alert-success';         
+        }
+        else{
+            $scope.robotDB=false;
+             $scope.resultMessage = "Simulation désactivée";
+            $scope.result='alert alert-danger';    
+        }
+    };
     
 
 
