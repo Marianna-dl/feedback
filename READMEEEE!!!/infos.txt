@@ -15,6 +15,11 @@ Les threads en php n'ont pas l'air hyper au point, surtout qu'on en fait une uti
 Si tu trouve une solution... en attendant je vais pas pouvoir faire grand chose de ce côté :/
 
 PS: j'ai renommé ta classe et le nom de fichier RobotTri et j'ai mis toutes tes fonctions dans le thread, je crois qu'il y avait une } en trop
+
+Edit: Il y a une possibilité "UML" c'est d'associer RobotTri a évènement. Du coup, on aura un objet évènement dans RobotTri et 
+juste avant la fin du run, il pourrait appeler une fonction de la classe Evenement du genre event->lastMsgBrute($id) qui se chargerait
+de stocker le dernier id de messageBrute dans $_SESSION['lastMsgBrute'] et au début de ton run tu ferais un event->getLastMsgBrute() qui te retournerait ce qu'il y a de stocké dans 
+$_SESSION['lastMsgBrute'] comme ça le thread ne le manipule pas directement et en même temps on ne reparcourt pas toute la base. A voir si ça marche!
 --------------------------------------------------------------------------------------------------------------------
 
  Marianna Le 24/12: 
