@@ -1,9 +1,9 @@
 <?php
 
 	require("connexion.php");
-	require_once("classUsers.php");
+	require_once("Users.php");
 
-class triThread extends Thread {
+class RobotTri extends Thread {
 	private $avance;
 	private $question;
 	private $users;
@@ -16,6 +16,10 @@ public function __construct($quest,$list){
 
 //Va chercher le contenu de la table messageBrute et le fait analyser (et ajouter si correct)
 public function run(){
+  // 	while($this->avance){
+    
+    //    echo "working";
+    //}
 	$bd = ConnectionFactory::getFactory()->getConnection();
 
 
@@ -46,10 +50,11 @@ public function run(){
 }
 
 //Pour stopper la boucle de la fonction check
-public function stop(){
-	$this->avance=false;
+public function stopper() {
+    $this->synchronized(function($thread){
+	   $thread->avance=false;
+    }, $this);
 }
-
 //Analyse un tuple de la table messageBrute et le rajoute à la table Message si il est correcte
 public function analyse($trame){
 	 $bd = ConnectionFactory::getFactory()->getConnection();
@@ -89,7 +94,11 @@ public function analyse($trame){
 			}
 		}
 	}
+    }
 }
-}
-
+   /* $robot = new RobotTri();
+    $robot->start();
+    sleep(2);
+    $robot->stopper();
+    $robot->join();*/
 ?>

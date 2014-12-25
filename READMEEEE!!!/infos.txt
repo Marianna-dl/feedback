@@ -1,6 +1,24 @@
-Message  édité par Jérémy le 13/12.
+Marianna le 25/12
 
+JOYEUX NOEL A TOUS! :-)
 
+Robin: ton thread de tri doit se faire tout seul donc constructeur sans paramètres, moi je peux rien lui passer.
+Je vais juste l'appeler toutes les x secondes  (pas le choix car j'ai un pb de contrôle des threads via les routes Slim -> peu importe ce que je fais,
+il me recréer plusieurs instances d'un même thread donc impossible d'arrêter le 1er thread par exemple et j'ai essayé moultes solutions pendant 2 jours! ^^)
+Problème: ton script va se remettre à 0 à chaque appel que je fais ... du coup je sais pas si ça va être cohérent pour récupérer les lignes avec les dates
+Je ne sais pas trop comment faire...car mon appel va forcément le faire re-parcourir la table messageBrute du début u_u
+Je crois que les threads n'acceptent pas $_SESSION[], sinon on pourrais stocker la ligne où tu t'es arrêté et tu la récupérerais.
+
+Autrement il faudra voir avec la solution d'en dessous (exec() etc..)
+Les threads en php n'ont pas l'air hyper au point, surtout qu'on en fait une utilisation particulière à la JAVA mais ça colle pas trop :/
+
+Si tu trouve une solution... en attendant je vais pas pouvoir faire grand chose de ce côté :/
+
+PS: j'ai renommé ta classe et le nom de fichier RobotTri et j'ai mis toutes tes fonctions dans le thread, je crois qu'il y avait une } en trop
+--------------------------------------------------------------------------------------------------------------------
+
+ Marianna Le 24/12: 
+ 
 ATTENTION! Pour faire fonctionner les threads en php, il faut que vous installiez l'extension pthread dans wamp.
 C'est plus compliqué sous Linux il me semble, je n'ai pas regarder comment on faisait.
 La page où dl l'extension : http://php.net/manual/fr/pthreads.installation.php

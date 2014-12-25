@@ -69,7 +69,7 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         if ($scope.robotDB==true){
                $scope.timerRobot=$interval(function(){ 
                             console.log('interval');
-            $http.get("controller/threadController.php/startRobot").success(function(data){
+            $http.get("controller/threadController.php/startRobotDB").success(function(data){
                 })
                 .error(function(){
                    console.log('erreur lancer robot');         
