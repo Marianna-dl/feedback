@@ -56,7 +56,7 @@ class Reponse {
 
 	public function seeReponse($numQ){
 		try {
-			$req=$this->db->prepare('SELECT * FROM'. TableName::reponse.'WHERE'.ReponseColumns::numQ.'=:numQ');
+			$req=$this->db->prepare('SELECT * FROM '. TableName::reponse.' WHERE '.ReponseColumns::numQ.'=:numQ');
 			$req->bindValue(':numQ',$numQ); 
 			$req->execute();
 			$tab=$req->fetchAll(PDO::FETCH_ASSOC); 

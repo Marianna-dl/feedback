@@ -38,6 +38,11 @@ $app->get('/listeQuest', function() use ($questions){
     echo json_encode($questions->getListeQuestions());
 });
 
+$app->get('/getQuestion/:num', function($num) use ($questions){
+    echo json_encode($questions->getQuestion($num));
+});
+
+
 $app->get('/maxQuest', function() use ($questions){
     echo $questions->getNombreQuestions();
 });
@@ -54,6 +59,10 @@ $app->post('/addQuest', function() use ($questions) {
 /***************** REPONSE ************/
 $app->get('/listeRep', function() use ($reponses){
     echo json_encode($reponses->getListeReponses());
+});
+
+$app->get('/getRep/:num', function($num) use ($reponses){
+    echo json_encode($reponses->seeReponse($num));
 });
 
 $app->post('/addRep', function() use ($reponses) {
@@ -94,7 +103,7 @@ $app->post('/setQuestion', function() use ($event) {
     echo $quest;
 });
 
-$app->get('/getQuestion', function() use ($event) {
+$app->get('/getCurrentQuestion', function() use ($event) {
    $quest= $event->getCurrentQuestion();
     echo $quest;
 });

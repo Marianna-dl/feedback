@@ -18,7 +18,7 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
                 console.log(data);
             })  
         $scope.getQuestionCourante=function(){
-            $http.get("controller/classController.php/getQuestion").success(function(data){
+            $http.get("controller/classController.php/getCurrentQuestion").success(function(data){
             $scope.questionCourante=data;
             })
             .error(function(){
@@ -82,7 +82,6 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         $scope.$watch('robotDB', function() {
         if ($scope.robotDB==true){
                $scope.timerRobot=$interval(function(){ 
-                            console.log('interval');
             $http.get("controller/threadController.php/startRobotDB").success(function(data){
                 })
                 .error(function(){
@@ -92,7 +91,6 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
             },6000); 
         }
         else{ 
-            console.log("else "+ $scope.robotDB);
           $scope.$on('$destroy', function () { $interval.cancel($scope.timerRobot); });
             $interval.cancel( $scope.timerRobot);  
             $scope.timerRobot=undefined;
@@ -116,6 +114,7 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
             $http.get("controller/classController.php/stopper").success(function(data){
                 $scope.start=true;
                 $scope.stop=false; 
+                $scope.robotDB=false;
         })
             .error(function() {
                 console.log('erreur');

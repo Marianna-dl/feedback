@@ -5,7 +5,7 @@ $app = new \Slim\Slim();
 
 
 require_once("../model/RobotGenereDB.php");
-require_once("../model/RobotTri.php");
+//require_once("../model/RobotTri.php");
 //require_once("../model/Connexion.php");
 
 
@@ -19,14 +19,14 @@ $app->get('/startRobotDB', function() {
     
 });
 
-$app->get('/startRobotTri', function() {
+/*$app->get('/startRobotTri', function() {
     $robot = new RobotTri();
     $robot->start();
     sleep(2);
     $robot->stopper();
     $robot->join();
     
-});
+});*/
 
 
 

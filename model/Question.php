@@ -39,9 +39,9 @@ class Question {
     
 	public function getQuestion($num){
 		try{
-			$req = 'SELECT * FROM ' . TableName::question.'WHERE'.QuestionColumns::num.'=:num';
+			$req = $this->db->prepare('SELECT * FROM ' . TableName::question.' WHERE '.QuestionColumns::num.'=:num');
 			$req->bindValue(':num',$num); 
-			$res = $this->db->query($req);
+            $req->execute();
 			$tab=$req->fetchAll(PDO::FETCH_OBJ); 
 			return $tab;
         }
