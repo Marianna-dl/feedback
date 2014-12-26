@@ -1,4 +1,4 @@
-var timer, stopTimer,
+/*var timer, stopTimer,
 	result = document.getElementById('result'),
 	sec    = document.getElementById('sec'),
 	start  = document.getElementById('start'),
@@ -67,4 +67,4 @@ function startTimer(n) {
     
 	}, 1000); // every sec
 
-}
+}*/

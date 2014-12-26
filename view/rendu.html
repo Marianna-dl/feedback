@@ -1,26 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="renduApp">
   <head>
 	<meta charset="utf-8"/>
-    <title>{{SESSION VOTE}}</title>
-    <meta charset="utf-8">
+    <title>SESSION VOTE</title>
 	
     <link href="../css/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen"/> 
-    <link href="rendu.css" rel="stylesheet" type="text/css"/> 
-	<script src="js/index.js"></script>
-
+    <link href="../css/rendu.css" rel="stylesheet" type="text/css"/> 
+      
+      
+        <script src="../js/js/jquery-2.0.3.js"></script>
+	   <script src="../js/chrono.js"></script>
+        <script src="../js/angular/angular.min.js"></script>
+        <script src="../js/angular/angular-route.min.js"></script>
+        <script src="../js/angular/angular-animate.min.js"></script>
+        <script src="../js/angular/angular-touch.min.js"></script>
+        <script src="../js/angular/angular-sanitize.min.js"></script>
+        <script src="../controller/service.js"></script>
+        <script src="../controller/module.js"></script>
+        <script src="../controller/renduController.js"></script> 
   </head>
   
-  <body>
-	<header>
-	</header>
+  <body ng-controller="renduController">
+
 	
 	<main id="principal">
 	
-		<div class="contenant principal">
+		<div class="contenant principal" >
 			
 			<div class="col-md-8 question">
-				<h1>QUESTION :</h1>
+				<h1>QUESTION {{question}}:</h1>
 				<p>Quelle age avez vous ?</p>
 			</div>
 			
@@ -37,8 +45,6 @@
 				<input type="button" id="start" value="Start">
 				<input type="button" id="stop" value="Stop">
 			</div>
-			<script src="js/index.js"></script> 
-  
   
 			<div class="col-md-8 reponse">
 	

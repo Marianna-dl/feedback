@@ -1,14 +1,31 @@
 'use strict';    
 
-angular.module('feedbackApp').controller('gestionController', function($scope, $http, $interval) {
-        $scope.title="Gestion évènement";      
-    
-        $http.get("controller/classController.php/getMessages").success(function(data){
+angular.module('feedbackApp').controller('gestionController', function($scope, $http, $interval, $window) {
+        $scope.title="Gestion évènement";  
+
+        $http.get("controller/classController.php/maxQuest").success(function(data){
+            $scope.nbQuestion=data;
+            console.log(data);
+            })
+            .error(function(){
+                console.log(data);
+            })
+        
+            $http.get("controller/classController.php/getMessages").success(function(data){
             $scope.listeReponseParticipants=data;
             })
             .error(function(){
                 console.log(data);
-            })                    
+            })  
+        $scope.getQuestionCourante=function(){
+            $http.get("controller/classController.php/getQuestion").success(function(data){
+            $scope.questionCourante=data;
+            })
+            .error(function(){
+                console.log(data);
+            }) 
+        }
+        $scope.getQuestionCourante();
         $http.get("controller/classController.php/etatEvent").success(function(data){
          $scope.stop=angular.fromJson(data);
         $scope.start=!angular.fromJson(data);
@@ -26,9 +43,6 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         $scope.resultMessage = "Simulation désactivée";
         $scope.result='alert alert-danger';    
     }      
-        
-    
-        
         
 
     if(angular.isDefined( $scope.timer) && angular.isDefined( $scope.timerRobot)){
@@ -86,9 +100,6 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         }
     
     });
-    
-    
-    
          
         $scope.lancer=function(){ 
         $http.get("controller/classController.php/lancer").success(function(data){
@@ -98,7 +109,7 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
             .error(function() {
                 console.log('erreur');
             })
-
+            $window.open('./view/rendu.html');
         };
   
         $scope.stopper=function(){
@@ -109,6 +120,7 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
             .error(function() {
                 console.log('erreur');
             })
+            $scope.getQuestionCourante();
         };
     
     
@@ -125,6 +137,16 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
         }
     };
     
+    
+    $scope.questionSuivante=function(){
+        $http.post("controller/classController.php/setQuestion", {question:parseInt($scope.questionCourante)+1}).success(function(data){
+                console.log(data);
+            })
+            .error(function(){
+                console.log("erreur");
+            })   
+        $scope.getQuestionCourante();
+    }
 
 
     });

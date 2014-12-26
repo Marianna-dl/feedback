@@ -1,7 +1,6 @@
 /************** ANGULAR JS ***********************/
-
 //on déclare l'application et les services qu'on av utiliser
-var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize','angularFileUpload']); 
+var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize','angularFileUpload','share']); 
 
 
 	//On créer les directions du menu (route) 
@@ -22,7 +21,11 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
                 controller  : 'parametresController'
 			
 			})
+
 	});
+
+var renduApp = angular.module('renduApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize','share']); 
+
 
 
 
@@ -31,4 +34,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
          $scope.isActive = function (viewLocation) { 
             return viewLocation === $location.path();
         };
+        
+        $test="testfeed";
 	});
+

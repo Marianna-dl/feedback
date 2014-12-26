@@ -2,6 +2,7 @@
     //Création des controleurs et affichage du titre des pages
     angular.module('feedbackApp').controller('nouveauController', function($scope,$http) {
         $scope.title="Nouvel évènement";
+        
         $scope.getListeQuestions=function(){$http.get("controller/classController.php/listeQuest").success(function(data){
                 $scope.listeQuestions=data;  
             })

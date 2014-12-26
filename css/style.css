@@ -199,7 +199,29 @@ table{
     cursor: pointer;
 }
 
+                                /************************************************* GESTION ********************************************/
+.question-courante{
+    font-weight: bold;
 
+}
+.next-button{
+    background-image: url("../images/fleche_droite.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width:32px;
+    height: 32px;
+    background-color: transparent;
+    margin-left:5px; 
+    text-decoration: inherit;
+  outline: none;
+}
+.next-button:active{
+    background-image: url("../images/fleche_droite.png");
+}
+.next-button:focus{
+    outline: none;
+
+}
                                 /*********************************************** FOOTER ************************************************/
 
 

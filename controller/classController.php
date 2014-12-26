@@ -87,6 +87,17 @@ $app->get('/stopper', function() use ($event){
     echo json_encode($event->stopEvent());
 });
 
+$app->post('/setQuestion', function() use ($event) {
+    $data = json_decode(file_get_contents("php://input"));
+    $quest = $data->question;
+    $event->setCurrentQuestion($quest);
+    echo $quest;
+});
+
+$app->get('/getQuestion', function() use ($event) {
+   $quest= $event->getCurrentQuestion();
+    echo $quest;
+});
 
 $app->run();
 
