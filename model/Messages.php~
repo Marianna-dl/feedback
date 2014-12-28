@@ -79,13 +79,11 @@ class Messages
             $req->bindValue(":numR", $numR);
             $req->execute();
             $nbRep=$req->fetchAll(PDO::FETCH_OBJ);
-	    $stat=($nbRep*100)/$nbUsers;
 		}
 		catch (PDOException $e)
 		{	
             die('Connexion échouée : ' . $e->getMessage());	
         }
-	   return ($stat);
 	}
 ////////////////////////////////////////////////////////////////////////////////////
 
