@@ -1,17 +1,19 @@
 <?php
+	session_start();
 
-	require("connexion.php");
+	require("Connexion.php");
 	require_once("Users.php");
+	require("../controller/classController.php");
 
 class RobotTri extends Thread {
 	private $avance;
 	private $question;
-	private $users;
+	private $usersList;
 	
-public function __construct($quest,$list){
+public function __construct($quest){
 	$this->avance=true;
 	$this->question=$quest;
-	$this->users=$list;
+	$this->usersList=$users;
 }
 
 //Va chercher le contenu de la table messageBrute et le fait analyser (et ajouter si correct)
@@ -22,10 +24,15 @@ public function run(){
     //}
 	$bd = ConnectionFactory::getFactory()->getConnection();
 
+	$temp=null;
 
-	//Je mets la date actuelle (sous la forme "année-mois-jour heure:minute:seconde" dans $i
-	$i=date("Y-m-j H:i:s");
-	
+	if(isset($_SESSION['lastMessage'])){
+		$i=$_SESSION['lastMessage']['date_entree'];
+	}
+	else{
+		//Je mets la date actuelle (sous la forme "année-mois-jour heure:minute:seconde" dans $i
+		$i=date("Y-m-j H:i:s");
+	}
 	//Récupèration de toutes les entrées dans la table des messages non traitées avant la date i
 	$requete=request($bd,'SELECT * FROM messagebrute where date_entree<=\''.$i.'\'');
 	
@@ -45,7 +52,7 @@ public function run(){
 		}
 		//on décale $i à $j, et on décale $j plus loin au début de la prochaine boucle
 		$i=$j;
-
+		$_SESSION['lastMessage']=$temp;
 	}
 }
 
@@ -83,10 +90,10 @@ public function analyse($trame){
 				}
 			}
 			if($mess!=''){
-				$userverif=$this->users->getUser($trame['num_recu']); 				
+				$userverif=$this->usersList->getUser($trame['num_recu']); 				
 				if(!$userverif){
 					$userverif= new User($trame['num_recu']);
-					$this->users->addUser($trame['num_recu']);
+					$this->usersList->addUser($trame['num_recu']);
 				}
 			
 				$answ=$userverif->messages();
