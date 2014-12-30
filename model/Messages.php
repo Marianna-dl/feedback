@@ -28,29 +28,7 @@ class Messages
         }
 	}
 
-    //Verifie si les numéros de réponses sont bon ainsi que la question avant d'ajouter dans la bdd
- /*   public function verifieMessage($tuple){
-        $tabTuple=str_split($chain)
-        $numQuest=$tabTuple[0];
-        $reponses='';
-        for($i=1;$i<count($tabTuple)){
-            $reponses.=$tabTuple[i];
-        }
-      $sql_query = 'SELECT * '.TableName::questions.' WHERE '.QuestionColumns::num.'= :numQuest';		
-        try {	
-            $req = $this->db->prepare($sql_query );
-            $req->bindValue(":numQuest", $numQuest);
-            $req->execute();
-            $questExiste=$req->fetch();//true si existe, false sinon
-            
-            }
-		catch (PDOException $e)
-		{	
-            die('Connexion échouée : ' . $e->getMessage());	
-        }       
-    }*/
-    
-    function getMessages(){
+    public function getMessages(){
         try {
             $sql_query = 'SELECT * FROM '.TableName::messages;
             $req = $this->db->prepare($sql_query);
@@ -63,7 +41,6 @@ class Messages
         return $messages;        
     }
 
-}
 
 
 // Fonction pour les statistiques////////////////////////////////////::::///////////////////
@@ -86,7 +63,6 @@ class Messages
             die('Connexion échouée : ' . $e->getMessage());	
         }
 	   return ($stat);
-	}
-////////////////////////////////////////////////////////////////////////////////////
-
+    }
+}
 ?>
