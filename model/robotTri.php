@@ -10,9 +10,9 @@ class RobotTri extends Thread {
 	private $question;
 	private $usersList;
 	
-public function __construct($quest){
+public function __construct(){
 	$this->avance=true;
-	$this->question=$quest;
+	$this->question=null;//peut etre stocker dans session la question actuelle
 	$this->usersList=$users;
 }
 
@@ -54,6 +54,7 @@ public function run(){
 		$i=$j;
 		$_SESSION['lastMessage']=$temp;
 	}
+	session_write_close();
 }
 
 //Pour stopper la boucle de la fonction check
@@ -64,7 +65,17 @@ public function stopper() {
 }
 //Analyse un tuple de la table messageBrute et le rajoute à la table Message si il est correcte
 public function analyse($trame){
-	 $bd = ConnectionFactory::getFactory()->getConnection();
+	$bd = ConnectionFactory::getFactory()->getConnection();
+	 
+	if(($this->question)==null){
+		$requete=$bd->prepare('SELECT * FROM question');
+		$requete->execute();
+		$this->question='';
+		
+		//On rassemble tous les numeros de question dans une chaîne de caractères 
+		while($temp=$requete->fetch(PDO::FETCH_ASSOC))
+			$this->question.=$temp['num_quest'];
+	}
 	
 	//On vérifie que le numéro de télephone est bon et que le numero de la question est bon
 	if(preg_match('#^0[67][0-9]{8}$#',$trame['num_recu']) && preg_match('#^(['.$this->question.']{1}) *([a-zA-Z]+)$#',$trame['corps_mess'],$res)){
