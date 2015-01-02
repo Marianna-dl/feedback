@@ -8,8 +8,17 @@
 </div>
 <html>
 <body>
-	<p style={{styleBody}}>test</p>
-<script src="../js/jscolor/jscolor.js"></script>
+	<div ng-controller="parametresController">
+		<!--exemple-->
+		<p style="font-family:{{fontQuestion}};font-size:{{sizeQuestion}}px;color:{{colorQuestion}}">
+			Habillage Question
+		</p>
+		<p style="font-family:{{fontAnswer}};font-size:{{sizeAnswer}}px;color:{{colorGoodAnswer}}">
+			Habillage Bonne Réponse
+		</p>
+		<p style="font-family:{{fontAnswer}};font-size:{{sizeAnswer}}px;color:{{colorBadAnswer}}">
+			Habillage Mauvaise Réponse
+		</p>
 <div class="col-md-12 titre-liste">
     <h3>Questions</h3>
         <div class="col-md-4 col-md-offset-4">
@@ -20,11 +29,10 @@
 <div class="col-md-8 col-md-offset-2">
     <form >
     <div class="col-md-3">
-        <select class="form-control" name="police" size="1">
+        <select class="form-control" ng-model="fontQuestion" name="police" size="1">
             <option style="font-family:Arial;">Arial</option>
-            <option style="font-family:Comic;">Comic</option>
+            <option style="font-family:Comic sans MS;">Comic sans MS</option>
             <option style="font-family:Courier New;">Courier New</option>
-            <option style="font-family:Helvetica;">Helvetica</option>
             <option style="font-family:Raleway;">Raleway</option>
             <option style="font-family:Times New Roman;">Times New Roman</option>
         </select>
@@ -40,16 +48,10 @@
     </div>
 
     <div class="col-md-3">
-        <select class="form-control" name="taille" size="1">
-            <option style="font-size:10px;">10px</option>
-            <option style="font-size:12px;">12px</option>
-            <option style="font-size:14px;">14px</option>
-            <option style="font-size:16px;">16px</option>
-            <option style="font-size:18px;">18px</option>
-        </select>
+		<input type="number" ng-model="sizeQuestion" class="form-control" min="12" max="32"/>
     </div>
     <div class="col-md-3">
-		<input  placeholder="Couleur..." class="color form-control"/>
+        <input type="color" ng-model="colorQuestion"/>
     </div> 
         </form>
     </div>
@@ -66,35 +68,24 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
     <div class="col-md-3">
-        <form>
-        <select class="form-control" name="police" size="1">
-            <option style="font-family:Arial;">Arial
-            <option style="font-family:Comic;">Comic
-            <option style="font-family:Courier New;">Courier New
-            <option style="font-family:Helvetica;">Helvetica
-            <option style="font-family:Raleway;">Raleway
-            <option style="font-family:Times New Roman;">Times New Roman
-        </select>
-        </form>
+        <select class="form-control" ng-model="fontAnswer" name="police" size="1">
+            <option style="font-family:Arial;">Arial</option>
+            <option style="font-family:Comic sans MS;">Comic sans MS</option>
+            <option style="font-family:Courier New;">Courier New</option>
+            <option style="font-family:Raleway;">Raleway</option>
+            <option style="font-family:Times New Roman;">Times New Roman</option>
+		</select>
     </div>
 
     <div class="col-md-3">
-        <form>
-        <select class="form-control" name="taille" size="1">
-            <option style="font-size:10px;">10px
-            <option style="font-size:12px;">12px
-            <option style="font-size:14px;">14px
-            <option style="font-size:16px;">16px
-            <option style="font-size:18px;">18px
-        </select>
-        </form>
+        <input  type="number" ng-model="sizeAnswer" class="form-control" step="2" min="10" max="18"/>
     </div>
 
     <div class="col-md-3">
-        <p>Bonne réponse<input  placeholder="Couleur..." class="color form-control"/></p>
+        <p>Bonne réponse<input type="color" ng-model="colorGoodAnswer"/></p>
     </div>
     <div class="col-md-3">
-        <p>Mauvaise réponse<input  placeholder="Couleur..." class="color form-control"/></p>
+        <p>Mauvaise réponse<input type="color" ng-model="colorBadAnswer"/></p>
     </div>
 
 	</div>
@@ -108,10 +99,10 @@
 </div>
 <div class="col-md-8 col-md-offset-2">
     <div class="col-md-6">
-        <p><input  placeholder="Primaire" class="color form-control"/></p>
+        <p>Principale<input type="color" ng-model="colorFirst"/></p>
     </div>
     <div class="col-md-6">
-        <p><input  placeholder="Secondaire" class="color form-control"/></p>
+        <p>Secondaire<input type="color" ng-model="colorSecond"/></p>
     </div>
 </div>
 <br/>
@@ -128,7 +119,6 @@
         <input type="file" nv-file-select uploader="uploader"/><br/>
         <div>
             <div ng-repeat="item in uploader.queue">
-                <!--<Name: <span ng-bind="item.file.name"></span><br/>-->
                <button ng-click="item.upload()">upload</button>
             </div>
 			<div ng-if="controller.isImage(item._file)">
@@ -142,7 +132,6 @@
         <input type="file" nv-file-select uploader="uploader"/><br/>
         <ul>
             <li ng-repeat="item in uploader.queue">
-                <Name: <span ng-bind="item.file.name"></span><br/>
              <button ng-click="item.upload()">upload</button>
             </li>
         </ul>

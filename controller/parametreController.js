@@ -1,16 +1,22 @@
    angular.module('feedbackApp').controller('parametresController', function($scope) {
         $scope.title="Paramètres";
+	   
+        //les variables
+	    $scope.fontQuestion="";
+        $scope.sizeQuestion="";
+	    $scope.colorQuestion="";
+	    $scope.fontAnswer="";
+        $scope.sizeAnswer="";
+	    $scope.colorGoodAnswer="";
+	    $scope.colorBadAnswer="";
+	    $scope.colorFirst="";
+	    $scope.colorSecond="";
 
-        //Body BG+Text
-        $scope.couleurBody="#FF983D";
-        $scope.sizeBody="2em";
-
-        $scope.styleBody="color:"+$scope.couleurBody+";"
-                          +"font-size:"+$scope.sizeBody+";"
-                          ;
-
+        /*$scope.sTest="color:"+$scope.couleurTexte+";"
+		+"font-family:"+$scope.fontTest+";"
+		+"font-size:"+$scope.sizeTest1+"px"+";"
+		;*/
 	});
-
 
     angular.module('feedbackApp').controller('imageController', function($scope, FileUploader) {
         $scope.uploader = new FileUploader();
