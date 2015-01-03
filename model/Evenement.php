@@ -8,10 +8,14 @@ class Evenement{
 	{	
         $this->db = ConnectionFactory::getFactory()->getConnection();
 	}
+    
+    public function initCurrentQuestion(){
+            $_SESSION['currentQuestion']=1;
+    
+    }
 
     public function startEvent(){
         $_SESSION['alive']=true;
-        $_SESSION['currentQuestion']=1;
         return $_SESSION['alive'];
        // echo json_encode($_SESSION['alive']);
     }    
@@ -29,9 +33,9 @@ class Evenement{
     }  
     
    public function stopEvent(){
+    $_SESSION['currentQuestion']=1;
      if (isset($_SESSION['alive'])){ 
          $_SESSION['alive']=false;
-         $_SESSION['currentQuestion']=1;
      }
         return $_SESSION['alive'];
     //    echo json_encode($_SESSION['alive']);
