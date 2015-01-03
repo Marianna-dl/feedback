@@ -12,10 +12,27 @@
 	    $scope.colorFirst="";
 	    $scope.colorSecond="";
 
-        /*$scope.sTest="color:"+$scope.couleurTexte+";"
-		+"font-family:"+$scope.fontTest+";"
-		+"font-size:"+$scope.sizeTest1+"px"+";"
-		;*/
+        $scope.attribut = ['font-family', 'font-size', 'color'];
+      	$scope.valueQuestion = [$scope.fontQuestion, $scope.sizeQuestion, $scope.colorQuestion];
+	    $scope.valueGoodAnswer = [$scope.fontAnswer, $scope.sizeAnswer, $scope.colorGoodAnswer];
+	    $scope.valueBadAnswer = [$scope.fontAnswer, $scope.sizeAnswer, $scope.colorBadAnswer];
+	   
+	   	$scope.styleQuestion = function(attribut,valueQuestion) {
+          return { attribut: valueQuestion };
+      	}
+		$scope.styleGoodAnswer = function(attribut,valueGoodAnswer) {
+          return { attribut: valueGoodAnswer };
+      	}
+		$scope.styleBadAnswer = function(attribut,valueBadAnswer) {
+          return { attribut: valueBadAnswer };
+      	}
+	   
+	   $scope.styleTest = function() {
+          return { 	"font-family": $scope.fontQuestion
+				 	//"font-size": $scope.sizeQuestion"px";
+				  	//"color": $scope.colorQuestion
+				 };
+      }
 	});
 
     angular.module('feedbackApp').controller('imageController', function($scope, FileUploader) {

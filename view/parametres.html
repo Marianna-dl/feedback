@@ -11,12 +11,16 @@
 	<div ng-controller="parametresController">
 		<!--exemple-->
 		<p style="font-family:{{fontQuestion}};font-size:{{sizeQuestion}}px;color:{{colorQuestion}}">
+		<!--<p ng-style="styleTest()">-->
+		<!--<p ng-style="styleQuestion(attribut,valueQuestion)">-->
 			Habillage Question
 		</p>
 		<p style="font-family:{{fontAnswer}};font-size:{{sizeAnswer}}px;color:{{colorGoodAnswer}}">
+		<!--<p ng-style="styleGoodAnswer(attribut,valueGoodAnswer)">-->
 			Habillage Bonne Réponse
 		</p>
 		<p style="font-family:{{fontAnswer}};font-size:{{sizeAnswer}}px;color:{{colorBadAnswer}}">
+		<!--<p ng-style="styleBadAnswer(attribut,valueBadAnswe)">-->
 			Habillage Mauvaise Réponse
 		</p>
 <div class="col-md-12 titre-liste">
@@ -48,7 +52,7 @@
     </div>
 
     <div class="col-md-3">
-		<input type="number" ng-model="sizeQuestion" class="form-control" min="12" max="32"/>
+		<input type="number" ng-model="sizeQuestion" class="form-control" min="18" max="36"/>
     </div>
     <div class="col-md-3">
         <input type="color" ng-model="colorQuestion"/>
@@ -78,7 +82,7 @@
     </div>
 
     <div class="col-md-3">
-        <input  type="number" ng-model="sizeAnswer" class="form-control" step="2" min="10" max="18"/>
+        <input  type="number" ng-model="sizeAnswer" class="form-control" min="18" max="36"/>
     </div>
 
     <div class="col-md-3">
