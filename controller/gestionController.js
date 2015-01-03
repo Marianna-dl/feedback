@@ -3,6 +3,14 @@
 angular.module('feedbackApp').controller('gestionController', function($scope, $http, $interval, $window) {
         $scope.title="Gestion évènement";  
 
+
+            $http.get("controller/classController.php/initCurrentQuestion").success(function(){
+
+            })
+            .error(function(){
+                console.log(data);
+            })  
+            
         $http.get("controller/classController.php/maxQuest").success(function(data){
             $scope.nbQuestion=data;
             console.log(data);

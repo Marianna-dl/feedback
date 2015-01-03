@@ -108,6 +108,10 @@ $app->get('/getCurrentQuestion', function() use ($event) {
     echo $quest;
 });
 
+$app->get('/initCurrentQuestion', function() use ($event) {
+    $event->initCurrentQuestion();
+});
+
 $app->run();
 
 
