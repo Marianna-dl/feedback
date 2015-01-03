@@ -1,11 +1,10 @@
 <?php
-	session_start();
-
 	require("Connexion.php");
 	require_once("Users.php");
 	require("../controller/classController.php");
 
 class RobotTri extends Thread {
+	private static $lastMessage;
 	private $avance;
 	private $question;
 	private $usersList;
@@ -26,8 +25,8 @@ public function run(){
 
 	$temp=null;
 
-	if(isset($_SESSION['lastMessage'])){
-		$i=$_SESSION['lastMessage']['date_entree'];
+	if(isset(self::$lastMessage)){
+		$i=self::$lastMessage;
 	}
 	else{
 		//Je mets la date actuelle (sous la forme "année-mois-jour heure:minute:seconde" dans $i
@@ -52,9 +51,8 @@ public function run(){
 		}
 		//on décale $i à $j, et on décale $j plus loin au début de la prochaine boucle
 		$i=$j;
-		$_SESSION['lastMessage']=$temp;
+		self::$lastMessage=$temp;
 	}
-	session_write_close();
 }
 
 //Pour stopper la boucle de la fonction check
