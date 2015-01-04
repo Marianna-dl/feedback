@@ -10,8 +10,9 @@ class Evenement{
 	}
     
     public function initCurrentQuestion(){
+     if (!isset($_SESSION['alive'])){        
             $_SESSION['currentQuestion']=1;
-    
+     }
     }
 
     public function startEvent(){
