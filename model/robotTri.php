@@ -10,6 +10,7 @@ class RobotTri extends Thread {
 	private $usersList;
 	
 public function __construct(){
+	global $users;
 	$this->avance=true;
 	$this->question=null;//peut etre stocker dans session la question actuelle
 	$this->usersList=$users;
