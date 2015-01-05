@@ -4,11 +4,11 @@
 ///
 class Users 
 {	// on garde la BDD en parametre pour eviter de faire une "new PDO" a chaque fois
-	private $db;
+	private static $db;
 	// constructeur
 	public function __construct()
 	{
-        $this->db = ConnectionFactory::getFactory()->getConnection();
+        self::$db = ConnectionFactory::getFactory()->getConnection();
 
 	}
     
@@ -16,7 +16,7 @@ class Users
 	public function addUser($phone)
 	{	try
 		{	$sql_query = 'INSERT INTO '.TableName::users.' ('.UserColumns::phoneNumber.') VALUES (:tel)';
-            $req = $this->db->prepare($sql_query );
+            $req = self::$db->prepare($sql_query );
             $req->bindValue(":tel", $phone);
             $req->execute();
 		}
@@ -31,7 +31,7 @@ class Users
     {	
         try {
             $sql_query = 'SELECT * FROM '.TableName::users;
-            $req = $this->db->prepare($sql_query);
+            $req = self::$db->prepare($sql_query);
             $req->execute();
             $users = $req->fetchAll(PDO::FETCH_OBJ);
         }
@@ -45,7 +45,7 @@ class Users
         
         try
 		{	$sql_query = 'SELECT COUNT(*) FROM '.TableName::users;
-            $req = $this->db->prepare($sql_query);
+            $req = self::$db->prepare($sql_query);
             $req->execute();
             $nbUsers=$req->fetchAll(PDO::FETCH_OBJ);
 		}
@@ -61,7 +61,7 @@ class Users
     public function getMessagesByUser($tel){     
         try{
             $sql_query ='SELECT * FROM '.TableName::messages.'WHERE '.MessageColumns::num_user.'= :tel'; 
-            $req=$this->db->prepare($sql_query);
+            $req=self::$db->prepare($sql_query);
             $req->bindValue(":tel", $tel);
             $req->execute();
             $userMessages=$req->fetchAll(PDO::FETCH_OBJ);
