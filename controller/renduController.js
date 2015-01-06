@@ -40,27 +40,26 @@ angular.module('renduApp').controller('renduController', function($scope, $http,
                 })
                 .error(function(){
                     console.log(data);
-                })    
+                })
+            $http.get("../controller/classController.php/nbVotantQuestion/"+ $scope.numQuestion).success(function(data){
+                $scope.nbVotantQ=data;
+                })
+                .error(function(){
+                    console.log("erreur");
+                }) 
                 
             },2000);
     
     });
     
- 
-     
-  /*  $scope.$watch( shareQuestion.getProperty().success(), function(data) {
-     shareQuestion.getProperty().success(function(data){
-     $scope.question=data;
-       console.log(data);
-   });
-  });*/
     
-            
-         /*   $http.get("../controller/classController.php/getQuestion").success(function(data){
-            $scope.question=data;
-            })
-            .error(function(){
-                console.log(data);
-            }) */
+           /* $http.get("../controller/classController.php/statsAnswer/"+ $scope.numQuestion+).success(function(data){
+                $scope.nbVotantQ=data;
+                })
+                .error(function(){
+                    console.log("erreur");
+                }) */
+                
+ 
  
 });

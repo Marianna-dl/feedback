@@ -68,7 +68,13 @@ angular.module('feedbackApp').controller('gestionController', function($scope, $
                 })
                 .error(function(){
                     console.log(data);
-                })                                          
+                }) 
+                $http.get("controller/threadController.php/startRobotTri").success(function(){
+                    console.log("entree");
+                })
+                .error(function(){
+                   console.log('erreur lancer robot');         
+            })  
             },2000);
         }
         else{ 

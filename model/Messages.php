@@ -41,22 +41,42 @@ class Messages
         return $messages;        
     }
 
+  public function nbVotantQuestion($quest){
+        try{
+            $sql_query ='SELECT COUNT(DISTINCT num_user) FROM '.TableName::messages.' where num_question=:quest';
+            $req = $this->db->prepare($sql_query);
+            $req->bindValue(":quest",$quest);
+            $req->execute();
+            $votants = $req->fetch(PDO::FETCH_NUM);
+        }
+          catch(PDOException $e) {
+             die('Erreur: '. $e->getMessage());
+        }       
+    
+        return $votants[0];
+    }
 
 
 // Fonction pour les statistiques////////////////////////////////////::::///////////////////
-	public function statsAnswer($numQ, $numR, $nbUsers)
+	public function statsAnswer($numQ, $numR)
 	{	
-        $sql_query = 'SELECT COUNT(*) FROM '.TableName::messages.' WHERE '.MessageColumns::question.'=:numQ AND '.MessageColumns::reponses.'=:numR';
-        
+  
+        $sql_query = 'SELECT COUNT(DISTINCT num_user) FROM '.TableName::messages.' WHERE '.MessageColumns::question.'=:numQ AND '.MessageColumns::reponses.'=:numR';
+        $sql_query2 = 'SELECT COUNT(DISTINCT num_user) FROM '.TableName::messages.' WHERE '.MessageColumns::question.'=:numQ';  
         try {	
 
             $req = $this->db->prepare($sql_query);
-   
             $req->bindValue(":numQ", $numQ);
             $req->bindValue(":numR", $numR);
             $req->execute();
-            $nbRep=$req->fetchAll(PDO::FETCH_OBJ);
-	    $stat=($nbRep*100)/$nbUsers;
+            $nbRep=$req->fetch(PDO::FETCH_NUM);
+            
+            $req = $this->db->prepare($sql_query2);
+            $req->bindValue(":numQ", $numQ);
+            $req->execute();
+            $nbUsers=$req->fetch(PDO::FETCH_NUM);
+
+	    $stat=($nbRep[0]*100)/$nbUsers[0];
 		}
 		catch (PDOException $e)
 		{	

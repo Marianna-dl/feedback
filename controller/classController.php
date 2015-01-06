@@ -83,6 +83,16 @@ $app->get('/getMessages', function() use ($messages){
     echo json_encode($messages->getMessages());
 });
 
+$app->get('/nbVotantQuestion/:question', function($question) use ($messages){
+    echo $messages->nbVotantQuestion($question);
+   
+});
+
+/*$app->get('/statsAnswer/:quest/:rep', function($quest,$rep) use ($messages){
+    echo $messages->statsAnswer($quest,$rep);
+   
+});*/
+
 
 /*************** EVENT *************/
 $app->get('/etatEvent', function() use ($event){

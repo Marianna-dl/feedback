@@ -1,5 +1,5 @@
 <?php
-	require_once("Connexion.php");
+
 
 class robotTri extends Thread {
 	private $avance;

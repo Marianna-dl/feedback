@@ -1,6 +1,5 @@
 <?php
-// MODIF EN COURS : ROBOT SOUS FORME THREAD
-require("Connexion.php");
+
 class RobotGenereDB extends Thread {
 	private $num;
 	private $rep;
