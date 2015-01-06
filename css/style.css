@@ -97,11 +97,13 @@ form.qcm{
     border-left: 1px dashed grey;
 }
 
-
+.container .nombreRep{
+    width:8%;
+}
 
 form{
     padding-top: 10px;
-    padding-left: 5px;
+   /* padding-left: 5px;*/
 }
 
 .qcm input{
@@ -222,7 +224,7 @@ table{
     outline: none;
 
 }
-                                /*********************************************** FOOTER ************************************************/
+                           /*********************************************** FOOTER ************************************************/
 
 
 
