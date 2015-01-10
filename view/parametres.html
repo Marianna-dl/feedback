@@ -8,130 +8,139 @@
 </div>
 <html>
 <body>
-	<div ng-controller="parametresController">
+	<div ng-controller="paramRenduController">
+		
 		<!--exemple-->
 		<p style="font-family:{{fontQuestion}};font-size:{{sizeQuestion}}px;color:{{colorQuestion}}">
-		<!--<p ng-style="styleTest()">-->
-		<!--<p ng-style="styleQuestion(attribut,valueQuestion)">-->
-			Habillage Question
+			{{fontQuestion}} {{sizeQuestion}} {{colorQuestion}}
 		</p>
 		<p style="font-family:{{fontAnswer}};font-size:{{sizeAnswer}}px;color:{{colorGoodAnswer}}">
-		<!--<p ng-style="styleGoodAnswer(attribut,valueGoodAnswer)">-->
-			Habillage Bonne Réponse
+			{{fontAnswer}} {{sizeAnswer}} {{colorGoodAnswer}}
 		</p>
-		<p style="font-family:{{fontAnswer}};font-size:{{sizeAnswer}}px;color:{{colorBadAnswer}}">
-		<!--<p ng-style="styleBadAnswer(attribut,valueBadAnswe)">-->
-			Habillage Mauvaise Réponse
+		<p style="font-family:{{fontAnswer}};font-size:{{sizeAnswer}}px;color:{{colorWrongAnswer}}">
+			{{fontAnswer}} {{sizeAnswer}} {{colorWrongAnswer}}
 		</p>
-<div class="col-md-12 titre-liste">
-    <h3>Questions</h3>
-        <div class="col-md-4 col-md-offset-4">
-            <hr/>
-        </div>
-</div>
-<div class="row">
-<div class="col-md-8 col-md-offset-2">
-    <form >
-    <div class="col-md-3">
-        <select class="form-control" ng-model="fontQuestion" name="police" size="1">
-            <option style="font-family:Arial;">Arial</option>
-            <option style="font-family:Comic sans MS;">Comic sans MS</option>
-            <option style="font-family:Courier New;">Courier New</option>
-            <option style="font-family:Raleway;">Raleway</option>
-            <option style="font-family:Times New Roman;">Times New Roman</option>
-        </select>
-    </div>
+		<div class="col-md-12 titre-liste">
+    		<h3>Questions</h3>
+        	<div class="col-md-4 col-md-offset-4">
+				<hr/>
+       		</div>
+		</div>
+		<form>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+    			
+    				<div class="col-md-3">
+        				<select class="form-control" ng-model="fontQuestion" name="police" size="1">
+            				<option style="font-family:Arial;">Arial</option>
+            				<option style="font-family:Comic sans MS;">Comic sans MS</option>
+            				<option style="font-family:Courier New;">Courier New</option>
+            				<option style="font-family:Raleway;">Raleway</option>
+            				<option style="font-family:Times New Roman;">Times New Roman</option>
+            			</select>
+    				</div>
+    				<!--<div class="col-md-3">
+        				<select class="form-control" name="effet" size="1">
+            				<option style="font-style:normal;">Normal</option>
+            				<option style="font-style:italic;">Italique</option>
+            				<option style="font-weight:bold;">Gras</option>
+            				<option style="text-decoration:underline;">Souligné</option>
+            			</select>
+				    </div>-->
+    				<div class="col-md-3">
+            			<input type="number" ng-model="sizeQuestion" class="form-control" min="18" max="36" value="18"/>
+    				</div>
+    				<div class="col-md-3">
+						<label for="cQ">Couleur: </label>
+        				<input type="color" ng-model="colorQuestion"/>
+    				</div> 
+					<div class="col-md-1">
+        				<button ng-click="newParamQuest()" type="submit" class="btn btn-primary">Valider</button> 
+    				</div>
+        		
+    		</div>
+		</div>
+		</form>
+		<div class="col-md-12 titre-liste">
+    		<h3>Réponses</h3>
+        	<div class="col-md-4 col-md-offset-4">
+            	<hr/>
+        	</div>
+		</div>
+		<form>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+    			<div class="col-md-3">
+        			<select class="form-control" ng-model="fontAnswer" name="police" size="1">
+            			<option style="font-family:Arial;">Arial</option>
+            			<option style="font-family:Comic sans MS;">Comic sans MS</option>
+            			<option style="font-family:Courier New;">Courier New</option>
+            			<option style="font-family:Raleway;">Raleway</option>
+            			<option style="font-family:Times New Roman;">Times New Roman</option>
+					</select>
+    			</div>
 
-    <div class="col-md-3">
-        <select class="form-control" name="effet" size="1">
-            <option style="font-style:normal;">Normal</option>
-            <option style="font-style:italic;">Italique</option>
-            <option style="font-weight:bold;">Gras</option>
-            <option style="text-decoration:underline;">Souligné</option>
-        </select>
-    </div>
+    			<div class="col-md-3">
+        			<input  type="number" ng-model="sizeAnswer" class="form-control" min="18" max="36"/>
+    			</div>
 
-    <div class="col-md-3">
-		<input type="number" ng-model="sizeQuestion" class="form-control" min="18" max="36"/>
-    </div>
-    <div class="col-md-3">
-        <input type="color" ng-model="colorQuestion"/>
-    </div> 
-        </form>
-    </div>
+    			<div class="col-md-3">
+					<label for="cGA">Correcte  </label>
+        			<input type="color" ng-model="colorGoodAnswer"/>
+    				<label for="cBA">Incorrecte </label>
+        			<input type="color" ng-model="colorWrongAnswer"/>
+    			</div>
+				<div class="col-md-3">
+        				<button ng-click="newParamRep()" type="submit" class="btn btn-primary">Valider</button> 
+    				</div>
+			</div>
+		</div>
+		</form>
+		<div>
+			<br>
+		</div>
+		<!--<div class="col-md-12 titre-liste">
+    		<h3>Modifier les couleurs</h3>
+        	<div class="col-md-4 col-md-offset-4">
+            	<hr/>
+        	</div>
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+    		<div class="col-md-6">
+				<label for="cP">Couleur Principale: </label>
+				<input type="color" ng-model="colorFirst"/>
+    		</div>
+    		<div class="col-md-6">
+				<label for="cP">Couleur Secondaire: </label>
+				<input type="color" ng-model="colorSecond"/>
+    		</div>
+		</div>
 
-
-    
-</div>
-<div class="col-md-12 titre-liste">
-    <h3>Réponses</h3>
-        <div class="col-md-4 col-md-offset-4">
-            <hr/>
-        </div>
-</div>
-<div class="row">
-	<div class="col-md-8 col-md-offset-2">
-    <div class="col-md-3">
-        <select class="form-control" ng-model="fontAnswer" name="police" size="1">
-            <option style="font-family:Arial;">Arial</option>
-            <option style="font-family:Comic sans MS;">Comic sans MS</option>
-            <option style="font-family:Courier New;">Courier New</option>
-            <option style="font-family:Raleway;">Raleway</option>
-            <option style="font-family:Times New Roman;">Times New Roman</option>
-		</select>
-    </div>
-
-    <div class="col-md-3">
-        <input  type="number" ng-model="sizeAnswer" class="form-control" min="18" max="36"/>
-    </div>
-
-    <div class="col-md-3">
-        <p>Bonne réponse<input type="color" ng-model="colorGoodAnswer"/></p>
-    </div>
-    <div class="col-md-3">
-        <p>Mauvaise réponse<input type="color" ng-model="colorBadAnswer"/></p>
-    </div>
-
-	</div>
-</div>
-
-<div class="col-md-12 titre-liste">
-    <h3>Modifier les Couleurs</h3>
-        <div class="col-md-4 col-md-offset-4">
-            <hr/>
-        </div>
-</div>
-<div class="col-md-8 col-md-offset-2">
-    <div class="col-md-6">
-        <p>Principale<input type="color" ng-model="colorFirst"/></p>
-    </div>
-    <div class="col-md-6">
-        <p>Secondaire<input type="color" ng-model="colorSecond"/></p>
-    </div>
-</div>
-<br/>
-
-<div class="col-md-12 titre-liste">
-    <h3>Ajouter des Images</h3>
-        <div class="col-md-4 col-md-offset-4">
-            <hr/>
-        </div>
-</div>
-<div class="col-md-8" ng-controller="imageController">
-    <div class="col-md-6" >
-        <p>Image de fond
-        <input type="file" nv-file-select uploader="uploader"/><br/>
-        <div>
-            <div ng-repeat="item in uploader.queue">
-               <button ng-click="item.upload()">upload</button>
-            </div>
-			<div ng-if="controller.isImage(item._file)">
-                        <div ng-thumb="{ file: item._file, height: 100 }"></div>
-            </div>
-        </div>
+		<div class="col-md-12 titre-liste">
+    		<h3>Ajouter des images</h3>
+        	<div class="col-md-4 col-md-offset-4">
+            	<hr/>
+        	</div>
+		</div>
+		<div class="col-md-8" ng-controller="imageController">
+    		<div class="col-md-6" >
+        		<p>Image de fond
+        		<input type="file" nv-file-select uploader="uploader"/><br/>
+				<div>
+            		<div ng-repeat="item in uploader.queue">
+               			<button ng-click="item.upload()">upload</button>
+            		</div>
+					<!--ne s'affiche pas
+						<div ng-if="controller.isImage(item._file)">
+                			<div ng-thumb="{ file: item._file, height: 100 }"></div>
+								<pre ng-style="{'background-image':'url(https://www.google.com/images/srpr/logo4w.png)'}">Contenu
+								</pre>	
+            			</div>
+        		</div>
         
-    </div>
-    <!--<div class="col-md-6">
+    		</div>
+		</div>
+    <div class="col-md-6">
         <p>Logo
         <input type="file" nv-file-select uploader="uploader"/><br/>
         <ul>
@@ -140,7 +149,7 @@
             </li>
         </ul>
         </p>
-    </div>-->
+    </div>
 </div>
 <!--
 <div class="col-md-12 titre-liste">
@@ -154,7 +163,7 @@
     <select name="theme" size="1">
         <option>default
     </select>
-    </form>
-</div>-->
+    </form>-->
+	</div>
 </body>
 </html>
