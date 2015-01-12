@@ -28,7 +28,7 @@
 		</div>
 		<form>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-12 col-md-offset-2">
     			
     				<div class="col-md-3">
         				<select class="form-control" ng-model="fontQuestion" name="police" size="1">
@@ -53,9 +53,6 @@
     				<div class="col-md-3">
 						<label for="cQ">Couleur: </label>
         				<input type="color" ng-model="colorQuestion"/>
-    				</div> 
-					<div class="col-md-1">
-        				<button ng-click="newParamQuest()" type="submit" class="btn btn-primary">Valider</button> 
     				</div>
         		
     		</div>
@@ -87,11 +84,10 @@
     			<div class="col-md-3">
 					<label for="cGA">Correcte  </label>
         			<input type="color" ng-model="colorGoodAnswer"/>
-    				<label for="cBA">Incorrecte </label>
-        			<input type="color" ng-model="colorWrongAnswer"/>
     			</div>
 				<div class="col-md-3">
-        				<button ng-click="newParamRep()" type="submit" class="btn btn-primary">Valider</button> 
+    				<label for="cBA">Incorrecte </label>
+        			<input type="color" ng-model="colorWrongAnswer"/>
     				</div>
 			</div>
 		</div>
