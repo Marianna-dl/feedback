@@ -1,5 +1,5 @@
 /************** ANGULAR JS ***********************/
-//on déclare l'application et les services qu'on av utiliser
+//on déclare l'application et les services qu'on va utiliser pour chaque module
 var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize','angularFileUpload','share']); 
 
 
@@ -24,6 +24,7 @@ var feedbackApp = angular.module('feedbackApp', ['ngRoute','ngAnimate', 'ngTouch
 
 	});
 
+//Création du seconde module de la page de vote
 var renduApp = angular.module('renduApp', ['ngRoute','ngAnimate', 'ngTouch', 'ngSanitize','share']); 
 
 
@@ -35,6 +36,5 @@ var renduApp = angular.module('renduApp', ['ngRoute','ngAnimate', 'ngTouch', 'ng
             return viewLocation === $location.path();
         };
         
-        $test="testfeed";
 	});
 

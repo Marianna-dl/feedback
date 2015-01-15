@@ -1,8 +1,8 @@
-
     //Création des controleurs et affichage du titre des pages
     angular.module('feedbackApp').controller('nouveauController', function($scope,$http) {
         $scope.title="Nouvel évènement";
         
+        //On récupère la liste des questions en bdd
         $scope.getListeQuestions=function(){$http.get("controller/classController.php/listeQuest").success(function(data){
                 $scope.listeQuestions=data;  
             })
@@ -10,6 +10,7 @@
                 console.log('erreur');
             })
         };
+         //On récupère la liste des réponses en bdd
         $scope.getListeReponses=function(){$http.get("controller/classController.php/listeRep").success(function(data){
                 $scope.listeReponses=data;  
             })
@@ -29,7 +30,7 @@
         $scope.nbRepInput = parseInt(2);
         $scope.nbRep = parseInt(2);
      
-  //on affiche à quelle question on en est (évite les violations d'intégrité bdd)
+    //on affiche à quelle question on en est 
         $scope.maxQuestion=parseInt(1);
         $scope.getMaxQuestion=function(){$http.get("controller/classController.php/maxQuest")
             .success(function(data){
@@ -41,7 +42,7 @@
                 }
             })
             .error(function() {
-                console.log('erreur');
+                console.log('erreur de l\'affichage du nombre de questions');
             })
         };
      
@@ -50,8 +51,9 @@
             $scope.resultMessage = "";
             $scope.result='';
        
-        };         
+        };      
      
+     //Fonction d'ajout des réponses dans la bdd
      $scope.ajoutReponse=function(){
             for(var i=0; i<$scope.nbRepInput;i++){
                 if($scope.listRep[i].reponse!=''){
@@ -72,28 +74,30 @@
      };
      
      
-     //On met les questions sur la base de données
+     //On met les questions sur la base de données 
         $scope.valideQcm=function(){
                if($scope.questionInput!=''){
                 $http.post("controller/classController.php/addQuest", {enonce:$scope.questionInput, id:$scope.maxQuestion})
                     .success(function(){
-                        $scope.ajoutReponse();
+                        $scope.ajoutReponse();//On ajoute les réponses correspondantes
                         $scope.perso=false;
                         $scope.resultMessage = "Les questions et les réponses ont été ajoutées !";
                         $scope.result='alert alert-success';
                         $scope.getMaxQuestion(); //Met à jour le nombre de question
-                        $scope.getListeQuestions();
-                        $scope.numQuestionInput="";
+                        $scope.getListeQuestions();// Met à jour la liset de questions
+                        $scope.numQuestionInput="";// Remet le formulaire à vide
                         $scope.questionInput='';
                     })
                     .error(function() {
                         $scope.resultMessage = "Erreur lors de l'ajout des questions/réponses";
                         $scope.result='alert alert-danger';
                     })
-                    $scope.getListeReponses();
+                    $scope.getListeReponses();// Met à jour la liste des réponses
             }
 
         };    
+     
+        //Permet d'afficher dynamiquement les inputs//nd de réponses possibles
         $scope.set = function() {
 
             if($scope.nbRep>=2){
@@ -114,6 +118,7 @@
  
  });
 
+//controleur en test pour l'édition de question/reponses
 angular.module('feedbackApp').controller('listController', function($scope){
         $scope.testf=function(numQuestion){
         console.log(numQuestion);
