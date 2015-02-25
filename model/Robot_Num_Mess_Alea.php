@@ -5,7 +5,7 @@ require('connexion.php'); // Fichier a creer pour votre propre bdd
 
 
 <?php
-// MODIF EN COURS : ROBOT SOUS FORME THREAD
+
 class RobotThread extends Thread {
 	private $num;
 	private $rep;
@@ -127,10 +127,3 @@ class RobotThread extends Thread {
 
  ?>
 
-
-<?php
-//Partie TEST
-$robot= new RobotThread();
-$robot->insererMes();
-	
-?>
